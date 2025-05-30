@@ -978,9 +978,6 @@
     (function() {
         const allowedDomain = "tikip.us";
         // Check if the current hostname matches the allowed domain or if it's a local development environment
-        // For local testing, you might serve from localhost or 127.0.0.1.
-        // The `includes` check for `localhost` or `127.0.0.1` is a common way to allow local development.
-        // If you are using a different local setup (e.g. a specific port or a virtual host name), adjust accordingly.
         const isLocalDevelopment = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
 
         if (window.location.hostname !== allowedDomain && !isLocalDevelopment) {
@@ -993,37 +990,26 @@
             if (restrictionMessage) {
                 restrictionMessage.style.display = 'block';
             }
-            // Optionally, you could redirect: window.location.href = "https://www.yoursite.com/unauthorized.html";
             return; // Stop further script execution for protection features
         }
 
         // --- Copy Protection Measures (only if on allowed domain or local dev) ---
-
-        // Disable right-click context menu
         document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
 
-        // Disable text selection (CSS already handles this for the body, but this is a JS backup)
-        // Note: We've allowed text selection on input and textarea fields via CSS.
-        // This JS part will prevent selection on other elements.
         document.addEventListener('selectstart', function(e) {
-            // Allow selection if the target is an input or textarea
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
                 return;
             }
             e.preventDefault();
         });
 
-        // Disable common copy keyboard shortcuts (Ctrl+C, Cmd+C, Ctrl+X, Cmd+X, Ctrl+U, Cmd+U)
         document.addEventListener('keydown', function(e) {
-            // Allow these shortcuts if the target is an input or textarea
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
                 return;
             }
-            // Check for Ctrl or Command key
             if (e.ctrlKey || e.metaKey) {
-                // Check for C (copy), X (cut), U (view source)
                 if (e.key === 'c' || e.key === 'x' || e.key === 'u' || e.keyCode === 67 || e.keyCode === 88 || e.keyCode === 85) {
                     e.preventDefault();
                 }
@@ -1033,13 +1019,12 @@
 
 
     // Base title for the website
-    const baseTitle = "TikTok Account Location Finder | Full Profile Details & FAQ"; // Updated base title
+    const baseTitle = "TikTok Account Location Finder | Full Profile Details & FAQ";
 
     // ===== THEME TOGGLE FUNCTIONALITY ===== //
     const themeToggle = document.getElementById('themeToggle');
     const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 
-    // Load saved theme or use preference
     const currentTheme = localStorage.getItem('theme') || (prefersDarkScheme.matches ? 'dark' : 'light');
     document.documentElement.setAttribute('data-theme', currentTheme);
     updateThemeIcon(currentTheme);
@@ -1048,7 +1033,7 @@
       let theme = document.documentElement.getAttribute('data-theme');
       theme = theme === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('theme', theme); // Save theme choice
+      localStorage.setItem('theme', theme); 
       updateThemeIcon(theme);
     });
 
@@ -1069,28 +1054,26 @@
       const targetPage = document.getElementById(pageId);
       if (targetPage) {
         targetPage.classList.add('active');
-        // Update page title for SEO and user experience
         const pageTitleElement = targetPage.querySelector('h1'); 
         if (pageTitleElement && pageId !== 'main-page') {
             document.title = pageTitleElement.textContent + " | TikTok Account Location Finder";
         } else {
-            document.title = baseTitle; // Reset to base title for the main page
+            document.title = baseTitle; 
         }
       } else {
-        // Fallback if pageId is invalid
         console.warn(`Page with ID "${pageId}" not found. Defaulting to main page.`);
         const mainPage = document.getElementById('main-page');
         if(mainPage) mainPage.classList.add('active');
         document.title = baseTitle;
       }
-      window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top on page change
+      window.scrollTo({ top: 0, behavior: 'smooth' }); 
     }
 
     // ===== CONTACT FORM SUBMISSION ===== //
     const contactSubmitButton = document.getElementById('contact-submit');
     if (contactSubmitButton) {
         contactSubmitButton.addEventListener('click', function(e) {
-          e.preventDefault(); // Prevent default form submission
+          e.preventDefault(); 
           const nameInput = document.getElementById('contact-name');
           const emailInput = document.getElementById('contact-email');
           const messageInput = document.getElementById('contact-message');
@@ -1099,14 +1082,12 @@
           const email = emailInput ? emailInput.value.trim() : '';
           const message = messageInput ? messageInput.value.trim() : '';
           
-          const resultDiv = document.getElementById('result'); // Use the main result div for feedback
+          const resultDiv = document.getElementById('result'); 
 
           if (name && email && message) {
-            // Simulate form submission success
             if (resultDiv) {
                 resultDiv.innerHTML = '<div class="message success-message">Thank you for your message! We will get back to you soon.</div>';
                 resultDiv.style.display = 'block';
-                // Clear message after a few seconds and reset form
                 setTimeout(() => { 
                     if (resultDiv.contains(resultDiv.firstChild) && resultDiv.firstChild.classList.contains('success-message')) {
                         resultDiv.style.display = 'none'; 
@@ -1114,15 +1095,12 @@
                     }
                 }, 4000);
             } else {
-                console.log('Thank you for your message! We will get back to you soon.'); // Fallback
+                console.log('Thank you for your message! We will get back to you soon.'); 
             }
-            
-            // Clear form fields
             if(nameInput) nameInput.value = '';
             if(emailInput) emailInput.value = '';
             if(messageInput) messageInput.value = '';
           } else {
-            // Handle form validation failure
             if (resultDiv) {
                 resultDiv.innerHTML = '<div class="message error-message">Please fill in all fields in the contact form.</div>';
                 resultDiv.style.display = 'block';
@@ -1133,7 +1111,7 @@
                      }
                 }, 4000);
             } else {
-                 console.error('Please fill in all fields in the contact form.'); // Fallback
+                 console.error('Please fill in all fields in the contact form.'); 
             }
           }
         });
@@ -1145,7 +1123,7 @@
       const flagMap = {
         'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
         'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
-        'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇶',
+        'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶', // Corrected Antarctica
         'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
         'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
         'AZ': '🇦🇿', 'Azerbaijan': '🇦🇿', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧🇧',
@@ -1255,7 +1233,7 @@
     }
     if (supportBtn) {
         supportBtn.addEventListener('click', function() {
-          window.open('https://ko-fi.com/moroccan', '_blank'); // Opens support page
+          window.open('https://ko-fi.com/moroccan', '_blank'); 
         });
     }
 
@@ -1274,7 +1252,6 @@
         return;
       }
 
-      // Disable button and show loading spinner
       if(currentGetResultsBtn) currentGetResultsBtn.disabled = true;
       if(resultDiv) {
           resultDiv.innerHTML = '<div class="loading-spinner-container"><div class="loading-spinner"></div> Loading profile data...</div>';
@@ -1288,15 +1265,15 @@
         .then(response => {
           console.log("Received response status:", response.status);
           if (!response.ok) {
-            return response.text().then(text => { // Get raw text for better error diagnosis
+            return response.text().then(text => { 
                 let errorMsg = `API request failed with status ${response.status}`;
                 if (response.status === 429) errorMsg = 'Rate limit exceeded. Please try again later.';
                 else if (response.status === 404) errorMsg = 'User not found or API endpoint issue.';
                 else {
-                    try { // Try to parse JSON error if available
+                    try { 
                         const errData = JSON.parse(text);
                         errorMsg = errData.message || errData.error || text || errorMsg;
-                    } catch (e) { // Fallback to raw text if not JSON
+                    } catch (e) { 
                         errorMsg = text || errorMsg;
                     }
                 }
@@ -1345,44 +1322,51 @@
                         continue;
                     }
 
-                    let value = apiProfile[key];
-                    // Create a more readable display key, e.g., "FollowerCount" -> "Follower Count"
+                    let valueFromApi = apiProfile[key];
                     let displayKey = key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()).trim();
 
                     if (['Bio', 'bio', 'description', 'Signature'].includes(key)) {
-                        value = sanitize(String(value)).replace(/\n/g, '<br>');
+                        const bioText = sanitize(String(valueFromApi)).replace(/\n/g, '<br>');
                          profileDetailsHtml += `
                         <div class="profile-info-row bio-row">
                           <span class="info-label">${sanitize(displayKey)}:</span>
-                          <p class="info-value bio-text">${value}</p>
+                          <p class="info-value bio-text">${bioText}</p>
                         </div>`;
                     } else if (['Country', 'country', 'region', 'Location'].includes(key)) {
-                        value = sanitize(String(value));
+                        let countryApiValue = sanitize(String(valueFromApi));
+                        let flag = getCountryFlag(countryApiValue);
+                        let displayCountryName = countryApiValue;
+
+                        // If the flag is for the USA, ensure the display name is "United States"
+                        if (flag === '🇺🇸') {
+                            displayCountryName = 'United States';
+                        }
+                        
                         profileDetailsHtml += `
                         <div class="profile-info-row">
                           <span class="info-label">${sanitize(displayKey)}:</span>
-                          <span class="info-value">${getCountryFlag(value)} ${value}</span>
+                          <span class="info-value">${flag} ${sanitize(displayCountryName)}</span>
                         </div>`;
-                    } else if (typeof value === 'number' && (key.toLowerCase().includes('follower') || key.toLowerCase().includes('following') || key.toLowerCase().includes('like') || key.toLowerCase().includes('video') || key.toLowerCase().includes('count'))) {
-                        value = Number(value).toLocaleString();
+                    } else if (typeof valueFromApi === 'number' && (key.toLowerCase().includes('follower') || key.toLowerCase().includes('following') || key.toLowerCase().includes('like') || key.toLowerCase().includes('video') || key.toLowerCase().includes('count'))) {
+                        const numericValue = Number(valueFromApi).toLocaleString();
                          profileDetailsHtml += `
                         <div class="profile-info-row">
                           <span class="info-label">${sanitize(displayKey)}:</span>
-                          <span class="info-value">${value}</span>
+                          <span class="info-value">${numericValue}</span>
                         </div>`;
-                    } else if (typeof value === 'boolean') {
-                        value = value ? 'Yes' : 'No';
+                    } else if (typeof valueFromApi === 'boolean') {
+                        const booleanValue = valueFromApi ? 'Yes' : 'No';
                          profileDetailsHtml += `
                         <div class="profile-info-row">
                           <span class="info-label">${sanitize(displayKey)}:</span>
-                          <span class="info-value">${value}</span>
+                          <span class="info-value">${booleanValue}</span>
                         </div>`;
                     }
                     else {
                          profileDetailsHtml += `
                         <div class="profile-info-row">
                           <span class="info-label">${sanitize(displayKey)}:</span>
-                          <span class="info-value">${sanitize(String(value))}</span>
+                          <span class="info-value">${sanitize(String(valueFromApi))}</span>
                         </div>`;
                     }
                 }
@@ -1417,11 +1401,10 @@
           if(resultDiv) resultDiv.innerHTML = `<div class="message error-message">Error: ${error.message || 'Failed to fetch profile data'}. Please check the username and try again. The API service might be temporarily unavailable.</div>`;
         })
         .finally(() => {
-          if(currentGetResultsBtn) currentGetResultsBtn.disabled = false; // Re-enable button
+          if(currentGetResultsBtn) currentGetResultsBtn.disabled = false; 
         });
     }
 
-    // Event listener for Enter key on username input
     const usernameInputGlobal = document.getElementById('username'); 
     if (usernameInputGlobal) {
       usernameInputGlobal.addEventListener('keypress', function(e) {
@@ -1432,7 +1415,6 @@
       });
     }
 
-    // Style for sr-only class (accessibility)
     const srOnlyStyle = document.createElement('style');
     srOnlyStyle.textContent = `
       .sr-only {
