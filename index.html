@@ -858,7 +858,7 @@
         <div class="page-content active" id="main-page">
           <div class="patriotic-text">🇲🇦👑 الله الوطـــن الملك 🇲🇦👑</div>
           <h1>TikTok Account Location Finder</h1>
-          <div class="credit">Created by <a href="https://www.tiktok.com/@_moro.__" target="_blank" rel="noopener noreferrer">@_moro.__</a></div> {/* MODIFIED USERNAME & rel attribute */}
+          <div class="credit">Created by <a href="https://www.tiktok.com/@_moro.__" target="_blank" rel="noopener noreferrer">@_moro.__</a></div>
           
           <section aria-labelledby="search-tool-heading">
             <h2 id="search-tool-heading" class="sr-only">TikTok Profile Search Tool</h2>
@@ -996,14 +996,13 @@
   </div>
   <script>
     // ===== DOMAIN RESTRICTION ===== //
-    // MODIFIED: Uncommented and active
-    if (window.location.hostname !== 'tikip.us' && window.location.hostname !== 'localhost' && !window.location.hostname.endsWith('.googleusercontent.com')) { // Allow localhost and googleusercontent for development/preview
-       // A more user-friendly way to handle this without alert, if possible.
-       // For now, keeping it simple as per original intent.
-       // Consider redirecting or showing a static message.
+    // MODIFIED: Changed '.googleusercontent.com' to '.usercontent.goog' for broader preview compatibility
+    // Also updated the console error message to reflect this.
+    if (window.location.hostname !== 'tikip.us' && 
+        window.location.hostname !== 'localhost' && 
+        !window.location.hostname.endsWith('.usercontent.goog')) { // Check for the correct preview domain
       document.body.innerHTML = '<div style="text-align:center; padding:50px; font-family: Inter, sans-serif;"><h1>Unauthorized Domain</h1><p>This application is only authorized to run on tikip.us.</p></div>';
-      console.error('Unauthorized domain. Expected tikip.us, got: ' + window.location.hostname);
-      // Throwing an error will stop further script execution.
+      console.error('Unauthorized domain. Expected tikip.us, localhost, or *.usercontent.goog, got: ' + window.location.hostname);
       throw new Error('Unauthorized domain. Application execution halted.');
     }
 
@@ -1141,8 +1140,8 @@
       // Comprehensive map of country codes (ISO 3166-1 alpha-2) and common names to flags
       // This map should be as complete as possible for common English names and codes.
       const flagMap = {
-        'AD': '�🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'UAE': '🇦🇪',
-        'AF': '🇦🇫', 'Afghanistan': '🇦🇫', 'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬',
+        'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'UAE': '🇦🇪',
+        'AF': '🇦🇫', 'Afghanistan': '🇦🇫', 'AG': '�🇬', 'Antigua and Barbuda': '🇦🇬',
         'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱', 'AM': '🇦🇲', 'Armenia': '🇦🇲',
         'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶', 'AR': '🇦🇷', 'Argentina': '🇦🇷',
         'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
@@ -1502,3 +1501,4 @@
   </script>
 </body>
 </html>
+�
