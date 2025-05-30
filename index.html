@@ -79,84 +79,33 @@
 
   <style>
     :root {
+      /* Base Colors */
       --primary: #10B981; /* Emerald 500 */
       --primary-hover: #059669; /* Emerald 600 */
       --support-color: #EF4444; /* Red 500 */
       --support-hover: #DC2626; /* Red 600 */
-      --highlight-color: #6366F1; /* Indigo 500 - Adjusted for a more modern feel */
+      --highlight-color: #6366F1; /* Indigo 500 */
       --ai-button-bg: #6366F1; /* Indigo 500 */
       --ai-button-hover-bg: #4F46E5; /* Indigo 600 */
 
-      /* Dark Theme Variables */
-      --container-bg-dark: #111827; /* Gray 900 */
-      --text-color-dark: #F3F4F6; /* Gray 100 */
-      --text-secondary-dark: #9CA3AF; /* Gray 400 */
-      --input-bg-dark: #1F2937; /* Gray 800 */
-      --input-border-dark: #374151; /* Gray 700 */
-      --card-bg-dark: #1F2937; /* Gray 800 */
-      --card-header-bg-dark: #111827; /* Gray 900 - slightly darker for header */
-      --bg-color-dark: #030712; /* Almost Black - Gray 950 */
-      --success-color-dark: #34D399; /* Emerald 400 */
+      /* Default to Dark Theme (Black Theme) Variables */
+      --container-bg: #111827; /* Gray 900 */
+      --text-color: #F3F4F6; /* Gray 100 */
+      --text-secondary: #9CA3AF; /* Gray 400 */
+      --input-bg: #1F2937; /* Gray 800 */
+      --input-border: #374151; /* Gray 700 */
+      --card-bg: #1F2937; /* Gray 800 */
+      --card-header-bg: #111827; /* Gray 900 */
+      --bg-color: #030712; /* Almost Black - Gray 950 */
+      --success-color: #34D399; /* Emerald 400 */
+      --patriotic-color: var(--text-color); /* Uses main text color */
 
-      /* Light Theme Variables */
-      --container-bg-light: #FFFFFF; 
-      --text-color-light: #1F2937; /* Gray 800 */
-      --text-secondary-light: #6B7280; /* Gray 500 */
-      --input-bg-light: #F9FAFB; /* Gray 50 */
-      --input-border-light: #D1D5DB; /* Gray 300 */
-      --card-bg-light: #FFFFFF;
-      --card-header-bg-light: #F9FAFB; /* Gray 50 */
-      --bg-color-light: #F3F4F6; /* Gray 100 */
-      --success-color-light: #059669; /* Emerald 600 */
-
-      /* Professional Shadows - Dark Theme */
-      --main-container-shadow-dark: 0 4px 12px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.15);
-      --card-element-shadow-dark: 0 3px 10px rgba(0, 0, 0, 0.15), 0 2px 5px rgba(0, 0, 0, 0.1);
-      --button-element-shadow-dark: 0 2px 4px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.2);
-      --button-element-shadow-hover-dark: 0 4px 6px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.25);
-      --input-element-shadow-dark: inset 0 1px 2px rgba(255, 255, 255, 0.05);
-
-      /* Professional Shadows - Light Theme */
-      --main-container-shadow-light: 0 5px 15px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.06);
-      --card-element-shadow-light: 0 4px 12px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.05);
-      --button-element-shadow-light: 0 2px 5px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.05);
-      --button-element-shadow-hover-light: 0 4px 7px rgba(0, 0, 0, 0.09), 0 2px 5px rgba(0, 0, 0, 0.07);
-      --input-element-shadow-light: inset 0 1px 2px rgba(0, 0, 0, 0.04);
-
-      /* Fallback variables for theme switching */
-      --container-bg: var(--container-bg-dark);
-      --text-color: var(--text-color-dark);
-      --text-secondary: var(--text-secondary-dark);
-      --input-bg: var(--input-bg-dark);
-      --input-border: var(--input-border-dark);
-      --card-bg: var(--card-bg-dark);
-      --card-header-bg: var(--card-header-bg-dark);
-      --patriotic-color: var(--text-color-dark); /* Use main text color for patriotic text */
-      --bg-color: var(--bg-color-dark);
-      --success-color: var(--success-color-dark);
-      --main-container-shadow: var(--main-container-shadow-dark);
-      --card-element-shadow: var(--card-element-shadow-dark);
-      --button-element-shadow: var(--button-element-shadow-dark);
-      --button-element-shadow-hover: var(--button-element-shadow-hover-dark);
-      --input-element-shadow: var(--input-element-shadow-dark);
-    }
-
-    :root[data-theme="light"] {
-      --container-bg: var(--container-bg-light);
-      --text-color: var(--text-color-light);
-      --text-secondary: var(--text-secondary-light);
-      --input-bg: var(--input-bg-light);
-      --input-border: var(--input-border-light);
-      --card-bg: var(--card-bg-light);
-      --card-header-bg: var(--card-header-bg-light);
-      --patriotic-color: var(--text-color-light);
-      --bg-color: var(--bg-color-light);
-      --success-color: var(--success-color-light);
-      --main-container-shadow: var(--main-container-shadow-light);
-      --card-element-shadow: var(--card-element-shadow-light);
-      --button-element-shadow: var(--button-element-shadow-light);
-      --button-element-shadow-hover: var(--button-element-shadow-hover-light);
-      --input-element-shadow: var(--input-element-shadow-light);
+      /* Shadows for Dark Theme */
+      --main-container-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.15);
+      --card-element-shadow: 0 3px 10px rgba(0, 0, 0, 0.15), 0 2px 5px rgba(0, 0, 0, 0.1);
+      --button-element-shadow: 0 2px 4px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.2);
+      --button-element-shadow-hover: 0 4px 6px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.25);
+      --input-element-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.05);
     }
 
     * {
@@ -176,7 +125,7 @@
       color: var(--text-color);
       line-height: 1.6;
       -webkit-text-size-adjust: 100%;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: background-color 0.3s ease, color 0.3s ease; /* Keep transitions for smoothness if any other dynamic changes occur */
       margin: 0; 
       width: 100vw;
       overflow-x: hidden;
@@ -184,7 +133,7 @@
 
     .container {
       background-color: var(--container-bg);
-      padding: clamp(15px, 4vw, 30px); /* Responsive padding */
+      padding: clamp(15px, 4vw, 30px); 
       border-radius: 12px; 
       width: 100vw; 
       max-width: none; 
@@ -193,60 +142,29 @@
       flex-direction: column;
       align-items: center;
       box-shadow: var(--main-container-shadow);
-      border: 1px solid transparent; /* Prepare for light theme border */
+      border: 1px solid transparent; 
     }
-    :root[data-theme="light"] .container {
-        border-color: var(--input-border); 
-    }
+    /* Removed :root[data-theme="light"] .container border rule as it's always dark */
 
 
-    .theme-toggle {
-      position: fixed;
-      top: 20px; 
-      right: 20px; 
-      background-color: var(--input-bg);
-      border: 1px solid var(--input-border);
-      border-radius: 50%; /* Make it circular */
-      width: 44px; 
-      height: 44px; 
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-      z-index: 1000;
-      box-shadow: var(--button-element-shadow);
-    }
-
-    .theme-toggle:hover {
-      transform: translateY(-2px) scale(1.05); 
-      box-shadow: var(--button-element-shadow-hover);
-      border-color: var(--primary);
-    }
-
-    .theme-toggle svg {
-      width: 22px; 
-      height: 22px; 
-      fill: var(--text-color);
-      transition: fill 0.3s ease;
-    }
+    /* Theme toggle button CSS is removed as the button is removed from HTML */
 
     .patriotic-text {
       font-size: clamp(16px, 3.5vw, 18px); 
       text-align: center;
       color: var(--patriotic-color);
       margin-bottom: 15px; 
-      font-weight: 600; /* Slightly bolder */
+      font-weight: 600; 
       width: 100%;
       padding: 10px 0; 
     }
 
     h1 { 
       font-size: clamp(22px, 5vw, 28px); 
-      font-weight: 700; /* Bolder for main heading */
+      font-weight: 700; 
       text-align: center;
       color: var(--text-color);
-      margin-bottom: 8px; /* Reduced margin */
+      margin-bottom: 8px; 
       width: 100%;
     }
 
@@ -259,9 +177,9 @@
     }
 
     .credit a {
-      color: var(--highlight-color); /* Use highlight color for links */
+      color: var(--highlight-color); 
       text-decoration: none;
-      font-weight: 500; /* Medium weight */
+      font-weight: 500; 
     }
 
     .credit a:hover {
@@ -272,10 +190,10 @@
     input {
       width: 100%;
       max-width: 600px; 
-      padding: 14px 16px; /* Slightly more padding */
+      padding: 14px 16px; 
       font-size: clamp(14px, 3.8vw, 16px); 
       border: 1px solid var(--input-border);
-      border-radius: 8px; /* Consistent rounded corners */
+      border-radius: 8px; 
       margin-bottom: 15px; 
       background-color: var(--input-bg);
       color: var(--text-color);
@@ -288,24 +206,24 @@
     input:focus {
       outline: none;
       border-color: var(--primary); 
-      box-shadow: var(--input-element-shadow), 0 0 0 3px color-mix(in srgb, var(--primary) 30%, transparent); /* Softer focus ring */
+      box-shadow: var(--input-element-shadow), 0 0 0 3px color-mix(in srgb, var(--primary) 30%, transparent); 
     }
 
 
     input::placeholder {
       color: var(--text-secondary);
-      opacity: 0.8; /* Slightly more visible placeholder */
+      opacity: 0.8; 
     }
 
     button {
       width: 100%;
       max-width: 600px; 
       padding: 14px 16px; 
-      font-size: clamp(15px, 4vw, 17px); /* Slightly larger button text */
+      font-size: clamp(15px, 4vw, 17px); 
       border: none;
       border-radius: 8px; 
       color: white;
-      font-weight: 600; /* Bolder button text */
+      font-weight: 600; 
       cursor: pointer;
       margin-bottom: 12px; 
       transition: background 0.2s ease-out, transform 0.15s ease-out, box-shadow 0.2s ease-out; 
@@ -315,13 +233,13 @@
     }
     
     button:active {
-        transform: translateY(1px) scale(0.98); /* More subtle active state */
-        box-shadow: inset 0 1px 2px rgba(0,0,0,0.1); /* Inner shadow for active state */
+        transform: translateY(1px) scale(0.98); 
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.1); 
     }
 
 
     #getResultsBtn {
-      background: linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 80%, black 20%)); /* Refined gradient */
+      background: linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 80%, black 20%)); 
     }
 
     #getResultsBtn:hover, #getResultsBtn:focus {
@@ -355,7 +273,7 @@
     #result {
       background-color: transparent; 
       padding: 0; 
-      margin-top: 30px; /* More space before results */
+      margin-top: 30px; 
       border: none; 
       min-height: 50px; 
       width: 100%;
@@ -383,14 +301,14 @@
     }
 
     .profile-photo-enhanced {
-      width: 72px; /* Slightly larger */
+      width: 72px; 
       height: 72px; 
       border-radius: 50%;
       object-fit: cover;
       margin-right: 20px; 
       border: 3px solid var(--primary);
       flex-shrink: 0;
-      background-color: var(--input-bg); /* Fallback bg */
+      background-color: var(--input-bg); 
       box-shadow: 0 2px 6px rgba(0,0,0,0.1); 
     }
 
@@ -419,14 +337,14 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      min-width: 0; /* Prevents overflow issues */
+      min-width: 0; 
     }
 
     .profile-nickname {
       font-size: clamp(18px, 4.8vw, 22px); 
       font-weight: 600;
       color: var(--text-color);
-      margin: 0 0 3px 0; /* Adjusted margin */
+      margin: 0 0 3px 0; 
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -448,14 +366,12 @@
     .profile-info-row {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start; /* Align items to the start for multi-line values */
+      align-items: flex-start; 
       padding: 12px 0; 
-      border-bottom: 1px solid var(--input-bg); /* Use input-bg for a softer border */
+      border-bottom: 1px solid var(--input-bg); 
       font-size: clamp(13px, 3.6vw, 15px); 
     }
-    :root[data-theme="light"] .profile-info-row {
-        border-bottom-color: #E5E7EB; /* Gray 200 for light theme */
-    }
+    /* Removed :root[data-theme="light"] .profile-info-row border override */
 
 
     .profile-info-row:last-child {
@@ -463,7 +379,7 @@
     }
 
     .info-label {
-      font-weight: 500; /* Medium weight for labels */
+      font-weight: 500; 
       color: var(--text-secondary);
       margin-right: 15px; 
       flex-shrink: 0;
@@ -490,17 +406,17 @@
     .bio-row .info-value.bio-text {
       text-align: left;
       width: 100%;
-      line-height: 1.55; /* Slightly more line height for bio */
+      line-height: 1.55; 
       white-space: pre-wrap;
       color: var(--text-secondary);
       font-size: clamp(13px, 3.3vw, 14px); 
     }
     
     #bioAnalysisResult {
-        margin-top: 20px; /* More space before AI result */
+        margin-top: 20px; 
         padding: 15px;
-        background-color: color-mix(in srgb, var(--card-bg) 90%, var(--highlight-color) 8%); /* Subtler highlight */
-        border: 1px solid color-mix(in srgb, var(--highlight-color) 50%, transparent); /* Softer border */
+        background-color: color-mix(in srgb, var(--card-bg) 90%, var(--highlight-color) 8%); 
+        border: 1px solid color-mix(in srgb, var(--highlight-color) 50%, transparent); 
         border-radius: 8px;
         font-size: clamp(13px, 3.3vw, 14px);
         color: var(--text-secondary);
@@ -509,7 +425,7 @@
     #bioAnalysisResult h4 {
         color: var(--highlight-color);
         font-size: clamp(14px, 3.6vw, 16px);
-        margin-bottom: 10px; /* More space after heading */
+        margin-bottom: 10px; 
         font-weight: 600;
     }
     #bioAnalysisResult p {
@@ -530,27 +446,25 @@
     }
 
     .message {
-      padding: 10px 15px; /* More padding for messages */
+      padding: 10px 15px; 
       border-radius: 6px; 
       font-weight: 500;
       margin: 0;
       display: inline-block;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08); /* Default shadow for dark theme */
     }
-    :root[data-theme="dark"] .message {
-        box-shadow: 0 1px 4px rgba(255,255,255,0.04);
-    }
+    /* Removed :root[data-theme="dark"] .message as it's now default */
 
 
     .success-message {
       color: var(--success-color);
-      background-color: color-mix(in srgb, var(--success-color) 15%, transparent); /* Light background for success */
+      background-color: color-mix(in srgb, var(--success-color) 15%, transparent); 
       border: 1px solid color-mix(in srgb, var(--success-color) 30%, transparent);
     }
 
     .error-message {
       color: var(--support-color);
-      background-color: color-mix(in srgb, var(--support-color) 15%, transparent); /* Light background for error */
+      background-color: color-mix(in srgb, var(--support-color) 15%, transparent); 
       border: 1px solid color-mix(in srgb, var(--support-color) 30%, transparent);
     }
 
@@ -558,11 +472,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 25px; /* More padding for loading */
+      padding: 25px; 
       color: var(--text-secondary);
       text-align: center;
       width: 100%;
-      font-size: 1.05em; /* Slightly larger loading text */
+      font-size: 1.05em; 
     }
     .loading-spinner-container.inline { 
         padding: 8px 0 0 12px;
@@ -575,10 +489,10 @@
       display: inline-block;
       width: 22px; 
       height: 22px; 
-      border: 3px solid var(--input-border); /* Use input border for track */
+      border: 3px solid var(--input-border); 
       border-radius: 50%;
-      border-top-color: var(--primary); /* Use primary for spinner */
-      animation: spin 0.8s linear infinite; /* Faster spin */
+      border-top-color: var(--primary); 
+      animation: spin 0.8s linear infinite; 
       margin-right: 12px; 
     }
     .loading-spinner-container.inline .loading-spinner {
@@ -593,14 +507,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 0 15px; /* Add horizontal padding to main content area */
+        padding: 0 15px; 
     }
     
-    /* Shared styling for about-section and footer */
     .content-section {
       margin-top: 30px; 
       padding: 20px; 
-      background-color: var(--card-bg); /* Use card-bg for consistency */
+      background-color: var(--card-bg); 
       border-radius: 10px; 
       font-size: clamp(13px, 3.5vw, 15px); 
       line-height: 1.65; 
@@ -608,11 +521,9 @@
       transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
       width: 100%;
       max-width: 600px; 
-      box-shadow: var(--card-element-shadow); /* Use card shadow */
+      box-shadow: var(--card-element-shadow); 
     }
     .about-section, .page-content > .about-section {
-        composes: content-section; /* Non-standard, for conceptual inheritance */
-        /* Manually apply shared styles if composes is not supported */
          margin-top: 25px; 
          padding: 20px; 
          background-color: var(--card-bg);
@@ -626,9 +537,7 @@
          box-shadow: var(--card-element-shadow);
     }
     .footer {
-        composes: content-section;
-        margin-top: 40px; /* More space before footer */
-        /* Manually apply shared styles */
+         margin-top: 40px; 
          padding: 20px; 
          background-color: var(--card-bg);
          border-radius: 10px; 
@@ -704,7 +613,7 @@
     }
 
     .footer-nav a:hover {
-      text-decoration: none; /* Remove underline for a cleaner look */
+      text-decoration: none; 
       color: var(--primary);
       transform: translateY(-1px); 
     }
@@ -712,7 +621,7 @@
     .contact-form {
       display: flex;
       flex-direction: column;
-      gap: 18px; /* Increased gap */
+      gap: 18px; 
       margin-top: 20px; 
       width: 100%;
       max-width: 600px; 
@@ -798,8 +707,7 @@
       .profile-photo-enhanced, .profile-photo-placeholder { width: 64px; height: 64px; margin-right: 15px; } 
       .profile-photo-placeholder svg { width: 32px; height: 32px; } 
       .profile-card-header, .profile-card-body, .profile-card-footer { padding: 15px; } 
-      .theme-toggle { top: 15px; right: 15px; width: 40px; height: 40px; } 
-      .theme-toggle svg { width: 20px; height: 20px; }
+      /* Theme toggle media queries removed */
       .footer-nav { gap: 15px; } 
       .about-section, .page-content, .page-content > .about-section, .footer, #result, .profile-card, #ad-banner { 
           max-width: 100%; 
@@ -816,8 +724,7 @@
       .profile-photo-enhanced, .profile-photo-placeholder { width: 56px; height: 56px; } 
       .profile-photo-placeholder svg { width: 28px; height: 28px; } 
       .info-label { margin-right: 10px; } 
-      .theme-toggle { top: 10px; right: 10px; width: 36px; height: 36px; } 
-      .theme-toggle svg { width: 18px; height: 18px; } 
+      /* Theme toggle media queries removed */
       .footer-nav { flex-direction: column; gap: 10px; } 
     }
 
@@ -848,12 +755,6 @@
 </head>
 <body>
   <div class="container">
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1-8.313-12.454z"/>
-      </svg>
-    </button>
-    
     <main>
         <div class="page-content active" id="main-page">
           <div class="patriotic-text">🇲🇦👑 الله الوطـــن الملك 🇲🇦👑</div>
@@ -1010,45 +911,12 @@
       
       const mainContainer = document.querySelector('.container');
       if(mainContainer) mainContainer.style.display = 'none';
-
-      // It's better to not throw an error that stops all script execution in production if this is just a visual block.
-      // For development, throwing an error can be useful.
-      // throw new Error('Unauthorized domain. Application execution halted.'); 
       console.error('Unauthorized domain. Application execution visually halted.');
     }
 
-
-    // ===== THEME TOGGLE FUNCTIONALITY ===== //
-    const themeToggle = document.getElementById('themeToggle');
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-
-    function applyTheme(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-        updateThemeIcon(theme);
-    }
-
-    const savedTheme = localStorage.getItem('theme');
-    const initialTheme = savedTheme || (prefersDarkScheme.matches ? 'dark' : 'light');
-    applyTheme(initialTheme);
-
-    themeToggle.addEventListener('click', function() {
-      let currentTheme = document.documentElement.getAttribute('data-theme');
-      let newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      applyTheme(newTheme);
-    });
-
-    // Update icon based on theme
-    function updateThemeIcon(theme) {
-      const icon = themeToggle.querySelector('svg');
-      if (theme === 'dark') {
-        // Moon icon for dark theme
-        icon.innerHTML = '<path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446A9 9 0 1 1-8.313-12.454Z M12 5.5A6.5 6.5 0 0 0 5.5 12c0 .341.022.677.064 1.007A7.456 7.456 0 0 1 12 4.065A7.479 7.479 0 0 1 12 3Z" fill-rule="evenodd" clip-rule="evenodd"/>';
-      } else {
-        // Sun icon for light theme
-        icon.innerHTML = '<path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12Zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM11 1h2v3h-2V1Zm0 19h2v3h-2v-3ZM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93Zm16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121Zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121ZM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121ZM23 11v2h-3v-2h3ZM4 11v2H1v-2h3Z" fill-rule="evenodd" clip-rule="evenodd"/>';
-      }
-    }
+    // ===== THEME TOGGLE FUNCTIONALITY (REMOVED) ===== //
+    // All JavaScript related to theme toggling has been removed.
+    // The theme is now fixed to dark via CSS :root variables.
 
     // ===== PAGE NAVIGATION ===== //
     function showPage(pageId) {
@@ -1073,7 +941,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // ===== CONTACT FORM SUBMISSION (Keep as is, or adapt message display if needed) ===== //
+    // ===== CONTACT FORM SUBMISSION ===== //
     const contactSubmitButton = document.getElementById('contact-submit');
     if (contactSubmitButton) {
         contactSubmitButton.addEventListener('click', function(e) {
@@ -1089,7 +957,8 @@
           const resultDiv = document.getElementById('result'); 
 
           if (name && email && message) {
-            if (resultDiv) {
+            if (resultDiv) { // This will show message on main page's result div.
+                            // Consider adding a message area specific to the contact form page.
                 resultDiv.innerHTML = '<div class="message success-message">Thank you for your message! We will get back to you soon.</div>';
                 resultDiv.style.display = 'block'; 
                 resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1100,8 +969,6 @@
                     }
                 }, 4000);
             } else {
-                // Fallback if resultDiv is not on the contact page (it shouldn't be)
-                // Consider adding a dedicated message area on the contact form itself.
                 alert('Thank you for your message! We will get back to you soon.');
             }
             
@@ -1109,7 +976,7 @@
             if(emailInput) emailInput.value = '';
             if(messageInput) messageInput.value = '';
           } else {
-            if (resultDiv) { // This will show message on main page, not ideal for contact form.
+            if (resultDiv) { 
                 resultDiv.innerHTML = '<div class="message error-message">Please fill in all fields in the contact form.</div>';
                 resultDiv.style.display = 'block'; 
                 resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1127,7 +994,7 @@
     }
 
 
-    // ===== COUNTRY FLAG MAPPING (Keep as is) ===== //
+    // ===== COUNTRY FLAG MAPPING ===== //
     function getCountryFlag(country) {
       const flagMap = {
         'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
@@ -1139,7 +1006,7 @@
         'BD': '🇧🇩', 'Bangladesh': '🇧🇩', 'BE': '🇧🇪', 'Belgium': '🇧🇪', 'BF': '🇧🇫', 'Burkina Faso': '🇧🇫',
         'BG': '🇧🇬', 'Bulgaria': '🇧🇬', 'BH': '🇧🇭', 'Bahrain': '🇧🇭', 'BI': '🇧🇮', 'Burundi': '🇧🇮',
         'BJ': '🇧🇯', 'Benin': '🇧🇯', 'BL': '🇧🇱', 'Saint Barthélemy': '🇧🇱', 'BM': '🇧🇲', 'Bermuda': '🇧🇲',
-        'BN': '🇧🇳', 'Brunei Darussalam': '🇧🇳', 'BO': '🇧🇴', 'Bolivia': '🇧🇴', 'BQ': '🇧🇶', 'Bonaire, Sint Eustatius and Saba': '🇧🇶',
+        'BN': '🇧🇳', 'Brunei Darussalam': '🇧🇳', 'BO': '�🇴', 'Bolivia': '🇧🇴', 'BQ': '🇧🇶', 'Bonaire, Sint Eustatius and Saba': '🇧🇶',
         'BR': '🇧🇷', 'Brazil': '🇧🇷', 'BS': '🇧🇸', 'Bahamas': '🇧🇸', 'BT': '🇧🇹', 'Bhutan': '🇧🇹',
         'BV': '🇧🇻', 'Bouvet Island': '🇧🇻', 'BW': '🇧🇼', 'Botswana': '🇧🇼', 'BY': '🇧🇾', 'Belarus': '🇧🇾',
         'BZ': '🇧🇿', 'Belize': '🇧🇿', 'CA': '🇨🇦', 'Canada': '🇨🇦', 'CC': '🇨🇨', 'Cocos (Keeling) Islands': '🇨🇨',
@@ -1247,10 +1114,8 @@
         });
     }
 
-    // Store the original bio text globally when a profile is loaded
     let currentBioText = ""; 
 
-    // Function to call Gemini API
     async function analyzeBioWithGemini(bioText) {
         const resultDiv = document.getElementById('result'); 
         const profileCardBody = resultDiv.querySelector('.profile-card-body');
@@ -1259,7 +1124,7 @@
         if (!analysisResultDiv && profileCardBody) {
             analysisResultDiv = document.createElement('div');
             analysisResultDiv.id = 'bioAnalysisResult';
-            profileCardBody.appendChild(analysisResultDiv); // Append to card body
+            profileCardBody.appendChild(analysisResultDiv); 
         } else if (analysisResultDiv) {
             analysisResultDiv.innerHTML = ''; 
         }
@@ -1275,12 +1140,10 @@
         
         const aiButton = document.getElementById('aiAnalyzeBioBtn');
         if(aiButton && aiButton.parentNode) {
-            // Insert after the button, not inside it
             aiButton.parentNode.insertBefore(loadingContainer, aiButton.nextSibling);
         } else if (profileCardBody) {
              profileCardBody.appendChild(loadingContainer); 
         }
-
 
         const prompt = `Analyze the following TikTok user bio and provide a brief summary (1-2 sentences), identify key themes or topics mentioned (as a comma-separated list or bullet points), and suggest the overall sentiment (e.g., positive, neutral, negative, humorous, professional). Bio: "${bioText}"`;
         let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
@@ -1316,7 +1179,6 @@
                     .replace(/\n/g, '<br>')     
                     .replace(/\* (.*?)(<br>|$)/g, '<p style="margin-left: 20px; margin-bottom: 3px;">&bull; $1</p>');
 
-
                 analysisResultDiv.innerHTML = `<h4>✨ AI Bio Analysis:</h4>${sanitizedAnalysis}`;
             } else {
                 console.error("Unexpected Gemini API response structure:", result);
@@ -1328,7 +1190,6 @@
             analysisResultDiv.innerHTML = `<h4>✨ AI Bio Analysis:</h4><p class="error-message">Error analyzing bio: ${error.message}. Please try again later.</p>`;
         }
     }
-
 
     function lookupUser() {
       const usernameInput = document.getElementById('username');
@@ -1465,7 +1326,6 @@
             if (hasBio && currentBioText.trim() !== "") {
                 aiButtonHtml = `<button id="aiAnalyzeBioBtn" class="ai-analyze-btn">✨ Analyze Bio with AI</button>`;
             }
-
 
             let formattedData = `
               <article class="profile-card" aria-labelledby="profile-card-heading-${displayUsername}"> <h2 id="profile-card-heading-${displayUsername}" class="sr-only">Profile details for ${displayNickname} (@${displayUsername})</h2> <div class="profile-card-header">
