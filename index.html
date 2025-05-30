@@ -168,6 +168,11 @@
       margin: 0; 
       width: 100vw;
       overflow-x: hidden;
+      /* Styles to prevent selection and copying */
+      -webkit-user-select: none; /* Safari */
+      -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* IE10+/Edge */
+      user-select: none; /* Standard */
     }
 
     .container {
@@ -276,6 +281,10 @@
       color: var(--text-color);
       transition: border-color 0.3s, box-shadow 0.3s;
       -webkit-appearance: none;
+      /* user-select: text; Re-enable text selection for input fields */
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
       user-select: text;
       /* 3D Style: Inset and outer shadow for inputs to give a recessed or slightly elevated look */
       box-shadow: var(--input-element-shadow-dark);
@@ -669,6 +678,10 @@
       color: var(--text-color);
       transition: border-color 0.3s, box-shadow 0.3s;
       -webkit-appearance: none;
+      /* user-select: text; Re-enable text selection for form elements */
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
       user-select: text;
       /* 3D Style: Shadows for form elements */
       box-shadow: var(--input-element-shadow-dark);
@@ -803,9 +816,28 @@
     @media screen and (max-width: 767px) {
       input, select, textarea { font-size: 16px; } 
     }
+    /* Added style for domain restriction message */
+    #domain-restriction-message {
+        display: none; /* Hidden by default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.95);
+        color: white;
+        z-index: 9999;
+        text-align: center;
+        padding-top: 20%;
+        font-size: 1.5em;
+    }
   </style>
 </head>
 <body>
+  <div id="domain-restriction-message">
+    <p>This content is exclusively available on tikip.us.</p>
+  </div>
+
   <div class="container">
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -940,7 +972,66 @@
       </nav>
     </footer>
 
-  </div> <script>
+  </div> 
+  <script>
+    // ===== DOMAIN RESTRICTION AND COPY PROTECTION ===== //
+    (function() {
+        const allowedDomain = "tikip.us";
+        // Check if the current hostname matches the allowed domain or if it's a local development environment
+        // For local testing, you might serve from localhost or 127.0.0.1.
+        // The `includes` check for `localhost` or `127.0.0.1` is a common way to allow local development.
+        // If you are using a different local setup (e.g. a specific port or a virtual host name), adjust accordingly.
+        const isLocalDevelopment = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+
+        if (window.location.hostname !== allowedDomain && !isLocalDevelopment) {
+            // If not on the allowed domain and not local development, hide content and show message
+            const bodyContent = document.querySelector('.container');
+            const restrictionMessage = document.getElementById('domain-restriction-message');
+            if (bodyContent) {
+                bodyContent.style.display = 'none';
+            }
+            if (restrictionMessage) {
+                restrictionMessage.style.display = 'block';
+            }
+            // Optionally, you could redirect: window.location.href = "https://www.yoursite.com/unauthorized.html";
+            return; // Stop further script execution for protection features
+        }
+
+        // --- Copy Protection Measures (only if on allowed domain or local dev) ---
+
+        // Disable right-click context menu
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Disable text selection (CSS already handles this for the body, but this is a JS backup)
+        // Note: We've allowed text selection on input and textarea fields via CSS.
+        // This JS part will prevent selection on other elements.
+        document.addEventListener('selectstart', function(e) {
+            // Allow selection if the target is an input or textarea
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                return;
+            }
+            e.preventDefault();
+        });
+
+        // Disable common copy keyboard shortcuts (Ctrl+C, Cmd+C, Ctrl+X, Cmd+X, Ctrl+U, Cmd+U)
+        document.addEventListener('keydown', function(e) {
+            // Allow these shortcuts if the target is an input or textarea
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                return;
+            }
+            // Check for Ctrl or Command key
+            if (e.ctrlKey || e.metaKey) {
+                // Check for C (copy), X (cut), U (view source)
+                if (e.key === 'c' || e.key === 'x' || e.key === 'u' || e.keyCode === 67 || e.keyCode === 88 || e.keyCode === 85) {
+                    e.preventDefault();
+                }
+            }
+        });
+    })();
+
+
     // Base title for the website
     const baseTitle = "TikTok Account Location Finder | Full Profile Details & FAQ"; // Updated base title
 
@@ -1054,7 +1145,7 @@
       const flagMap = {
         'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
         'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
-        'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '�🇶',
+        'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇶',
         'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
         'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
         'AZ': '🇦🇿', 'Azerbaijan': '🇦🇿', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧🇧',
