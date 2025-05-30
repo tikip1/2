@@ -79,7 +79,7 @@
 
   <style>
     :root {
-      /* Base Colors */
+      /* Base Accent Colors (used by both themes) */
       --primary: #10B981; /* Emerald 500 */
       --primary-hover: #059669; /* Emerald 600 */
       --support-color: #EF4444; /* Red 500 */
@@ -97,8 +97,11 @@
       --card-bg: #1F2937; /* Gray 800 */
       --card-header-bg: #111827; /* Gray 900 */
       --bg-color: #030712; /* Almost Black - Gray 950 */
-      --success-color: #34D399; /* Emerald 400 */
-      --patriotic-color: var(--text-color); /* Uses main text color */
+      --success-color-text: #34D399; /* Emerald 400 for text */
+      --success-color-bg-mix: #34D399; /* Emerald 400 for background mix */
+      --error-color-text: var(--support-color);
+      --error-color-bg-mix: var(--support-color);
+      --patriotic-color: var(--text-color);
 
       /* Shadows for Dark Theme */
       --main-container-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.15);
@@ -106,7 +109,33 @@
       --button-element-shadow: 0 2px 4px rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.2);
       --button-element-shadow-hover: 0 4px 6px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.25);
       --input-element-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.05);
+      --button-gradient-mix-color: black;
     }
+
+    body[data-theme="light"] {
+      --container-bg: #FFFFFF; /* White */
+      --text-color: #1F2937; /* Gray 800 */
+      --text-secondary: #6B7280; /* Gray 500 */
+      --input-bg: #F9FAFB; /* Gray 50 */
+      --input-border: #D1D5DB; /* Gray 300 */
+      --card-bg: #FFFFFF; /* White */
+      --card-header-bg: #F9FAFB; /* Gray 50 */
+      --bg-color: #F3F4F6; /* Gray 100 */
+      --success-color-text: #047857; /* Emerald 700 for text on light bg */
+      --success-color-bg-mix: #10B981; /* Emerald 500 for background mix on light bg */
+      --error-color-text: #B91C1C; /* Red 700 for text on light bg */
+      --error-color-bg-mix: #EF4444; /* Red 500 for background mix on light bg */
+      --patriotic-color: var(--text-color);
+
+      /* Shadows for Light Theme */
+      --main-container-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.05);
+      --card-element-shadow: 0 3px 10px rgba(0, 0, 0, 0.06), 0 2px 5px rgba(0, 0, 0, 0.04);
+      --button-element-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.08);
+      --button-element-shadow-hover: 0 4px 6px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.1);
+      --input-element-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+      --button-gradient-mix-color: #4B5563; /* Gray 600, a dark gray for light theme button gradient */
+    }
+
 
     * {
       box-sizing: border-box;
@@ -125,7 +154,7 @@
       color: var(--text-color);
       line-height: 1.6;
       -webkit-text-size-adjust: 100%;
-      transition: background-color 0.3s ease, color 0.3s ease; /* Keep transitions for smoothness if any other dynamic changes occur */
+      transition: background-color 0.3s ease, color 0.3s ease;
       margin: 0; 
       width: 100vw;
       overflow-x: hidden;
@@ -142,12 +171,38 @@
       flex-direction: column;
       align-items: center;
       box-shadow: var(--main-container-shadow);
-      border: 1px solid transparent; 
+      border: 1px solid var(--input-border); 
+      position: relative; /* For theme toggle button positioning */
     }
-    /* Removed :root[data-theme="light"] .container border rule as it's always dark */
 
+    #themeToggleBtn {
+        position: absolute;
+        top: clamp(10px, 2vw, 20px);
+        right: clamp(10px, 2vw, 20px);
+        z-index: 1000;
+        background: var(--input-bg);
+        color: var(--text-color);
+        border: 1px solid var(--input-border);
+        border-radius: 50%;
+        width: clamp(36px, 5vw, 40px);
+        height: clamp(36px, 5vw, 40px);
+        font-size: clamp(18px, 2.5vw, 20px);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+        box-shadow: var(--button-element-shadow);
+    }
+    #themeToggleBtn:hover {
+        transform: translateY(-1px) scale(1.05);
+        box-shadow: var(--button-element-shadow-hover);
+    }
+    #themeToggleBtn:active {
+        transform: translateY(0px) scale(1);
+    }
 
-    /* Theme toggle button CSS is removed as the button is removed from HTML */
 
     .patriotic-text {
       font-size: clamp(16px, 3.5vw, 18px); 
@@ -197,7 +252,7 @@
       margin-bottom: 15px; 
       background-color: var(--input-bg);
       color: var(--text-color);
-      transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
       -webkit-appearance: none;
       user-select: text;
       box-shadow: var(--input-element-shadow);
@@ -222,7 +277,7 @@
       font-size: clamp(15px, 4vw, 17px); 
       border: none;
       border-radius: 8px; 
-      color: white;
+      color: white; /* Default white text for buttons, ensure contrast with gradients */
       font-weight: 600; 
       cursor: pointer;
       margin-bottom: 12px; 
@@ -239,32 +294,32 @@
 
 
     #getResultsBtn {
-      background: linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 80%, black 20%)); 
+      background: linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 80%, var(--button-gradient-mix-color) 20%)); 
     }
 
     #getResultsBtn:hover, #getResultsBtn:focus {
-      background: linear-gradient(135deg, var(--primary-hover), color-mix(in srgb, var(--primary-hover) 80%, black 20%)); 
+      background: linear-gradient(135deg, var(--primary-hover), color-mix(in srgb, var(--primary-hover) 80%, var(--button-gradient-mix-color) 20%)); 
       transform: translateY(-2px); 
       box-shadow: var(--button-element-shadow-hover);
     }
 
     #supportBtn {
-      background: linear-gradient(135deg, var(--support-color), color-mix(in srgb, var(--support-color) 80%, black 20%)); 
+      background: linear-gradient(135deg, var(--support-color), color-mix(in srgb, var(--support-color) 80%, var(--button-gradient-mix-color) 20%)); 
       margin-bottom: 0; 
     }
 
     #supportBtn:hover, #supportBtn:focus {
-      background: linear-gradient(135deg, var(--support-hover), color-mix(in srgb, var(--support-hover) 80%, black 20%)); 
+      background: linear-gradient(135deg, var(--support-hover), color-mix(in srgb, var(--support-hover) 80%, var(--button-gradient-mix-color) 20%)); 
       transform: translateY(-2px); 
       box-shadow: var(--button-element-shadow-hover);
     }
     
     .ai-analyze-btn {
-        background: linear-gradient(135deg, var(--ai-button-bg), color-mix(in srgb, var(--ai-button-bg) 80%, black 20%));
+        background: linear-gradient(135deg, var(--ai-button-bg), color-mix(in srgb, var(--ai-button-bg) 80%, var(--button-gradient-mix-color) 20%));
         margin-top: 15px; 
     }
     .ai-analyze-btn:hover, .ai-analyze-btn:focus {
-        background: linear-gradient(135deg, var(--ai-button-hover-bg), color-mix(in srgb, var(--ai-button-hover-bg) 80%, black 20%));
+        background: linear-gradient(135deg, var(--ai-button-hover-bg), color-mix(in srgb, var(--ai-button-hover-bg) 80%, var(--button-gradient-mix-color) 20%));
         transform: translateY(-2px);
         box-shadow: var(--button-element-shadow-hover);
     }
@@ -285,7 +340,7 @@
       border-radius: 12px; 
       border: 1px solid var(--input-border);
       overflow: hidden;
-      transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
       width: 100%;
       max-width: 600px; 
       box-shadow: var(--card-element-shadow);
@@ -310,6 +365,7 @@
       flex-shrink: 0;
       background-color: var(--input-bg); 
       box-shadow: 0 2px 6px rgba(0,0,0,0.1); 
+      transition: background-color 0.3s ease, border-color 0.3s ease;
     }
 
     .profile-photo-placeholder {
@@ -324,13 +380,14 @@
       justify-content: center;
       color: var(--text-secondary);
       flex-shrink: 0;
-      transition: background-color 0.3s ease, border-color 0.3s ease;
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
     }
 
     .profile-photo-placeholder svg {
       width: 38px; 
       height: 38px; 
       fill: var(--text-secondary);
+      transition: fill 0.3s ease;
     }
 
     .profile-identity {
@@ -348,6 +405,7 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      transition: color 0.3s ease;
     }
 
     .profile-username-display {
@@ -357,10 +415,12 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      transition: color 0.3s ease;
     }
 
     .profile-card-body {
       padding: 15px 20px 20px 20px; 
+      transition: color 0.3s ease;
     }
 
     .profile-info-row {
@@ -368,10 +428,10 @@
       justify-content: space-between;
       align-items: flex-start; 
       padding: 12px 0; 
-      border-bottom: 1px solid var(--input-bg); 
+      border-bottom: 1px solid var(--input-bg); /* Use --input-bg for subtle separator */
       font-size: clamp(13px, 3.6vw, 15px); 
+      transition: border-color 0.3s ease;
     }
-    /* Removed :root[data-theme="light"] .profile-info-row border override */
 
 
     .profile-info-row:last-child {
@@ -384,6 +444,7 @@
       margin-right: 15px; 
       flex-shrink: 0;
       text-transform: capitalize; 
+      transition: color 0.3s ease;
     }
 
     .info-value {
@@ -392,6 +453,7 @@
       word-break: break-word;
       flex-grow: 1;
       min-width: 0;
+      transition: color 0.3s ease;
     }
 
     .bio-row { 
@@ -408,8 +470,9 @@
       width: 100%;
       line-height: 1.55; 
       white-space: pre-wrap;
-      color: var(--text-secondary);
+      color: var(--text-secondary); /* Bio text uses secondary color */
       font-size: clamp(13px, 3.3vw, 14px); 
+      transition: color 0.3s ease;
     }
     
     #bioAnalysisResult {
@@ -421,12 +484,14 @@
         font-size: clamp(13px, 3.3vw, 14px);
         color: var(--text-secondary);
         line-height: 1.55;
+        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
     }
     #bioAnalysisResult h4 {
         color: var(--highlight-color);
         font-size: clamp(14px, 3.6vw, 16px);
         margin-bottom: 10px; 
         font-weight: 600;
+        transition: color 0.3s ease;
     }
     #bioAnalysisResult p {
         margin-bottom: 6px;
@@ -434,6 +499,7 @@
      #bioAnalysisResult strong {
         color: var(--text-color);
         font-weight: 500;
+        transition: color 0.3s ease;
      }
 
 
@@ -451,21 +517,21 @@
       font-weight: 500;
       margin: 0;
       display: inline-block;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08); /* Default shadow for dark theme */
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
     }
-    /* Removed :root[data-theme="dark"] .message as it's now default */
 
 
     .success-message {
-      color: var(--success-color);
-      background-color: color-mix(in srgb, var(--success-color) 15%, transparent); 
-      border: 1px solid color-mix(in srgb, var(--success-color) 30%, transparent);
+      color: var(--success-color-text);
+      background-color: color-mix(in srgb, var(--success-color-bg-mix) 15%, transparent); 
+      border: 1px solid color-mix(in srgb, var(--success-color-bg-mix) 30%, transparent);
     }
 
     .error-message {
-      color: var(--support-color);
-      background-color: color-mix(in srgb, var(--support-color) 15%, transparent); 
-      border: 1px solid color-mix(in srgb, var(--support-color) 30%, transparent);
+      color: var(--error-color-text);
+      background-color: color-mix(in srgb, var(--error-color-bg-mix) 15%, transparent); 
+      border: 1px solid color-mix(in srgb, var(--error-color-bg-mix) 30%, transparent);
     }
 
     .loading-spinner-container {
@@ -477,6 +543,7 @@
       text-align: center;
       width: 100%;
       font-size: 1.05em; 
+      transition: color 0.3s ease;
     }
     .loading-spinner-container.inline { 
         padding: 8px 0 0 12px;
@@ -494,6 +561,7 @@
       border-top-color: var(--primary); 
       animation: spin 0.8s linear infinite; 
       margin-right: 12px; 
+      transition: border-color 0.3s ease;
     }
     .loading-spinner-container.inline .loading-spinner {
         width: 18px;
@@ -510,20 +578,10 @@
         padding: 0 15px; 
     }
     
-    .content-section {
-      margin-top: 30px; 
-      padding: 20px; 
-      background-color: var(--card-bg); 
-      border-radius: 10px; 
-      font-size: clamp(13px, 3.5vw, 15px); 
-      line-height: 1.65; 
-      border: 1px solid var(--input-border);
-      transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-      width: 100%;
-      max-width: 600px; 
-      box-shadow: var(--card-element-shadow); 
-    }
-    .about-section, .page-content > .about-section {
+    .content-section, /* This class seems unused, keeping for now */
+    .about-section, 
+    .page-content > .about-section,
+    .footer {
          margin-top: 25px; 
          padding: 20px; 
          background-color: var(--card-bg);
@@ -531,23 +589,13 @@
          font-size: clamp(13px, 3.5vw, 15px); 
          line-height: 1.65; 
          border: 1px solid var(--input-border);
-         transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+         transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
          width: 100%;
          max-width: 600px; 
          box-shadow: var(--card-element-shadow);
     }
     .footer {
          margin-top: 40px; 
-         padding: 20px; 
-         background-color: var(--card-bg);
-         border-radius: 10px; 
-         font-size: clamp(13px, 3.5vw, 15px); 
-         line-height: 1.65; 
-         border: 1px solid var(--input-border);
-         transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-         width: 100%;
-         max-width: 600px; 
-         box-shadow: var(--card-element-shadow);
     }
     
     .page-content { 
@@ -561,25 +609,28 @@
     }
     .page-content h1 { 
         font-size: clamp(20px, 4.8vw, 26px); 
-        color: var(--highlight-color);
+        color: var(--highlight-color); /* Page titles use highlight color */
         margin-bottom: 20px;
         font-weight: 600;
+        transition: color 0.3s ease;
     }
 
 
     .about-section h2 { 
-      color: var(--highlight-color);
+      color: var(--highlight-color); /* Section titles use highlight color */
       font-size: clamp(15px, 4vw, 18px); 
       margin-bottom: 10px; 
       display: flex;
       align-items: center;
       gap: 8px;
       font-weight: 600;
+      transition: color 0.3s ease;
     }
 
     .about-section p {
       margin-bottom: 12px; 
-      color: var(--text-secondary);
+      color: var(--text-secondary); /* Paragraphs in about sections use secondary text color */
+      transition: color 0.3s ease;
     }
 
     .about-section p:last-child {
@@ -590,6 +641,7 @@
       color: var(--highlight-color);
       text-decoration: none;
       font-weight: 500;
+      transition: color 0.2s ease;
     }
 
     .dm-link:hover {
@@ -636,7 +688,7 @@
       border-radius: 8px; 
       background-color: var(--input-bg);
       color: var(--text-color);
-      transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
       -webkit-appearance: none;
       user-select: text;
       box-shadow: var(--input-element-shadow);
@@ -655,25 +707,25 @@
     }
 
     .contact-form button { 
-      background: linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 80%, black 20%)); 
+      background: linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 80%, var(--button-gradient-mix-color) 20%)); 
     }
 
     .contact-form button:hover,
     .contact-form button:focus { 
-      background: linear-gradient(135deg, var(--primary-hover), color-mix(in srgb, var(--primary-hover) 80%, black 20%));
+      background: linear-gradient(135deg, var(--primary-hover), color-mix(in srgb, var(--primary-hover) 80%, var(--button-gradient-mix-color) 20%));
       transform: translateY(-2px);
       box-shadow: var(--button-element-shadow-hover);
     }
 
 
     .back-btn { 
-      background: linear-gradient(135deg, var(--support-color), color-mix(in srgb, var(--support-color) 80%, black 20%)); 
+      background: linear-gradient(135deg, var(--support-color), color-mix(in srgb, var(--support-color) 80%, var(--button-gradient-mix-color) 20%)); 
       margin-top: 20px; 
     }
 
     .back-btn:hover,
     .back-btn:focus { 
-      background: linear-gradient(135deg, var(--support-hover), color-mix(in srgb, var(--support-hover) 80%, black 20%));
+      background: linear-gradient(135deg, var(--support-hover), color-mix(in srgb, var(--support-hover) 80%, var(--button-gradient-mix-color) 20%));
       transform: translateY(-2px);
       box-shadow: var(--button-element-shadow-hover);
     }
@@ -683,7 +735,7 @@
       to { transform: rotate(360deg); }
     }
 
-    #ad-banner {
+    #ad-banner { /* This class seems unused in HTML, keeping style for now */
       width: 100%;
       max-width: 600px; 
       margin: 25px auto; 
@@ -699,7 +751,7 @@
 
     @media (max-width: 600px) { 
       .container { 
-          padding: clamp(10px, 3vw, 20px);  
+          padding: clamp(10px, 3vw, 20px) clamp(10px, 2vw, 15px);  /* Adjusted padding for smaller screens */
           border-radius: 10px; 
       }
 
@@ -707,7 +759,6 @@
       .profile-photo-enhanced, .profile-photo-placeholder { width: 64px; height: 64px; margin-right: 15px; } 
       .profile-photo-placeholder svg { width: 32px; height: 32px; } 
       .profile-card-header, .profile-card-body, .profile-card-footer { padding: 15px; } 
-      /* Theme toggle media queries removed */
       .footer-nav { gap: 15px; } 
       .about-section, .page-content, .page-content > .about-section, .footer, #result, .profile-card, #ad-banner { 
           max-width: 100%; 
@@ -724,7 +775,6 @@
       .profile-photo-enhanced, .profile-photo-placeholder { width: 56px; height: 56px; } 
       .profile-photo-placeholder svg { width: 28px; height: 28px; } 
       .info-label { margin-right: 10px; } 
-      /* Theme toggle media queries removed */
       .footer-nav { flex-direction: column; gap: 10px; } 
     }
 
@@ -755,6 +805,7 @@
 </head>
 <body>
   <div class="container">
+    <button id="themeToggleBtn" aria-label="Toggle theme">🌙</button>
     <main>
         <div class="page-content active" id="main-page">
           <div class="patriotic-text">🇲🇦👑 الله الوطـــن الملك 🇲🇦👑</div>
@@ -839,7 +890,7 @@
             <p>We do not sell, trade, or share your personal information with third parties, except as required by law or for the functioning of the AI Bio Analysis feature (bio text is sent to Google's Gemini API). Public TikTok data is sourced via a third-party API and is not stored by us.</p>
             
             <h2>5. Cookies and Tracking</h2>
-            <p>This site uses local storage to track page visits for analytics purposes (e.g., visit counter). No cookies or third-party trackers are used beyond standard analytics and the AI service API calls.</p>
+            <p>This site uses local storage to track page visits for analytics purposes (e.g., visit counter) and theme preferences. No cookies or third-party trackers are used beyond standard analytics and the AI service API calls.</p>
             
             <h2>6. Contact Us</h2>
             <p>If you have any questions about this Privacy Policy, please contact us via <a href="https://www.tiktok.com/@mo.or__" class="dm-link" target="_blank" rel="noopener">TikTok</a> or the contact form.</p>
@@ -888,7 +939,7 @@
     const baseTitle = "TikTok Account Location Finder | Full Profile Details & AI Analysis";
 
     // ===== DOMAIN RESTRICTION (Keep as is) ===== //
-    if (window.location.hostname !== 'tikip.us' && window.location.hostname !== 'localhost' && !window.location.hostname.endsWith('.preview.app') ) { // Added localhost and preview for dev
+    if (window.location.hostname !== 'tikip.us' && window.location.hostname !== 'localhost' && !window.location.hostname.endsWith('.preview.app') ) { 
       const resultDivAuthError = document.createElement('div'); 
       resultDivAuthError.id = 'result_auth_error';
       resultDivAuthError.style.position = 'fixed';
@@ -914,9 +965,47 @@
       console.error('Unauthorized domain. Application execution visually halted.');
     }
 
-    // ===== THEME TOGGLE FUNCTIONALITY (REMOVED) ===== //
-    // All JavaScript related to theme toggling has been removed.
-    // The theme is now fixed to dark via CSS :root variables.
+    // ===== THEME TOGGLE FUNCTIONALITY ===== //
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+    function applyTheme(theme) {
+        if (theme === 'light') {
+            document.body.setAttribute('data-theme', 'light');
+            if (themeToggleBtn) themeToggleBtn.textContent = '☀️'; // Sun icon for light mode
+            localStorage.setItem('theme', 'light');
+        } else { // Default to dark
+            document.body.removeAttribute('data-theme');
+            if (themeToggleBtn) themeToggleBtn.textContent = '🌙'; // Moon icon for dark mode
+            localStorage.setItem('theme', 'dark');
+        }
+    }
+
+    // Apply initial theme: 1. localStorage, 2. System preference, 3. Default to dark
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        applyTheme(savedTheme);
+    } else if (prefersDarkScheme.matches) {
+        applyTheme('dark');
+    } else {
+        applyTheme('dark'); // Default to dark if no preference and system is light
+    }
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            let currentThemeIsLight = document.body.getAttribute('data-theme') === 'light';
+            applyTheme(currentThemeIsLight ? 'dark' : 'light');
+        });
+    }
+
+    // Listen for changes in system preference (optional: only if you want to auto-update if no user choice)
+    // prefersDarkScheme.addEventListener('change', (e) => {
+    //     // Only change if no user preference is explicitly set via clicking the toggle
+    //     if (!localStorage.getItem('theme_user_set')) { // Requires another flag or just rely on localStorage 'theme'
+    //         applyTheme(e.matches ? 'dark' : 'light');
+    //     }
+    // });
+
 
     // ===== PAGE NAVIGATION ===== //
     function showPage(pageId) {
@@ -954,40 +1043,39 @@
           const email = emailInput ? emailInput.value.trim() : '';
           const message = messageInput ? messageInput.value.trim() : '';
           
-          const resultDiv = document.getElementById('result'); 
+          // Find a suitable place to show contact form messages, e.g., within the contact page itself.
+          // For now, using the main resultDiv if available, or alert as fallback.
+          let contactMessageContainer = document.getElementById('contact-page').querySelector('.about-section'); // Or add a dedicated div
+          if (!contactMessageContainer) contactMessageContainer = document.getElementById('result');
+
 
           if (name && email && message) {
-            if (resultDiv) { // This will show message on main page's result div.
-                            // Consider adding a message area specific to the contact form page.
-                resultDiv.innerHTML = '<div class="message success-message">Thank you for your message! We will get back to you soon.</div>';
-                resultDiv.style.display = 'block'; 
-                resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                setTimeout(() => { 
-                    if(resultDiv.innerHTML.includes("Thank you for your message")) { 
-                        resultDiv.style.display = 'none'; 
-                        resultDiv.innerHTML = ''; 
-                    }
-                }, 4000);
+            if (contactMessageContainer) {
+                const successMsgDiv = document.createElement('div');
+                successMsgDiv.className = 'message success-message';
+                successMsgDiv.style.marginTop = '15px';
+                successMsgDiv.textContent = 'Thank you for your message! We will get back to you soon.';
+                contactMessageContainer.appendChild(successMsgDiv);
+                
+                setTimeout(() => { successMsgDiv.remove(); }, 4000);
             } else {
-                alert('Thank you for your message! We will get back to you soon.');
+                // Fallback if no suitable container found (should not happen with current structure)
+                console.log('Thank you for your message! We will get back to you soon.');
             }
             
             if(nameInput) nameInput.value = '';
             if(emailInput) emailInput.value = '';
             if(messageInput) messageInput.value = '';
           } else {
-            if (resultDiv) { 
-                resultDiv.innerHTML = '<div class="message error-message">Please fill in all fields in the contact form.</div>';
-                resultDiv.style.display = 'block'; 
-                resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                 setTimeout(() => { 
-                    if(resultDiv.innerHTML.includes("Please fill in all fields")) { 
-                        resultDiv.style.display = 'none'; 
-                        resultDiv.innerHTML = ''; 
-                    }
-                }, 4000);
+            if (contactMessageContainer) { 
+                const errorMsgDiv = document.createElement('div');
+                errorMsgDiv.className = 'message error-message';
+                errorMsgDiv.style.marginTop = '15px';
+                errorMsgDiv.textContent = 'Please fill in all fields in the contact form.';
+                contactMessageContainer.appendChild(errorMsgDiv);
+                setTimeout(() => { errorMsgDiv.remove(); }, 4000);
             } else {
-                 alert('Please fill in all fields in the contact form.');
+                 console.error('Please fill in all fields in the contact form.');
             }
           }
         });
@@ -1000,13 +1088,13 @@
         'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
         'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
         'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
-        'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
+        'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦�', 'Austria': '🇦🇹',
         'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
         'AZ': '🇦🇿', 'Azerbaijan': '🇦🇿', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧🇧',
         'BD': '🇧🇩', 'Bangladesh': '🇧🇩', 'BE': '🇧🇪', 'Belgium': '🇧🇪', 'BF': '🇧🇫', 'Burkina Faso': '🇧🇫',
         'BG': '🇧🇬', 'Bulgaria': '🇧🇬', 'BH': '🇧🇭', 'Bahrain': '🇧🇭', 'BI': '🇧🇮', 'Burundi': '🇧🇮',
         'BJ': '🇧🇯', 'Benin': '🇧🇯', 'BL': '🇧🇱', 'Saint Barthélemy': '🇧🇱', 'BM': '🇧🇲', 'Bermuda': '🇧🇲',
-        'BN': '🇧🇳', 'Brunei Darussalam': '🇧🇳', 'BO': '�🇴', 'Bolivia': '🇧🇴', 'BQ': '🇧🇶', 'Bonaire, Sint Eustatius and Saba': '🇧🇶',
+        'BN': '🇧🇳', 'Brunei Darussalam': '🇧🇳', 'BO': '🇧🇴', 'Bolivia': '🇧🇴', 'BQ': '🇧🇶', 'Bonaire, Sint Eustatius and Saba': '🇧🇶',
         'BR': '🇧🇷', 'Brazil': '🇧🇷', 'BS': '🇧🇸', 'Bahamas': '🇧🇸', 'BT': '🇧🇹', 'Bhutan': '🇧🇹',
         'BV': '🇧🇻', 'Bouvet Island': '🇧🇻', 'BW': '🇧🇼', 'Botswana': '🇧🇼', 'BY': '🇧🇾', 'Belarus': '🇧🇾',
         'BZ': '🇧🇿', 'Belize': '🇧🇿', 'CA': '🇨🇦', 'Canada': '🇨🇦', 'CC': '🇨🇨', 'Cocos (Keeling) Islands': '🇨🇨',
@@ -1141,6 +1229,7 @@
         const aiButton = document.getElementById('aiAnalyzeBioBtn');
         if(aiButton && aiButton.parentNode) {
             aiButton.parentNode.insertBefore(loadingContainer, aiButton.nextSibling);
+            aiButton.disabled = true; // Disable button during analysis
         } else if (profileCardBody) {
              profileCardBody.appendChild(loadingContainer); 
         }
@@ -1165,8 +1254,7 @@
             }
 
             const result = await response.json();
-            loadingContainer.remove(); 
-
+            
             if (result.candidates && result.candidates.length > 0 &&
                 result.candidates[0].content && result.candidates[0].content.parts &&
                 result.candidates[0].content.parts.length > 0) {
@@ -1186,8 +1274,10 @@
             }
         } catch (error) {
             console.error("Error calling Gemini API:", error);
-            loadingContainer.remove(); 
             analysisResultDiv.innerHTML = `<h4>✨ AI Bio Analysis:</h4><p class="error-message">Error analyzing bio: ${error.message}. Please try again later.</p>`;
+        } finally {
+            loadingContainer.remove();
+            if(aiButton) aiButton.disabled = false; // Re-enable button
         }
     }
 
@@ -1213,6 +1303,8 @@
           resultDiv.style.display = 'block';
       }
       
+      // Using a CORS proxy for development/testing if direct API access is blocked by CORS.
+      // Replace with your actual API endpoint if it supports CORS or if you have a server-side proxy.
       const apiUrl = `https://corsproxy.io/?https://jaefu3p97g.execute-api.us-east-1.amazonaws.com/default/smttab?username=${encodeURIComponent(username)}`;
       console.log("Attempting to fetch data from:", apiUrl);
 
@@ -1272,53 +1364,68 @@
             let profileDetailsHtml = '';
             let hasBio = false;
 
+            // Prioritize specific known keys for ordering if needed, otherwise iterate
+            const orderedKeys = ['Bio', 'Country', 'Region', 'Followers', 'Following', 'Likes', 'Videos']; // Example order
+            const processedKeys = new Set();
+
+            function addDetailRow(key, value) {
+                let displayKey = key.replace(/([A-Z])/g, ' $1').trim();
+                let displayValue = '';
+
+                if (key === 'Bio') {
+                    hasBio = true;
+                    currentBioText = String(value); 
+                    displayValue = sanitize(currentBioText).replace(/\n/g, '<br>'); 
+                    profileDetailsHtml += `
+                    <div class="profile-info-row bio-row">
+                      <span class="info-label">${sanitize(displayKey)}:</span>
+                      <p class="info-value bio-text" id="userBioText">${displayValue || 'N/A'}</p>
+                    </div>`;
+                } else if (key === 'Country' || key === 'Region') { 
+                    displayValue = sanitize(String(value));
+                    profileDetailsHtml += `
+                    <div class="profile-info-row">
+                      <span class="info-label">${sanitize(displayKey)}:</span>
+                      <span class="info-value">${getCountryFlag(displayValue)} ${displayValue || 'N/A'}</span>
+                    </div>`;
+                } else if (typeof value === 'number' && (key.toLowerCase().includes('follower') || key.toLowerCase().includes('following') || key.toLowerCase().includes('like') || key.toLowerCase().includes('video'))) {
+                    displayValue = Number(value).toLocaleString(); 
+                     profileDetailsHtml += `
+                    <div class="profile-info-row">
+                      <span class="info-label">${sanitize(displayKey)}:</span>
+                      <span class="info-value">${displayValue}</span>
+                    </div>`;
+                } else if (typeof value === 'boolean') {
+                    displayValue = value ? 'Yes' : 'No'; 
+                     profileDetailsHtml += `
+                    <div class="profile-info-row">
+                      <span class="info-label">${sanitize(displayKey)}:</span>
+                      <span class="info-value">${displayValue}</span>
+                    </div>`;
+                } else { 
+                     profileDetailsHtml += `
+                    <div class="profile-info-row">
+                      <span class="info-label">${sanitize(displayKey)}:</span>
+                      <span class="info-value">${sanitize(String(value)) || 'N/A'}</span>
+                    </div>`;
+                }
+                processedKeys.add(key);
+            }
+
+            // Add known keys in order
+            orderedKeys.forEach(key => {
+                if (Object.hasOwnProperty.call(apiProfile, key) && apiProfile[key] != null) {
+                    addDetailRow(key, apiProfile[key]);
+                }
+            });
+            
+            // Add remaining keys
             for (const key in apiProfile) {
-                if (Object.hasOwnProperty.call(apiProfile, key)) {
+                if (Object.hasOwnProperty.call(apiProfile, key) && !processedKeys.has(key)) {
                     if (key === 'Nickname' || key === 'Username' || avatarKeys.includes(key) || apiProfile[key] == null) { 
                         continue;
                     }
-
-                    let value = apiProfile[key];
-                    let displayKey = key.replace(/([A-Z])/g, ' $1').trim(); 
-
-                    if (key === 'Bio') {
-                        hasBio = true;
-                        currentBioText = String(value); 
-                        value = sanitize(currentBioText).replace(/\n/g, '<br>'); 
-                         profileDetailsHtml += `
-                        <div class="profile-info-row bio-row">
-                          <span class="info-label">${sanitize(displayKey)}:</span>
-                          <p class="info-value bio-text" id="userBioText">${value || 'N/A'}</p>
-                        </div>`;
-                    } else if (key === 'Country' || key === 'Region') { 
-                        value = sanitize(String(value));
-                        profileDetailsHtml += `
-                        <div class="profile-info-row">
-                          <span class="info-label">${sanitize(displayKey)}:</span>
-                          <span class="info-value">${getCountryFlag(value)} ${value || 'N/A'}</span>
-                        </div>`;
-                    } else if (typeof value === 'number' && (key.toLowerCase().includes('follower') || key.toLowerCase().includes('following') || key.toLowerCase().includes('like') || key.toLowerCase().includes('video'))) {
-                        value = Number(value).toLocaleString(); 
-                         profileDetailsHtml += `
-                        <div class="profile-info-row">
-                          <span class="info-label">${sanitize(displayKey)}:</span>
-                          <span class="info-value">${value}</span>
-                        </div>`;
-                    } else if (typeof value === 'boolean') {
-                        value = value ? 'Yes' : 'No'; 
-                         profileDetailsHtml += `
-                        <div class="profile-info-row">
-                          <span class="info-label">${sanitize(displayKey)}:</span>
-                          <span class="info-value">${value}</span>
-                        </div>`;
-                    }
-                    else { 
-                         profileDetailsHtml += `
-                        <div class="profile-info-row">
-                          <span class="info-label">${sanitize(displayKey)}:</span>
-                          <span class="info-value">${sanitize(String(value)) || 'N/A'}</span>
-                        </div>`;
-                    }
+                    addDetailRow(key, apiProfile[key]);
                 }
             }
             
@@ -1356,7 +1463,7 @@
                            analyzeBioWithGemini(currentBioText);
                         } else {
                             const bioAnalysisDiv = document.getElementById('bioAnalysisResult');
-                            if(bioAnalysisDiv) bioAnalysisDiv.innerHTML = '<p class="error-message">No bio text found to analyze.</p>';
+                            if(bioAnalysisDiv) bioAnalysisDiv.innerHTML = '<p class="message error-message" style="margin-top:10px;">No bio text found to analyze.</p>';
                         }
                     });
                 }
