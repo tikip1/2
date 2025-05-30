@@ -78,14 +78,12 @@
   </script>
 
   <style>
-    /* This CSS is already designed with responsiveness in mind, using techniques like:
-       - Viewport meta tag (in HTML head)
-       - Flexbox for layout
-       - clamp() for fluid typography
-       - Percentage and viewport units (vw)
-       - max-width for container elements
-       - Media queries for different screen sizes
-       - box-sizing: border-box
+    /* This CSS aims for a "3D style" using common web techniques:
+      - Shadows for depth and layering (elevation).
+      - Gradients to give elements a sense of volume.
+      - Rounded corners for a softer, more tangible appearance.
+      - Subtle transformations on interaction (hover, active states) for a dynamic feel.
+      - Inset shadows for elements like inputs to make them appear recessed.
     */
     :root {
       --primary: #10B981;
@@ -105,12 +103,12 @@
       --success-color: #10B981;
       --highlight-color: #7C3AED;
 
-      /* 3D Style Shadows - Dark Theme */
+      /* 3D Style: Shadow definitions for dark theme elements to create depth */
       --main-container-shadow-dark: 0 8px 20px -5px rgba(255, 255, 255, 0.03), 0 6px 8px -6px rgba(255, 255, 255, 0.03);
       --card-element-shadow-dark: 0 5px 15px -7px rgba(255, 255, 255, 0.04), 0 3px 5px -8px rgba(255, 255, 255, 0.04);
       --button-element-shadow-dark: 0 3px 5px -1px rgba(0, 0, 0, 0.4), 0 2px 3px -2px rgba(0, 0, 0, 0.4);
-      --button-element-shadow-hover-dark: 0 6px 8px -2px rgba(0, 0, 0, 0.5), 0 3px 5px -3px rgba(0, 0, 0, 0.5);
-      --input-element-shadow-dark: inset 0 1px 2px rgba(255, 255, 255, 0.03), 0 1px 1px rgba(255, 255, 255, 0.02);
+      --button-element-shadow-hover-dark: 0 6px 8px -2px rgba(0, 0, 0, 0.5), 0 3px 5px -3px rgba(0, 0, 0, 0.5); /* Shadow for button hover/focus lift effect */
+      --input-element-shadow-dark: inset 0 1px 2px rgba(255, 255, 255, 0.03), 0 1px 1px rgba(255, 255, 255, 0.02); /* Inset shadow for recessed input feel */
     }
 
     :root[data-theme="light"] {
@@ -118,7 +116,7 @@
       --primary-hover: #059669;
       --support-color: #EF4444;
       --support-hover: #DC2626;
-      --container-bg: #FFFFFF; /* Original light theme container */
+      --container-bg: #FFFFFF; 
       --text-color: #333333;
       --text-secondary: #666666;
       --input-bg: #F5F5F5;
@@ -127,16 +125,16 @@
       --card-bg: #F9F9F9;
       --card-header-bg: #F0F0F0;
       --patriotic-color: #333333;
-      --bg-color: #F5F5F5; /* Original light theme background */
+      --bg-color: #F5F5F5; 
       --success-color: #10B981;
       --highlight-color: #7C3AED;
 
-      /* 3D Style Shadows - Light Theme */
+      /* 3D Style: Shadow definitions for light theme elements */
       --main-container-shadow-light: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
       --card-element-shadow-light: 0 6px 15px -7px rgba(0, 0, 0, 0.09), 0 4px 6px -8px rgba(0, 0, 0, 0.09);
       --button-element-shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-      --button-element-shadow-hover-light: 0 7px 10px -2px rgba(0, 0, 0, 0.15), 0 4px 6px -3px rgba(0, 0, 0, 0.15);
-      --input-element-shadow-light: inset 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+      --button-element-shadow-hover-light: 0 7px 10px -2px rgba(0, 0, 0, 0.15), 0 4px 6px -3px rgba(0, 0, 0, 0.15); /* Shadow for button hover/focus lift effect */
+      --input-element-shadow-light: inset 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04); /* Inset shadow for recessed input feel */
     }
 
     * {
@@ -157,49 +155,46 @@
       line-height: 1.6;
       -webkit-text-size-adjust: 100%;
       transition: background-color 0.3s, color 0.3s;
-      margin: 0; /* Original */
+      margin: 0; 
       width: 100vw;
       overflow-x: hidden;
-      /* padding-top/bottom removed to keep original spacing */
     }
 
     .container {
       background: var(--container-bg);
-      padding: 20px; /* Original */
-      border-radius: 12px; /* Slightly more rounded for 3D */
-      /* box-shadow: none; Original */
-      width: 100vw; /* Original */
-      max-width: none; /* Original */
-      /* border: none; Original */
+      padding: 20px; 
+      border-radius: 12px; /* 3D Style: More rounded corners for a softer, modern 3D appearance */
+      width: 100vw; 
+      max-width: none; 
       transition: background-color 0.3s, box-shadow 0.3s;
       display: flex;
       flex-direction: column;
       align-items: center;
-      /* Applying 3D shadow based on theme */
+      /* 3D Style: Applying defined shadow variables for depth and elevation */
       box-shadow: var(--main-container-shadow-dark);
     }
     :root[data-theme="light"] .container {
         box-shadow: var(--main-container-shadow-light);
-        border: 1px solid var(--input-border); /* Add border in light mode for definition */
+        border: 1px solid var(--input-border); 
     }
 
 
     .theme-toggle {
       position: fixed;
-      top: 15px; /* Original */
-      right: 15px; /* Original */
+      top: 15px; 
+      right: 15px; 
       background: var(--input-bg);
       border: 1px solid var(--input-border);
-      border-radius: 20px; /* Original */
-      width: 40px; /* Original */
-      height: 40px; /* Original */
+      border-radius: 20px; 
+      width: 40px; 
+      height: 40px; 
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       transition: all 0.3s;
       z-index: 1000;
-      /* Applying 3D shadow based on theme */
+      /* 3D Style: Shadow for the theme toggle button */
       box-shadow: var(--button-element-shadow-dark);
     }
     :root[data-theme="light"] .theme-toggle {
@@ -207,8 +202,8 @@
     }
 
     .theme-toggle:hover {
-      transform: translateY(-2px) scale(1.05); /* 3D hover effect */
-      /* Applying 3D shadow on hover based on theme */
+      transform: translateY(-2px) scale(1.05); /* 3D Style: Lift and scale effect on hover */
+      /* 3D Style: Enhanced shadow on hover */
       box-shadow: var(--button-element-shadow-hover-dark);
     }
     :root[data-theme="light"] .theme-toggle:hover {
@@ -216,41 +211,41 @@
     }
 
     .theme-toggle svg {
-      width: 20px; /* Original */
-      height: 20px; /* Original */
+      width: 20px; 
+      height: 20px; 
       fill: var(--text-color);
       transition: fill 0.3s;
     }
 
     .patriotic-text {
-      font-size: clamp(16px, 4vw, 20px); /* Original */
+      font-size: clamp(16px, 4vw, 20px); 
       text-align: center;
       color: var(--patriotic-color);
-      margin-bottom: 10px; /* Original */
+      margin-bottom: 10px; 
       font-weight: bold;
       width: 100%;
-      padding: 10px 0; /* Original */
+      padding: 10px 0; 
     }
 
-    h1 { /* This is the main H1 for the site */
-      font-size: clamp(20px, 5vw, 24px); /* Original */
-      font-weight: 600; /* Original */
+    h1 { 
+      font-size: clamp(20px, 5vw, 24px); 
+      font-weight: 600; 
       text-align: center;
       color: var(--text-color);
-      margin-bottom: 10px; /* Original */
+      margin-bottom: 10px; 
       width: 100%;
     }
 
     .credit {
-      font-size: clamp(10px, 3vw, 12px); /* Original */
+      font-size: clamp(10px, 3vw, 12px); 
       color: var(--text-secondary);
       text-align: center;
-      margin-bottom: 20px; /* Original */
+      margin-bottom: 20px; 
       width: 100%;
     }
 
     .credit a {
-      color: var(--text-color); /* Original */
+      color: var(--text-color); 
       text-decoration: none;
       font-weight: 600;
     }
@@ -261,18 +256,18 @@
 
     input {
       width: 100%;
-      max-width: 600px; /* Original */
-      padding: 12px; /* Original */
-      font-size: clamp(14px, 4vw, 16px); /* Original */
+      max-width: 600px; 
+      padding: 12px; 
+      font-size: clamp(14px, 4vw, 16px); 
       border: 1px solid var(--input-border);
-      border-radius: 10px; /* More rounded for 3D */
-      margin-bottom: 15px; /* Original */
+      border-radius: 10px; /* 3D Style: Rounded corners for inputs */
+      margin-bottom: 15px; 
       background: var(--input-bg);
       color: var(--text-color);
       transition: border-color 0.3s, box-shadow 0.3s;
       -webkit-appearance: none;
       user-select: text;
-      /* Applying 3D shadow based on theme */
+      /* 3D Style: Inset and outer shadow for inputs to give a recessed or slightly elevated look */
       box-shadow: var(--input-element-shadow-dark);
     }
     :root[data-theme="light"] input {
@@ -281,8 +276,8 @@
 
     input:focus {
       outline: none;
-      border-color: var(--primary); /* Highlight with primary color */
-      /* Applying 3D shadow based on theme, with focus ring */
+      border-color: var(--primary); 
+      /* 3D Style: Enhanced shadow and focus ring */
        box-shadow: var(--input-element-shadow-dark), 0 0 0 2px color-mix(in srgb, var(--primary) 50%, transparent);
     }
     :root[data-theme="light"] input:focus {
@@ -297,19 +292,19 @@
 
     button {
       width: 100%;
-      max-width: 600px; /* Original */
-      padding: 12px; /* Original */
-      font-size: clamp(14px, 4vw, 16px); /* Original */
+      max-width: 600px; 
+      padding: 12px; 
+      font-size: clamp(14px, 4vw, 16px); 
       border: none;
-      border-radius: 10px; /* More rounded for 3D */
+      border-radius: 10px; /* 3D Style: Rounded corners for buttons */
       color: white;
       font-weight: 600;
       cursor: pointer;
-      margin-bottom: 10px; /* Original */
-      transition: all 0.2s ease-out; /* Smooth transition for transform and shadow */
+      margin-bottom: 10px; 
+      transition: all 0.2s ease-out; 
       -webkit-tap-highlight-color: transparent;
-      text-shadow: 0 1px 1px rgba(0,0,0,0.2); /* Subtle text shadow for depth */
-      /* Applying 3D shadow based on theme */
+      text-shadow: 0 1px 1px rgba(0,0,0,0.2); /* 3D Style: Subtle text shadow for depth on text */
+      /* 3D Style: Applying button shadow for elevation */
       box-shadow: var(--button-element-shadow-dark);
     }
     :root[data-theme="light"] button {
@@ -317,9 +312,9 @@
     }
     
     button:active {
-        transform: translateY(1px) scale(0.99); /* Pressed effect */
-         /* Applying 3D shadow on active based on theme, slightly reduced */
-        box-shadow: 0 1px 2px -1px var(--button-element-shadow-dark);
+        transform: translateY(1px) scale(0.99); /* 3D Style: Pressed effect */
+        /* 3D Style: Shadow adjustment for pressed state */
+        box-shadow: 0 1px 2px -1px var(--button-element-shadow-dark); /* Slightly reduced shadow */
     }
     :root[data-theme="light"] button:active {
         box-shadow: 0 1px 2px -1px var(--button-element-shadow-light);
@@ -327,13 +322,14 @@
 
 
     #getResultsBtn {
-      background: linear-gradient(145deg, var(--primary), var(--primary-hover)); /* Gradient for 3D feel */
+      /* 3D Style: Gradient background for a voluminous button appearance */
+      background: linear-gradient(145deg, var(--primary), var(--primary-hover)); 
     }
 
     #getResultsBtn:hover, #getResultsBtn:focus {
-      background: linear-gradient(145deg, var(--primary-hover), var(--primary)); /* Gradient shift on hover */
-      transform: translateY(-2px); /* Lift effect */
-      /* Applying 3D shadow on hover based on theme */
+      background: linear-gradient(145deg, var(--primary-hover), var(--primary)); 
+      transform: translateY(-2px); /* 3D Style: Transform to create a 'lift' interaction */
+      /* 3D Style: Enhanced shadow on hover/focus for lift effect */
       box-shadow: var(--button-element-shadow-hover-dark);
     }
     :root[data-theme="light"] #getResultsBtn:hover,
@@ -342,14 +338,13 @@
     }
 
     #supportBtn {
-      background: linear-gradient(145deg, var(--support-color), var(--support-hover)); /* Gradient for 3D feel */
-      margin-bottom: 0; /* Original */
+      background: linear-gradient(145deg, var(--support-color), var(--support-hover)); 
+      margin-bottom: 0; 
     }
 
     #supportBtn:hover, #supportBtn:focus {
-      background: linear-gradient(145deg, var(--support-hover), var(--support-color)); /* Gradient shift on hover */
-      transform: translateY(-2px); /* Lift effect */
-      /* Applying 3D shadow on hover based on theme */
+      background: linear-gradient(145deg, var(--support-hover), var(--support-color)); 
+      transform: translateY(-2px); /* 3D Style: Lift effect */
       box-shadow: var(--button-element-shadow-hover-dark);
     }
     :root[data-theme="light"] #supportBtn:hover,
@@ -358,25 +353,24 @@
     }
 
     #result {
-      background: transparent; /* Original */
-      padding: 0; /* Original */
-      margin-top: 25px; /* Original */
-      border: none; /* Original */
-      min-height: 50px; /* Original */
+      background: transparent; 
+      padding: 0; 
+      margin-top: 25px; 
+      border: none; 
+      min-height: 50px; 
       width: 100%;
-      max-width: 600px; /* Original */
+      max-width: 600px; 
     }
 
     .profile-card {
       background: var(--card-bg);
-      border-radius: 12px; /* More rounded for 3D */
+      border-radius: 12px; /* 3D Style: Rounded corners for cards */
       border: 1px solid var(--input-border);
-      /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); Original */
       overflow: hidden;
       transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
       width: 100%;
-      max-width: 600px; /* Original */
-      /* Applying 3D shadow based on theme */
+      max-width: 600px; 
+      /* 3D Style: Shadow for profile card elevation */
       box-shadow: var(--card-element-shadow-dark);
     }
     :root[data-theme="light"] .profile-card {
@@ -386,29 +380,29 @@
     .profile-card-header {
       display: flex;
       align-items: center;
-      padding: 20px; /* Original */
+      padding: 20px; 
       background: var(--card-header-bg);
       border-bottom: 1px solid var(--input-border);
       transition: background-color 0.3s, border-color 0.3s;
     }
 
     .profile-photo-enhanced {
-      width: 70px; /* Original */
-      height: 70px; /* Original */
+      width: 70px; 
+      height: 70px; 
       border-radius: 50%;
       object-fit: cover;
-      margin-right: 20px; /* Original */
-      border: 3px solid var(--primary);
+      margin-right: 20px; 
+      border: 3px solid var(--primary); /* Highlight border */
       flex-shrink: 0;
       background-color: var(--input-bg);
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 3D Style: Subtle shadow for profile photo depth */
     }
 
     .profile-photo-placeholder {
-      width: 70px; /* Original */
-      height: 70px; /* Original */
+      width: 70px; 
+      height: 70px; 
       border-radius: 50%;
-      margin-right: 20px; /* Original */
+      margin-right: 20px; 
       background-color: var(--input-bg);
       border: 3px solid var(--input-border);
       display: flex;
@@ -420,8 +414,8 @@
     }
 
     .profile-photo-placeholder svg {
-      width: 36px; /* Original */
-      height: 36px; /* Original */
+      width: 36px; 
+      height: 36px; 
       fill: var(--text-secondary);
     }
 
@@ -433,7 +427,7 @@
     }
 
     .profile-nickname {
-      font-size: clamp(18px, 4.5vw, 22px); /* Original */
+      font-size: clamp(18px, 4.5vw, 22px); 
       font-weight: 600;
       color: var(--text-color);
       margin: 0 0 4px 0;
@@ -443,7 +437,7 @@
     }
 
     .profile-username-display {
-      font-size: clamp(13px, 3.5vw, 15px); /* Original */
+      font-size: clamp(13px, 3.5vw, 15px); 
       color: var(--text-secondary);
       margin: 0;
       white-space: nowrap;
@@ -452,16 +446,16 @@
     }
 
     .profile-card-body {
-      padding: 10px 20px 20px 20px; /* Original */
+      padding: 10px 20px 20px 20px; 
     }
 
     .profile-info-row {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      padding: 10px 0; /* Original */
+      padding: 10px 0; 
       border-bottom: 1px solid var(--input-bg);
-      font-size: clamp(13px, 3.5vw, 14px); /* Original */
+      font-size: clamp(13px, 3.5vw, 14px); 
     }
 
     .profile-info-row:last-child {
@@ -471,9 +465,9 @@
     .info-label {
       font-weight: 600;
       color: var(--text-secondary);
-      margin-right: 15px; /* Original */
+      margin-right: 15px; 
       flex-shrink: 0;
-      text-transform: capitalize; /* Make API keys more readable */
+      text-transform: capitalize; 
     }
 
     .info-value {
@@ -484,7 +478,7 @@
       min-width: 0;
     }
 
-    .bio-row { /* This class might not be needed if Bio is just another field */
+    .bio-row { 
       flex-direction: column;
       align-items: flex-start;
     }
@@ -499,11 +493,11 @@
       line-height: 1.5;
       white-space: pre-wrap;
       color: var(--text-secondary);
-      font-size: clamp(12px, 3.2vw, 13px); /* Original */
+      font-size: clamp(12px, 3.2vw, 13px); 
     }
 
     .profile-card-footer {
-      padding: 15px 20px; /* Original */
+      padding: 15px 20px; 
       background: var(--card-header-bg);
       border-top: 1px solid var(--input-border);
       text-align: center;
@@ -511,12 +505,12 @@
     }
 
     .message {
-      padding: 10px; /* Original */
-      border-radius: 6px; /* Original */
+      padding: 10px; 
+      border-radius: 6px; 
       font-weight: 500;
       margin: 0;
       display: inline-block;
-      /* Adding subtle shadow to messages for consistency */
+      /* 3D Style: Subtle shadow for message boxes */
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
     :root[data-theme="dark"] .message {
@@ -536,7 +530,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px; /* Original */
+      padding: 20px; 
       color: var(--text-secondary);
       text-align: center;
       width: 100%;
@@ -544,16 +538,15 @@
 
     .loading-spinner {
       display: inline-block;
-      width: 20px; /* Original */
-      height: 20px; /* Original */
-      border: 3px solid rgba(0,0,0,0.1); /* Original */
+      width: 20px; 
+      height: 20px; 
+      border: 3px solid rgba(0,0,0,0.1); 
       border-radius: 50%;
       border-top-color: var(--text-color);
       animation: spin 1s ease-in-out infinite;
-      margin-right: 10px; /* Original */
+      margin-right: 10px; 
     }
 
-    /* SEO: Using <main> for primary content and <article> for sections */
     main {
         width: 100%;
         display: flex;
@@ -561,18 +554,18 @@
         align-items: center;
     }
 
-    .about-section, .page-content > .about-section, .footer { /* Targeting .about-section directly or as child of .page-content */
-      margin-top: 25px; /* Original */
-      padding: 15px; /* Original */
+    .about-section, .page-content > .about-section, .footer { 
+      margin-top: 25px; 
+      padding: 15px; 
       background: var(--card-bg);
-      border-radius: 10px; /* Slightly more rounded for 3D */
-      font-size: clamp(13px, 3.5vw, 14px); /* Original */
-      line-height: 1.6; /* Original */
+      border-radius: 10px; /* 3D Style: Rounded corners for content sections */
+      font-size: clamp(13px, 3.5vw, 14px); 
+      line-height: 1.6; 
       border: 1px solid var(--input-border);
       transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
       width: 100%;
-      max-width: 600px; /* Original */
-      /* Applying 3D shadow based on theme */
+      max-width: 600px; 
+      /* 3D Style: Shadow for content sections */
       box-shadow: var(--card-element-shadow-dark);
     }
     :root[data-theme="light"] .about-section,
@@ -581,33 +574,33 @@
         box-shadow: var(--card-element-shadow-light);
     }
     
-    .page-content { /* This is a container for different views */
+    .page-content { 
         display: none; 
         width: 100%;
-        max-width: 600px; /* Ensure page content sections also adhere to max-width */
+        max-width: 600px; 
         margin-top: 25px;
     }
     .page-content.active {
         display: block; 
     }
-    .page-content h1 { /* Headings within specific pages */
-        font-size: clamp(18px, 4.5vw, 22px); /* Slightly smaller than main H1 */
+    .page-content h1 { 
+        font-size: clamp(18px, 4.5vw, 22px); 
         color: var(--highlight-color);
         margin-bottom: 15px;
     }
 
 
-    .about-section h2 { /* These are subheadings within sections */
+    .about-section h2 { 
       color: var(--highlight-color);
-      font-size: clamp(14px, 3.8vw, 16px); /* Original */
-      margin-bottom: 8px; /* Original */
+      font-size: clamp(14px, 3.8vw, 16px); 
+      margin-bottom: 8px; 
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
     .about-section p {
-      margin-bottom: 10px; /* Original */
+      margin-bottom: 10px; 
       color: var(--text-secondary);
     }
 
@@ -629,45 +622,45 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 15px; /* Original */
+      gap: 15px; 
     }
 
     .footer-nav a {
       color: var(--highlight-color);
       text-decoration: none;
-      font-size: clamp(12px, 3.2vw, 13px); /* Original */
+      font-size: clamp(12px, 3.2vw, 13px); 
       font-weight: 600;
-      transition: color 0.3s, transform 0.2s; /* Added transform for 3D hover */
+      transition: color 0.3s, transform 0.2s; 
     }
 
     .footer-nav a:hover {
       text-decoration: underline;
       color: var(--primary);
-      transform: translateY(-1px); /* Subtle lift for 3D */
+      transform: translateY(-1px); /* 3D Style: Subtle lift for footer links */
     }
 
     .contact-form {
       display: flex;
       flex-direction: column;
-      gap: 15px; /* Original */
-      margin-top: 15px; /* Original */
+      gap: 15px; 
+      margin-top: 15px; 
       width: 100%;
-      max-width: 600px; /* Original */
+      max-width: 600px; 
     }
 
     .contact-form input,
     .contact-form textarea {
       width: 100%;
-      padding: 12px; /* Original */
-      font-size: clamp(14px, 4vw, 16px); /* Original */
+      padding: 12px; 
+      font-size: clamp(14px, 4vw, 16px); 
       border: 1px solid var(--input-border);
-      border-radius: 10px; /* More rounded for 3D */
+      border-radius: 10px; /* 3D Style: Rounded corners */
       background: var(--input-bg);
       color: var(--text-color);
       transition: border-color 0.3s, box-shadow 0.3s;
       -webkit-appearance: none;
       user-select: text;
-      /* Applying 3D shadow based on theme */
+      /* 3D Style: Shadows for form elements */
       box-shadow: var(--input-element-shadow-dark);
     }
     :root[data-theme="light"] .contact-form input,
@@ -679,7 +672,6 @@
     .contact-form textarea:focus {
       outline: none;
       border-color: var(--primary);
-      /* Applying 3D shadow on focus based on theme, with focus ring */
       box-shadow: var(--input-element-shadow-dark), 0 0 0 2px color-mix(in srgb, var(--primary) 50%, transparent);
     }
     :root[data-theme="light"] .contact-form input:focus,
@@ -689,17 +681,17 @@
 
     .contact-form textarea {
       resize: vertical;
-      min-height: 100px; /* Original */
+      min-height: 100px; 
     }
 
-    .contact-form button { /* Inherits general button 3D styling */
-      background: linear-gradient(145deg, var(--primary), var(--primary-hover)); /* Gradient for 3D feel */
+    .contact-form button { 
+      background: linear-gradient(145deg, var(--primary), var(--primary-hover)); 
     }
 
     .contact-form button:hover,
-    .contact-form button:focus { /* Inherits general button 3D styling */
+    .contact-form button:focus { 
       background: linear-gradient(145deg, var(--primary-hover), var(--primary));
-      transform: translateY(-2px);
+      transform: translateY(-2px); /* 3D Style: Lift effect */
       box-shadow: var(--button-element-shadow-hover-dark);
     }
      :root[data-theme="light"] .contact-form button:hover,
@@ -708,15 +700,15 @@
     }
 
 
-    .back-btn { /* Inherits general button 3D styling */
-      background: linear-gradient(145deg, var(--support-color), var(--support-hover)); /* Gradient for 3D feel */
-      margin-top: 15px; /* Original */
+    .back-btn { 
+      background: linear-gradient(145deg, var(--support-color), var(--support-hover)); 
+      margin-top: 15px; 
     }
 
     .back-btn:hover,
-    .back-btn:focus { /* Inherits general button 3D styling */
+    .back-btn:focus { 
       background: linear-gradient(145deg, var(--support-hover), var(--support-color));
-      transform: translateY(-2px);
+      transform: translateY(-2px); /* 3D Style: Lift effect */
       box-shadow: var(--button-element-shadow-hover-dark);
     }
     :root[data-theme="light"] .back-btn:hover,
@@ -729,79 +721,77 @@
       to { transform: rotate(360deg); }
     }
 
-    /* Added styling for the ad banner - Original */
     #ad-banner {
       width: 100%;
-      max-width: 600px; /* Original */
-      margin: 20px auto; /* Original */
+      max-width: 600px; 
+      margin: 20px auto; 
       text-align: center;
-      padding: 10px; /* Original */
+      padding: 10px; 
       background: var(--card-bg);
       border: 1px solid var(--input-border);
-      border-radius: 10px; /* Slightly more rounded for 3D */
+      border-radius: 10px; /* 3D Style: Rounded corners */
       transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
-      /* Applying 3D shadow based on theme */
+      /* 3D Style: Shadow for ad banner */
       box-shadow: var(--card-element-shadow-dark);
     }
     :root[data-theme="light"] #ad-banner {
         box-shadow: var(--card-element-shadow-light);
     }
 
-
-    @media (max-width: 600px) { /* Original breakpoint and styles, with minor 3D considerations */
+    /* Media Queries for Responsiveness - 3D styles are generally maintained, adjusted for smaller screens where needed */
+    @media (max-width: 600px) { 
       .container { 
-          padding: 15px;  /* Original */
-          border-radius: 8px; /* Keep some rounding on mobile */
-          /* Shadow might be too much on small screens, can be conditional */
-           box-shadow: var(--main-container-shadow-dark);
+          padding: 15px;  
+          border-radius: 8px; 
+           box-shadow: var(--main-container-shadow-dark); /* Maintain shadow, could be reduced if too heavy */
       }
       :root[data-theme="light"] .container {
            box-shadow: var(--main-container-shadow-light);
       }
 
-      input, button, textarea { padding: 10px 12px; } /* Original */
-      .profile-photo-enhanced, .profile-photo-placeholder { width: 60px; height: 60px; margin-right: 15px; } /* Original */
-      .profile-photo-placeholder svg { width: 30px; height: 30px; } /* Original */
-      .profile-card-header, .profile-card-body, .profile-card-footer { padding: 15px; } /* Original */
-      .theme-toggle { top: 10px; right: 10px; width: 36px; height: 36px; } /* Original */
-      .footer-nav { gap: 10px; } /* Original */
+      input, button, textarea { padding: 10px 12px; } 
+      .profile-photo-enhanced, .profile-photo-placeholder { width: 60px; height: 60px; margin-right: 15px; } 
+      .profile-photo-placeholder svg { width: 30px; height: 30px; } 
+      .profile-card-header, .profile-card-body, .profile-card-footer { padding: 15px; } 
+      .theme-toggle { top: 10px; right: 10px; width: 36px; height: 36px; } 
+      .footer-nav { gap: 10px; } 
       .about-section, .page-content, .page-content > .about-section, .footer, #result, .profile-card { 
-          max-width: 100%; /* Original */
-          border-radius: 8px; /* Consistent rounding on mobile */
+          max-width: 100%; 
+          border-radius: 8px; 
       }
-      #ad-banner { padding: 8px; max-width: 100%; border-radius: 8px;} /* Original */
+      #ad-banner { padding: 8px; max-width: 100%; border-radius: 8px;} 
     }
 
-    @media (max-width: 400px) { /* Original breakpoint and styles */
-      .container { padding: 10px; } /* Original */
-      .patriotic-text { font-size: 16px; } /* Original */
-      h1 { font-size: 18px; } /* Original */
+    @media (max-width: 400px) { 
+      .container { padding: 10px; } 
+      .patriotic-text { font-size: 16px; } 
+      h1 { font-size: 18px; } 
       .page-content h1 { font-size: 17px; }
-      input, button, textarea { padding: 8px 10px; } /* Original */
-      .about-section, .page-content > .about-section, .footer { padding: 12px; } /* Original */
-      .profile-card-header, .profile-card-body, .profile-card-footer { padding: 12px; } /* Original */
-      .profile-photo-enhanced, .profile-photo-placeholder { width: 50px; height: 50px; } /* Original */
-      .profile-photo-placeholder svg { width: 24px; height: 24px; } /* Original */
-      .info-label { margin-right: 10px; } /* Original */
-      .theme-toggle { top: 8px; right: 8px; width: 32px; height: 32px; } /* Original */
-      .theme-toggle svg { width: 16px; height: 16px; } /* Original */
-      .footer-nav { flex-direction: column; gap: 8px; } /* Original */
+      input, button, textarea { padding: 8px 10px; } 
+      .about-section, .page-content > .about-section, .footer { padding: 12px; } 
+      .profile-card-header, .profile-card-body, .profile-card-footer { padding: 12px; } 
+      .profile-photo-enhanced, .profile-photo-placeholder { width: 50px; height: 50px; } 
+      .profile-photo-placeholder svg { width: 24px; height: 24px; } 
+      .info-label { margin-right: 10px; } 
+      .theme-toggle { top: 8px; right: 8px; width: 32px; height: 32px; } 
+      .theme-toggle svg { width: 16px; height: 16px; } 
+      .footer-nav { flex-direction: column; gap: 8px; } 
     }
 
-    @media (min-width: 1024px) { /* Original breakpoint and styles */
-      .container { padding: 25px; } /* Original */
-      input, button, .about-section, .page-content, .page-content > .about-section, .footer, #result, .profile-card { max-width: 700px; } /* Original */
-      #ad-banner { max-width: 700px; } /* Original */
+    @media (min-width: 1024px) { 
+      .container { padding: 25px; } 
+      input, button, .about-section, .page-content, .page-content > .about-section, .footer, #result, .profile-card { max-width: 700px; } 
+      #ad-banner { max-width: 700px; } 
     }
 
-    @media (max-width: 320px) { /* Original breakpoint and styles */
-      .container { padding: 8px; } /* Original */
-      input, button, textarea { font-size: 13px; padding: 7px 9px; } /* Original */
-      .about-section, .page-content > .about-section, .footer { padding: 10px; } /* Original */
+    @media (max-width: 320px) { 
+      .container { padding: 8px; } 
+      input, button, textarea { font-size: 13px; padding: 7px 9px; } 
+      .about-section, .page-content > .about-section, .footer { padding: 10px; } 
     }
 
     @media screen and (max-width: 767px) {
-      input, select, textarea { font-size: 16px; } /* Original to prevent iOS zoom on focus */
+      input, select, textarea { font-size: 16px; } 
     }
   </style>
 </head>
@@ -942,17 +932,11 @@
     // Base title for the website
     const baseTitle = "TikTok Account Location Finder | Full Profile Details";
 
-    // ===== DOMAIN RESTRICTION (Original - commented out as per previous versions) ===== //
-    // if (window.location.hostname !== 'tikip.us') {
-    //   alert('This application is only authorized to run on tikip.us.');
-    //   document.body.innerHTML = '<h1>Unauthorized Domain</h1><p>This application is only authorized to run on tikip.us.</p>';
-    //   throw new Error('Unauthorized domain');
-    // }
-
-    // ===== THEME TOGGLE FUNCTIONALITY (Original) ===== //
+    // ===== THEME TOGGLE FUNCTIONALITY ===== //
     const themeToggle = document.getElementById('themeToggle');
     const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 
+    // Load saved theme or use preference
     const currentTheme = localStorage.getItem('theme') || (prefersDarkScheme.matches ? 'dark' : 'light');
     document.documentElement.setAttribute('data-theme', currentTheme);
     updateThemeIcon(currentTheme);
@@ -961,20 +945,20 @@
       let theme = document.documentElement.getAttribute('data-theme');
       theme = theme === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', theme);
-      localStorage.setItem('theme', theme);
+      localStorage.setItem('theme', theme); // Save theme choice
       updateThemeIcon(theme);
     });
 
     function updateThemeIcon(theme) {
       const icon = themeToggle.querySelector('svg');
       if (theme === 'dark') {
-        icon.innerHTML = '<path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1-8.313-12.454z"/>';
+        icon.innerHTML = '<path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1-8.313-12.454z"/>'; // Moon icon
       } else {
-        icon.innerHTML = '<path d="M12 18a6 6 0 1 1 0-12 6 6 0 1 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 1 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/>';
+        icon.innerHTML = '<path d="M12 18a6 6 0 1 1 0-12 6 6 0 1 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 1 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/>'; // Sun icon
       }
     }
 
-    // ===== PAGE NAVIGATION (Original + Title Update) ===== //
+    // ===== PAGE NAVIGATION + DYNAMIC TITLE UPDATE ===== //
     function showPage(pageId) {
       document.querySelectorAll('.page-content').forEach(page => {
         page.classList.remove('active');
@@ -982,27 +966,28 @@
       const targetPage = document.getElementById(pageId);
       if (targetPage) {
         targetPage.classList.add('active');
-        // SEO: Update page title dynamically
-        const pageTitleElement = targetPage.querySelector('h1'); // Assumes each page-content has an H1 for its title
+        // Update page title for SEO and user experience
+        const pageTitleElement = targetPage.querySelector('h1'); 
         if (pageTitleElement && pageId !== 'main-page') {
             document.title = pageTitleElement.textContent + " | TikTok Account Location Finder";
         } else {
-            document.title = baseTitle; // Reset to base title for main page
+            document.title = baseTitle; // Reset to base title for the main page
         }
       } else {
+        // Fallback if pageId is invalid
         console.warn(`Page with ID "${pageId}" not found. Defaulting to main page.`);
         const mainPage = document.getElementById('main-page');
         if(mainPage) mainPage.classList.add('active');
         document.title = baseTitle;
       }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top on page change
     }
 
-    // ===== CONTACT FORM SUBMISSION (Original) ===== //
+    // ===== CONTACT FORM SUBMISSION ===== //
     const contactSubmitButton = document.getElementById('contact-submit');
     if (contactSubmitButton) {
         contactSubmitButton.addEventListener('click', function(e) {
-          e.preventDefault();
+          e.preventDefault(); // Prevent default form submission
           const nameInput = document.getElementById('contact-name');
           const emailInput = document.getElementById('contact-email');
           const messageInput = document.getElementById('contact-message');
@@ -1011,46 +996,60 @@
           const email = emailInput ? emailInput.value.trim() : '';
           const message = messageInput ? messageInput.value.trim() : '';
           
+          const resultDiv = document.getElementById('result'); // Use the main result div for feedback
+
           if (name && email && message) {
-            const resultDiv = document.getElementById('result');
+            // Simulate form submission success
             if (resultDiv) {
                 resultDiv.innerHTML = '<div class="message success-message">Thank you for your message! We will get back to you soon.</div>';
                 resultDiv.style.display = 'block';
-                setTimeout(() => { resultDiv.style.display = 'none'; resultDiv.innerHTML = ''; }, 4000);
+                // Clear message after a few seconds and reset form
+                setTimeout(() => { 
+                    if (resultDiv.contains(resultDiv.firstChild) && resultDiv.firstChild.classList.contains('success-message')) {
+                        resultDiv.style.display = 'none'; 
+                        resultDiv.innerHTML = ''; 
+                    }
+                }, 4000);
             } else {
-                console.log('Thank you for your message! We will get back to you soon.');
+                console.log('Thank you for your message! We will get back to you soon.'); // Fallback
             }
             
+            // Clear form fields
             if(nameInput) nameInput.value = '';
             if(emailInput) emailInput.value = '';
             if(messageInput) messageInput.value = '';
           } else {
-            const resultDiv = document.getElementById('result');
+            // Handle form validation failure
             if (resultDiv) {
                 resultDiv.innerHTML = '<div class="message error-message">Please fill in all fields in the contact form.</div>';
                 resultDiv.style.display = 'block';
-                setTimeout(() => { resultDiv.style.display = 'none'; resultDiv.innerHTML = ''; }, 4000);
+                setTimeout(() => {
+                     if (resultDiv.contains(resultDiv.firstChild) && resultDiv.firstChild.classList.contains('error-message')) {
+                        resultDiv.style.display = 'none'; 
+                        resultDiv.innerHTML = '';
+                     }
+                }, 4000);
             } else {
-                 console.error('Please fill in all fields.');
+                 console.error('Please fill in all fields in the contact form.'); // Fallback
             }
           }
         });
     }
 
 
-    // Country flag mapping (Original)
+    // ===== COUNTRY FLAG MAPPING ===== //
     function getCountryFlag(country) {
       const flagMap = {
         'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
-        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '�🇱',
+        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
         'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
         'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
         'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
         'AZ': '🇦🇿', 'Azerbaijan': '🇦🇿', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧🇧',
-        'BD': '🇧🇩', 'Bangladesh': '🇧🇩', 'BE': '🇧🇪', 'Belgium': '🇧🇪', 'BF': '🇧🇫', 'Burkina Faso': '🇧🇫',
+        'BD': '🇧🇩', 'Bangladesh': '🇧🇩', 'BE': '🇧🇪', 'Belgium': '🇧🇪', 'BF': '🇧🇫', 'Burkina Faso': '🇧�',
         'BG': '🇧🇬', 'Bulgaria': '🇧🇬', 'BH': '🇧🇭', 'Bahrain': '🇧🇭', 'BI': '🇧🇮', 'Burundi': '🇧🇮',
         'BJ': '🇧🇯', 'Benin': '🇧🇯', 'BL': '🇧🇱', 'Saint Barthélemy': '🇧🇱', 'BM': '🇧🇲', 'Bermuda': '🇧🇲',
-        'BN': '🇧🇳', 'Brunei Darussalam': '🇧🇳', 'BO': '🇧🇴', 'Bolivia': '🇧🇴', 'BQ': '🇬🇶', 'Bonaire': '🇬🇶', // Corrected BQ to an actual flag, though Bonaire uses Netherlands Antilles or Dutch flag. Using Equatorial Guinea as a placeholder as per original.
+        'BN': '🇧🇳', 'Brunei Darussalam': '🇧🇳', 'BO': '🇧🇴', 'Bolivia': '🇧🇴', 'BQ': '🇧🇶', 'Bonaire, Sint Eustatius and Saba': '🇧🇶', 
         'BR': '🇧🇷', 'Brazil': '🇧🇷', 'BS': '🇧🇸', 'Bahamas': '🇧🇸', 'BT': '🇧🇹', 'Bhutan': '🇧🇹',
         'BV': '🇧🇻', 'Bouvet Island': '🇧🇻', 'BW': '🇧🇼', 'Botswana': '🇧🇼', 'BY': '🇧🇾', 'Belarus': '🇧🇾',
         'BZ': '🇧🇿', 'Belize': '🇧🇿', 'CA': '🇨🇦', 'Canada': '🇨🇦', 'CC': '🇨🇨', 'Cocos (Keeling) Islands': '🇨🇨',
@@ -1081,8 +1080,8 @@
         'JM': '🇯🇲', 'Jamaica': '🇯🇲', 
         'JO': '🇯🇴', 'Jordan': '🇯🇴', 'JP': '🇯🇵', 'Japan': '🇯🇵', 'KE': '🇰🇪', 'Kenya': '🇰🇪',
         'KG': '🇰🇬', 'Kyrgyzstan': '🇰🇬', 'KH': '🇰🇭', 'Cambodia': '🇰🇭', 'KI': '🇰🇮', 'Kiribati': '🇰🇮',
-        'KM': '🇰🇲', 'Comoros': '🇰🇲', 'KN': '🇰🇳', 'Saint Kitts and Nevis': '🇰🇳', 'KP': '🇰🇵', "Korea, Democratic People's Republic of": '🇰🇵', // North Korea
-        'KR': '🇰🇷', 'Korea, Republic of': '🇰🇷', // South Korea
+        'KM': '🇰🇲', 'Comoros': '🇰🇲', 'KN': '🇰🇳', 'Saint Kitts and Nevis': '🇰🇳', 'KP': '🇰🇵', "Korea, Democratic People's Republic of": '🇰🇵',
+        'KR': '🇰🇷', 'Korea, Republic of': '🇰🇷', 
         'KW': '🇰🇼', 'Kuwait': '🇰🇼', 'KY': '🇰🇾', 'Cayman Islands': '🇰🇾',
         'KZ': '🇰🇿', 'Kazakhstan': '🇰🇿', 'LA': '🇱🇦', "Lao People's Democratic Republic": '🇱🇦', 'LB': '🇱🇧', 'Lebanon': '🇱🇧',
         'LC': '🇱🇨', 'Saint Lucia': '🇱🇨', 'LI': '🇱🇮', 'Liechtenstein': '🇱🇮', 'LK': '🇱🇰', 'Sri Lanka': '🇱🇰',
@@ -1128,27 +1127,23 @@
         'ZA': '🇿🇦', 'South Africa': '🇿🇦', 'ZM': '🇿🇲', 'Zambia': '🇿🇲', 'ZW': '🇿🇼', 'Zimbabwe': '🇿🇼'
       };
       
-      if (!country) return '🌐'; // Default globe if no country
+      if (!country) return '🌐'; 
       const normalizedCountry = String(country).trim(); 
       
-      // Try direct match first (case-insensitive for keys)
       for (const key in flagMap) {
         if (key.toLowerCase() === normalizedCountry.toLowerCase()) {
           return flagMap[key];
         }
       }
-      
-      // Try partial match for longer country names (e.g., "United States" should match "United States of America")
-      // This is a bit heuristic and might need refinement for edge cases
       for (const key in flagMap) {
         if (key.length > 3 && normalizedCountry.toLowerCase().includes(key.toLowerCase())) { 
           return flagMap[key];
         }
       }
-      
-      return '🌐'; // Default globe if no match found
+      return '🌐'; 
     }
 
+    // ===== TIKTOK USER LOOKUP FUNCTIONALITY ===== //
     const getResultsBtn = document.getElementById('getResultsBtn');
     const supportBtn = document.getElementById('supportBtn');
 
@@ -1157,10 +1152,9 @@
     }
     if (supportBtn) {
         supportBtn.addEventListener('click', function() {
-          window.open('https://ko-fi.com/moroccan', '_blank');
+          window.open('https://ko-fi.com/moroccan', '_blank'); // Opens support page
         });
     }
-
 
     function lookupUser() {
       const usernameInput = document.getElementById('username');
@@ -1177,13 +1171,13 @@
         return;
       }
 
+      // Disable button and show loading spinner
       if(currentGetResultsBtn) currentGetResultsBtn.disabled = true;
       if(resultDiv) {
           resultDiv.innerHTML = '<div class="loading-spinner-container"><div class="loading-spinner"></div> Loading profile data...</div>';
           resultDiv.style.display = 'block';
       }
       
-      // Using a CORS proxy for the API request
       const apiUrl = `https://corsproxy.io/?https://jaefu3p97g.execute-api.us-east-1.amazonaws.com/default/smttab?username=${encodeURIComponent(username)}`;
       console.log("Attempting to fetch data from:", apiUrl);
 
@@ -1191,16 +1185,15 @@
         .then(response => {
           console.log("Received response status:", response.status);
           if (!response.ok) {
-            return response.text().then(text => {
+            return response.text().then(text => { // Get raw text for better error diagnosis
                 let errorMsg = `API request failed with status ${response.status}`;
                 if (response.status === 429) errorMsg = 'Rate limit exceeded. Please try again later.';
                 else if (response.status === 404) errorMsg = 'User not found or API endpoint issue.';
                 else {
-                    try {
+                    try { // Try to parse JSON error if available
                         const errData = JSON.parse(text);
                         errorMsg = errData.message || errData.error || text || errorMsg;
-                    } catch (e) {
-                        // If parsing fails, use the raw text
+                    } catch (e) { // Fallback to raw text if not JSON
                         errorMsg = text || errorMsg;
                     }
                 }
@@ -1213,70 +1206,68 @@
         .then(data => {
           console.log("Full API Response Data:", JSON.stringify(data, null, 2)); 
           
-          const apiProfile = data.profile; // Assuming the profile data is nested under a 'profile' key
+          const apiProfile = data.profile; 
 
-          if (apiProfile && typeof apiProfile === 'object') { // Check if profile data exists and is an object
+          if (apiProfile && typeof apiProfile === 'object') { 
             const sanitize = (str) => {
-                if (typeof str !== 'string') return str; // Return non-strings as is
+                if (typeof str !== 'string') return str; 
                 const temp = document.createElement('div');
                 temp.textContent = str;
-                return temp.innerHTML; // Basic XSS sanitization
+                return temp.innerHTML; 
             };
 
-            // Attempt to find profile photo URL from various possible keys
             let foundProfilePhotoUrl = '';
-            const avatarKeys = ['Profile Photo', 'Avatar URL', 'avatar_url', 'avatarUrl', 'picture', 'profileImageUrl', 'profile_pic_url', 'profile_image_url', 'avatar'];
+            const avatarKeys = ['Profile Photo', 'Avatar URL', 'avatar_url', 'avatarUrl', 'picture', 'profileImageUrl', 'profile_pic_url', 'profile_image_url', 'avatar', 'Avatar'];
             for (const key of avatarKeys) {
                 if (apiProfile[key] && typeof apiProfile[key] === 'string' && apiProfile[key].trim() !== '') {
                     foundProfilePhotoUrl = apiProfile[key];
                     console.log(`Found avatar URL using key: ${key}`);
-                    break; // Use the first valid URL found
+                    break; 
                 }
             }
             const profilePhoto = foundProfilePhotoUrl ? sanitize(foundProfilePhotoUrl) : '';
 
-            // Sanitize username and nickname
-            let rawUsernameFromAPI = apiProfile.Username || username; // Fallback to input username if API doesn't provide one
+            let rawUsernameFromAPI = apiProfile.Username || apiProfile.username || username; 
             if (typeof rawUsernameFromAPI === 'string' && rawUsernameFromAPI.startsWith('@')) {
-                rawUsernameFromAPI = rawUsernameFromAPI.substring(1); // Remove leading '@'
+                rawUsernameFromAPI = rawUsernameFromAPI.substring(1);
             }
             const displayUsername = sanitize(rawUsernameFromAPI);
-            const displayNickname = apiProfile.Nickname ? sanitize(apiProfile.Nickname) : displayUsername; // Fallback to username if nickname is missing
+            const displayNickname = apiProfile.Nickname || apiProfile.nickname || apiProfile.name || displayUsername;
 
 
             let profileDetailsHtml = '';
             for (const key in apiProfile) {
                 if (Object.hasOwnProperty.call(apiProfile, key)) {
-                    // Skip keys already handled (Nickname, Username, avatar keys) or if value is null/undefined
-                    if (key === 'Nickname' || key === 'Username' || avatarKeys.includes(key) || apiProfile[key] == null) {
+                    if (['Nickname', 'nickname', 'Username', 'username', 'name', ...avatarKeys].includes(key) || apiProfile[key] == null) {
                         continue;
                     }
 
                     let value = apiProfile[key];
-                    let displayKey = key.replace(/([A-Z])/g, ' $1').trim(); // Format key for display (e.g., "FollowerCount" -> "Follower Count")
+                    // Create a more readable display key, e.g., "FollowerCount" -> "Follower Count"
+                    let displayKey = key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()).trim();
 
-                    if (key === 'Bio' || key === 'bio' || key === 'description' || key === 'Signature') { // Handle bio/description
-                        value = sanitize(String(value)).replace(/\n/g, '<br>'); // Sanitize and preserve line breaks
+                    if (['Bio', 'bio', 'description', 'Signature'].includes(key)) {
+                        value = sanitize(String(value)).replace(/\n/g, '<br>');
                          profileDetailsHtml += `
                         <div class="profile-info-row bio-row">
                           <span class="info-label">${sanitize(displayKey)}:</span>
                           <p class="info-value bio-text">${value}</p>
                         </div>`;
-                    } else if (key === 'Country' || key === 'country' || key === 'region' || key === 'Location') { // Handle country/location
+                    } else if (['Country', 'country', 'region', 'Location'].includes(key)) {
                         value = sanitize(String(value));
                         profileDetailsHtml += `
                         <div class="profile-info-row">
-                          <span class="info-label">${sanitize(displayKey)} / Region:</span>
+                          <span class="info-label">${sanitize(displayKey)}:</span>
                           <span class="info-value">${getCountryFlag(value)} ${value}</span>
                         </div>`;
-                    } else if (typeof value === 'number' && (key.toLowerCase().includes('follower') || key.toLowerCase().includes('following') || key.toLowerCase().includes('like') || key.toLowerCase().includes('video') || key.toLowerCase().includes('count'))) { // Handle numeric stats
-                        value = Number(value).toLocaleString(); // Format numbers with commas
+                    } else if (typeof value === 'number' && (key.toLowerCase().includes('follower') || key.toLowerCase().includes('following') || key.toLowerCase().includes('like') || key.toLowerCase().includes('video') || key.toLowerCase().includes('count'))) {
+                        value = Number(value).toLocaleString();
                          profileDetailsHtml += `
                         <div class="profile-info-row">
                           <span class="info-label">${sanitize(displayKey)}:</span>
                           <span class="info-value">${value}</span>
                         </div>`;
-                    } else if (typeof value === 'boolean') { // Handle boolean values
+                    } else if (typeof value === 'boolean') {
                         value = value ? 'Yes' : 'No';
                          profileDetailsHtml += `
                         <div class="profile-info-row">
@@ -1284,8 +1275,7 @@
                           <span class="info-value">${value}</span>
                         </div>`;
                     }
-                    // Add other specific handlers here if needed (e.g., for dates, URLs)
-                    else { // Default handler for other string/number values
+                    else {
                          profileDetailsHtml += `
                         <div class="profile-info-row">
                           <span class="info-label">${sanitize(displayKey)}:</span>
@@ -1295,15 +1285,13 @@
                 }
             }
 
-
-            // Construct the profile card HTML
             let formattedData = `
-              <article class="profile-card" aria-labelledby="profile-card-heading-${displayUsername}"> <h2 id="profile-card-heading-${displayUsername}" class="sr-only">Profile details for ${displayUsername}</h2> <div class="profile-card-header">
-                  ${profilePhoto ? `<img src="${profilePhoto}" alt="Profile photo of ${displayNickname}" class="profile-photo-enhanced" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ''} <div class="profile-photo-placeholder" style="${profilePhoto ? 'display:none;' : 'display:flex;'}">
+              <article class="profile-card" aria-labelledby="profile-card-heading-${displayUsername}"> <h2 id="profile-card-heading-${displayUsername}" class="sr-only">Profile details for ${sanitize(displayNickname)}</h2> <div class="profile-card-header">
+                  ${profilePhoto ? `<img src="${profilePhoto}" alt="Profile photo of ${sanitize(displayNickname)}" class="profile-photo-enhanced" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ''} <div class="profile-photo-placeholder" style="${profilePhoto ? 'display:none;' : 'display:flex;'}">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                   </div>
                   <div class="profile-identity">
-                    <h3 class="profile-nickname">${displayNickname}</h3>
+                    <h3 class="profile-nickname">${sanitize(displayNickname)}</h3>
                     <p class="profile-username-display">@${displayUsername}</p> 
                   </div>
                 </div>
@@ -1326,23 +1314,22 @@
           if(resultDiv) resultDiv.innerHTML = `<div class="message error-message">Error: ${error.message || 'Failed to fetch profile data'}. Please check the username and try again. The API service might be temporarily unavailable.</div>`;
         })
         .finally(() => {
-          if(currentGetResultsBtn) currentGetResultsBtn.disabled = false;
+          if(currentGetResultsBtn) currentGetResultsBtn.disabled = false; // Re-enable button
         });
     }
 
-    // Add event listener for Enter key on username input
+    // Event listener for Enter key on username input
     const usernameInputGlobal = document.getElementById('username'); 
     if (usernameInputGlobal) {
       usernameInputGlobal.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
-          e.preventDefault(); // Prevent form submission if it's part of a form
+          e.preventDefault(); 
           lookupUser();
         }
       });
     }
 
-    // SEO: Add a class for visually hidden elements (sr-only: screen-reader only)
-    // This is good for accessibility, making headings available to screen readers but not visually displayed.
+    // Style for sr-only class (accessibility)
     const srOnlyStyle = document.createElement('style');
     srOnlyStyle.textContent = `
       .sr-only {
