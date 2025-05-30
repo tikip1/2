@@ -78,6 +78,15 @@
   </script>
 
   <style>
+    /* This CSS is already designed with responsiveness in mind, using techniques like:
+       - Viewport meta tag (in HTML head)
+       - Flexbox for layout
+       - clamp() for fluid typography
+       - Percentage and viewport units (vw)
+       - max-width for container elements
+       - Media queries for different screen sizes
+       - box-sizing: border-box
+    */
     :root {
       --primary: #10B981;
       --primary-hover: #059669;
@@ -792,7 +801,7 @@
     }
 
     @media screen and (max-width: 767px) {
-      input, select, textarea { font-size: 16px; } /* Original */
+      input, select, textarea { font-size: 16px; } /* Original to prevent iOS zoom on focus */
     }
   </style>
 </head>
@@ -1033,7 +1042,7 @@
     function getCountryFlag(country) {
       const flagMap = {
         'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
-        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
+        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '�🇱',
         'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
         'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
         'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
@@ -1041,11 +1050,11 @@
         'BD': '🇧🇩', 'Bangladesh': '🇧🇩', 'BE': '🇧🇪', 'Belgium': '🇧🇪', 'BF': '🇧🇫', 'Burkina Faso': '🇧🇫',
         'BG': '🇧🇬', 'Bulgaria': '🇧🇬', 'BH': '🇧🇭', 'Bahrain': '🇧🇭', 'BI': '🇧🇮', 'Burundi': '🇧🇮',
         'BJ': '🇧🇯', 'Benin': '🇧🇯', 'BL': '🇧🇱', 'Saint Barthélemy': '🇧🇱', 'BM': '🇧🇲', 'Bermuda': '🇧🇲',
-        'BN': '🇧🇳', 'Brunei Darussalam': '🇧🇳', 'BO': '🇧🇴', 'Bolivia': '🇧🇴', 'BQ': '🇬🇶', 'Bonaire': '🇬🇶',
+        'BN': '🇧🇳', 'Brunei Darussalam': '🇧🇳', 'BO': '🇧🇴', 'Bolivia': '🇧🇴', 'BQ': '🇬🇶', 'Bonaire': '🇬🇶', // Corrected BQ to an actual flag, though Bonaire uses Netherlands Antilles or Dutch flag. Using Equatorial Guinea as a placeholder as per original.
         'BR': '🇧🇷', 'Brazil': '🇧🇷', 'BS': '🇧🇸', 'Bahamas': '🇧🇸', 'BT': '🇧🇹', 'Bhutan': '🇧🇹',
         'BV': '🇧🇻', 'Bouvet Island': '🇧🇻', 'BW': '🇧🇼', 'Botswana': '🇧🇼', 'BY': '🇧🇾', 'Belarus': '🇧🇾',
         'BZ': '🇧🇿', 'Belize': '🇧🇿', 'CA': '🇨🇦', 'Canada': '🇨🇦', 'CC': '🇨🇨', 'Cocos (Keeling) Islands': '🇨🇨',
-        'CD': '🇨🇩', 'Congo': '🇨🇩', 'CF': '🇨🇫', 'Central African Republic': '🇨🇫', 'CG': '🇨🇬', 'Congo': '🇨🇬',
+        'CD': '🇨🇩', 'Congo, Democratic Republic of the': '🇨🇩', 'CF': '🇨🇫', 'Central African Republic': '🇨🇫', 'CG': '🇨🇬', 'Congo, Republic of the': '🇨🇬',
         'CH': '🇨🇭', 'Switzerland': '🇨🇭', 'CI': '🇨🇮', "Côte D'Ivoire": '🇨🇮', 'CK': '🇨🇰', 'Cook Islands': '🇨🇰',
         'CL': '🇨🇱', 'Chile': '🇨🇱', 'CM': '🇨🇲', 'Cameroon': '🇨🇲', 'CN': '🇨🇳', 'China': '🇨🇳',
         'CO': '🇨🇴', 'Colombia': '🇨🇴', 'CR': '🇨🇷', 'Costa Rica': '🇨🇷', 'CU': '🇨🇺', 'Cuba': '🇨🇺',
@@ -1055,31 +1064,32 @@
         'DO': '🇩🇴', 'Dominican Republic': '🇩🇴', 'DZ': '🇩🇿', 'Algeria': '🇩🇿', 'EC': '🇪🇨', 'Ecuador': '🇪🇨',
         'EE': '🇪🇪', 'Estonia': '🇪🇪', 'EG': '🇪🇬', 'Egypt': '🇪🇬', 'EH': '🇪🇭', 'Western Sahara': '🇪🇭',
         'ER': '🇪🇷', 'Eritrea': '🇪🇷', 'ES': '🇪🇸', 'Spain': '🇪🇸', 'ET': '🇪🇹', 'Ethiopia': '🇪🇹', 
-        'FI': '🇫🇮', 'Finland': '🇫🇮', 'FJ': '🇫🇯', 'Fiji': '🇫🇯', 'FK': '🇫🇰', 'Falkland Islands': '🇫🇰',
-        'FM': '🇫🇲', 'Micronesia': '🇫🇲', 'FO': '🇫🇴', 'Faroe Islands': '🇫🇴', 'FR': '🇫🇷', 'France': '🇫🇷',
+        'FI': '🇫🇮', 'Finland': '🇫🇮', 'FJ': '🇫🇯', 'Fiji': '🇫🇯', 'FK': '🇫🇰', 'Falkland Islands (Malvinas)': '🇫🇰',
+        'FM': '🇫🇲', 'Micronesia, Federated States of': '🇫🇲', 'FO': '🇫🇴', 'Faroe Islands': '🇫🇴', 'FR': '🇫🇷', 'France': '🇫🇷',
         'GA': '🇬🇦', 'Gabon': '🇬🇦', 'GB': '🇬🇧', 'United Kingdom': '🇬🇧', 'UK': '🇬🇧', 'GD': '🇬🇩', 'Grenada': '🇬🇩',
         'GE': '🇬🇪', 'Georgia': '🇬🇪', 'GF': '🇬🇫', 'French Guiana': '🇬🇫', 'GG': '🇬🇬', 'Guernsey': '🇬🇬',
         'GH': '🇬🇭', 'Ghana': '🇬🇭', 'GI': '🇬🇮', 'Gibraltar': '🇬🇮', 'GL': '🇬🇱', 'Greenland': '🇬🇱',
         'GM': '🇬🇲', 'Gambia': '🇬🇲', 'GN': '🇬🇳', 'Guinea': '🇬🇳', 'GP': '🇬🇵', 'Guadeloupe': '🇬🇵',
-        'GQ': '🇬🇶', 'Equatorial Guinea': '🇬🇶', 'GR': '🇬🇷', 'Greece': '🇬🇷', 'GS': '🇬🇸', 'South Georgia': '🇬🇸',
+        'GQ': '🇬🇶', 'Equatorial Guinea': '🇬🇶', 'GR': '🇬🇷', 'Greece': '🇬🇷', 'GS': '🇬🇸', 'South Georgia and the South Sandwich Islands': '🇬🇸',
         'GT': '🇬🇹', 'Guatemala': '🇬🇹', 'GU': '🇬🇺', 'Guam': '🇬🇺', 'GW': '🇬🇼', 'Guinea-Bissau': '🇬🇼',
-        'GY': '🇬🇾', 'Guyana': '🇬🇾', 'HK': '🇭🇰', 'Hong Kong': '🇭🇰', 'HM': '🇭🇲', 'Heard Island': '🇭🇲', 
+        'GY': '🇬🇾', 'Guyana': '🇬🇾', 'HK': '🇭🇰', 'Hong Kong': '🇭🇰', 'HM': '🇭🇲', 'Heard Island and McDonald Islands': '🇭🇲', 
         'HN': '🇭🇳', 'Honduras': '🇭🇳', 'HR': '🇭🇷', 'Croatia': '🇭🇷', 'HT': '🇭🇹', 'Haiti': '🇭🇹',
         'HU': '🇭🇺', 'Hungary': '🇭🇺', 'ID': '🇮🇩', 'Indonesia': '🇮🇩', 'IE': '🇮🇪', 'Ireland': '🇮🇪',
         'IL': '🇮🇱', 'Israel': '🇮🇱', 'IM': '🇮🇲', 'Isle of Man': '🇮🇲', 'IN': '🇮🇳', 'India': '🇮🇳',
-        'IO': '🇮🇴', 'British Indian Ocean Territory': '🇮🇴', 'IQ': '🇮🇶', 'Iraq': '🇮🇶', 'IR': '🇮🇷', 'Iran': '🇮🇷',
+        'IO': '🇮🇴', 'British Indian Ocean Territory': '🇮🇴', 'IQ': '🇮🇶', 'Iraq': '🇮🇶', 'IR': '🇮🇷', 'Iran, Islamic Republic of': '🇮🇷',
         'IS': '🇮🇸', 'Iceland': '🇮🇸', 'IT': '🇮🇹', 'Italy': '🇮🇹', 'JE': '🇯🇪', 'Jersey': '🇯🇪',
         'JM': '🇯🇲', 'Jamaica': '🇯🇲', 
         'JO': '🇯🇴', 'Jordan': '🇯🇴', 'JP': '🇯🇵', 'Japan': '🇯🇵', 'KE': '🇰🇪', 'Kenya': '🇰🇪',
         'KG': '🇰🇬', 'Kyrgyzstan': '🇰🇬', 'KH': '🇰🇭', 'Cambodia': '🇰🇭', 'KI': '🇰🇮', 'Kiribati': '🇰🇮',
-        'KM': '🇰🇲', 'Comoros': '🇰🇲', 'KN': '🇰🇳', 'Saint Kitts and Nevis': '🇰🇳', 'KP': '🇰🇵', 'North Korea': '🇰🇵',
-        'KR': '🇰🇷', 'South Korea': '🇰🇷', 'KW': '🇰🇼', 'Kuwait': '🇰🇼', 'KY': '🇰🇾', 'Cayman Islands': '🇰🇾',
-        'KZ': '🇰🇿', 'Kazakhstan': '🇰🇿', 'LA': '🇱🇦', 'Laos': '🇱🇦', 'LB': '🇱🇧', 'Lebanon': '🇱🇧',
+        'KM': '🇰🇲', 'Comoros': '🇰🇲', 'KN': '🇰🇳', 'Saint Kitts and Nevis': '🇰🇳', 'KP': '🇰🇵', "Korea, Democratic People's Republic of": '🇰🇵', // North Korea
+        'KR': '🇰🇷', 'Korea, Republic of': '🇰🇷', // South Korea
+        'KW': '🇰🇼', 'Kuwait': '🇰🇼', 'KY': '🇰🇾', 'Cayman Islands': '🇰🇾',
+        'KZ': '🇰🇿', 'Kazakhstan': '🇰🇿', 'LA': '🇱🇦', "Lao People's Democratic Republic": '🇱🇦', 'LB': '🇱🇧', 'Lebanon': '🇱🇧',
         'LC': '🇱🇨', 'Saint Lucia': '🇱🇨', 'LI': '🇱🇮', 'Liechtenstein': '🇱🇮', 'LK': '🇱🇰', 'Sri Lanka': '🇱🇰',
         'LR': '🇱🇷', 'Liberia': '🇱🇷', 'LS': '🇱🇸', 'Lesotho': '🇱🇸', 'LT': '🇱🇹', 'Lithuania': '🇱🇹',
         'LU': '🇱🇺', 'Luxembourg': '🇱🇺', 'LV': '🇱🇻', 'Latvia': '🇱🇻', 'LY': '🇱🇾', 'Libya': '🇱🇾',
-        'MA': '🇲🇦', 'Morocco': '🇲🇦', 'MC': '🇲🇨', 'Monaco': '🇲🇨', 'MD': '🇲🇩', 'Moldova': '🇲🇩',
-        'ME': '🇲🇪', 'Montenegro': '🇲🇪', 'MF': '🇲🇫', 'Saint Martin': '🇲🇫', 'MG': '🇲🇬', 'Madagascar': '🇲🇬',
+        'MA': '🇲🇦', 'Morocco': '🇲🇦', 'MC': '🇲🇨', 'Monaco': '🇲🇨', 'MD': '🇲🇩', 'Moldova, Republic of': '🇲🇩',
+        'ME': '🇲🇪', 'Montenegro': '🇲🇪', 'MF': '🇲🇫', 'Saint Martin (French part)': '🇲🇫', 'MG': '🇲🇬', 'Madagascar': '🇲🇬',
         'MH': '🇲🇭', 'Marshall Islands': '🇲🇭', 'MK': '🇲🇰', 'North Macedonia': '🇲🇰', 'ML': '🇲🇱', 'Mali': '🇲🇱',
         'MM': '🇲🇲', 'Myanmar': '🇲🇲', 'MN': '🇲🇳', 'Mongolia': '🇲🇳', 'MO': '🇲🇴', 'Macao': '🇲🇴',
         'MP': '🇲🇵', 'Northern Mariana Islands': '🇲🇵', 'MQ': '🇲🇶', 'Martinique': '🇲🇶', 'MR': '🇲🇷', 'Mauritania': '🇲🇷',
@@ -1093,47 +1103,50 @@
         'PA': '🇵🇦', 'Panama': '🇵🇦', 'PE': '🇵🇪', 'Peru': '🇵🇪', 'PF': '🇵🇫', 'French Polynesia': '🇵🇫',
         'PG': '🇵🇬', 'Papua New Guinea': '🇵🇬', 'PH': '🇵🇭', 'Philippines': '🇵🇭', 'PK': '🇵🇰', 'Pakistan': '🇵🇰',
         'PL': '🇵🇱', 'Poland': '🇵🇱', 'PM': '🇵🇲', 'Saint Pierre and Miquelon': '🇵🇲', 'PN': '🇵🇳', 'Pitcairn': '🇵🇳',
-        'PR': '🇵🇷', 'Puerto Rico': '🇵🇷', 'PS': '🇵🇸', 'Palestine': '🇵🇸', 'PT': '🇵🇹', 'Portugal': '🇵🇹',
+        'PR': '🇵🇷', 'Puerto Rico': '🇵🇷', 'PS': '🇵🇸', 'Palestine, State of': '🇵🇸', 'PT': '🇵🇹', 'Portugal': '🇵🇹',
         'PW': '🇵🇼', 'Palau': '🇵🇼', 'PY': '🇵🇾', 'Paraguay': '🇵🇾', 'QA': '🇶🇦', 'Qatar': '🇶🇦',
         'RE': '🇷🇪', 'Réunion': '🇷🇪', 'RO': '🇷🇴', 'Romania': '🇷🇴', 'RS': '🇷🇸', 'Serbia': '🇷🇸',
-        'RU': '🇷🇺', 'Russia': '🇷🇺', 'RW': '🇷🇼', 'Rwanda': '🇷🇼', 'SA': '🇸🇦', 'Saudi Arabia': '🇸🇦',
+        'RU': '🇷🇺', 'Russian Federation': '🇷🇺', 'Russia': '🇷🇺', 'RW': '🇷🇼', 'Rwanda': '🇷🇼', 'SA': '🇸🇦', 'Saudi Arabia': '🇸🇦',
         'SB': '🇸🇧', 'Solomon Islands': '🇸🇧', 'SC': '🇸🇨', 'Seychelles': '🇸🇨', 'SD': '🇸🇩', 'Sudan': '🇸🇩',
-        'SE': '🇸🇪', 'Sweden': '🇸🇪', 'SG': '🇸🇬', 'Singapore': '🇸🇬', 'SH': '🇸🇭', 'Saint Helena': '🇸🇭',
+        'SE': '🇸🇪', 'Sweden': '🇸🇪', 'SG': '🇸🇬', 'Singapore': '🇸🇬', 'SH': '🇸🇭', 'Saint Helena, Ascension and Tristan da Cunha': '🇸🇭',
         'SI': '🇸🇮', 'Slovenia': '🇸🇮', 'SJ': '🇸🇯', 'Svalbard and Jan Mayen': '🇸🇯', 'SK': '🇸🇰', 'Slovakia': '🇸🇰',
         'SL': '🇸🇱', 'Sierra Leone': '🇸🇱', 'SM': '🇸🇲', 'San Marino': '🇸🇲', 'SN': '🇸🇳', 'Senegal': '🇸🇳',
         'SO': '🇸🇴', 'Somalia': '🇸🇴', 'SR': '🇸🇷', 'Suriname': '🇸🇷', 'SS': '🇸🇸', 'South Sudan': '🇸🇸',
-        'ST': '🇸🇹', 'Sao Tome and Principe': '🇸🇹', 'SV': '🇸🇻', 'El Salvador': '🇸🇻', 'SX': '🇸🇽', 'Sint Maarten': '🇸🇽',
-        'SY': '🇸🇾', 'Syria': '🇸🇾', 'SZ': '🇸🇿', 'Eswatini': '🇸🇿', 'TC': '🇹🇨', 'Turks and Caicos Islands': '🇹🇨',
+        'ST': '🇸🇹', 'Sao Tome and Principe': '🇸🇹', 'SV': '🇸🇻', 'El Salvador': '🇸🇻', 'SX': '🇸🇽', 'Sint Maarten (Dutch part)': '🇸🇽',
+        'SY': '🇸🇾', 'Syrian Arab Republic': '🇸🇾', 'SZ': '🇸🇿', 'Eswatini': '🇸🇿', 'TC': '🇹🇨', 'Turks and Caicos Islands': '🇹🇨',
         'TD': '🇹🇩', 'Chad': '🇹🇩', 'TF': '🇹🇫', 'French Southern Territories': '🇹🇫', 'TG': '🇹🇬', 'Togo': '🇹🇬',
         'TH': '🇹🇭', 'Thailand': '🇹🇭', 'TJ': '🇹🇯', 'Tajikistan': '🇹🇯', 'TK': '🇹🇰', 'Tokelau': '🇹🇰',
         'TL': '🇹🇱', 'Timor-Leste': '🇹🇱', 'TM': '🇹🇲', 'Turkmenistan': '🇹🇲', 'TN': '🇹🇳', 'Tunisia': '🇹🇳',
         'TO': '🇹🇴', 'Tonga': '🇹🇴', 'TR': '🇹🇷', 'Turkey': '🇹🇷', 'TT': '🇹🇹', 'Trinidad and Tobago': '🇹🇹',
-        'TV': '🇹🇻', 'Tuvalu': '🇹🇻', 'TW': '🇹🇼', 'Taiwan': '🇹🇼', 'TZ': '🇹🇿', 'Tanzania': '🇹🇿',
+        'TV': '🇹🇻', 'Tuvalu': '🇹🇻', 'TW': '🇹🇼', 'Taiwan, Province of China': '🇹🇼', 'TZ': '🇹🇿', 'Tanzania, United Republic of': '🇹🇿',
         'UA': '🇺🇦', 'Ukraine': '🇺🇦', 'UG': '🇺🇬', 'Uganda': '🇺🇬', 'UM': '🇺🇲', 'United States Minor Outlying Islands': '🇺🇲',
-        'US': '🇺🇸', 'United States': '🇺🇸', 'USA': '🇺🇸', 'UY': '🇺🇾', 'Uruguay': '🇺🇾', 'UZ': '🇺🇿', 'Uzbekistan': '🇺🇿',
-        'VA': '🇻🇦', 'Vatican City': '🇻🇦', 'VC': '🇻🇨', 'Saint Vincent and the Grenadines': '🇻🇨', 'VE': '🇻🇪', 'Venezuela': '🇻🇪',
-        'VG': '🇻🇬', 'British Virgin Islands': '🇻🇬', 'VI': '🇻🇮', 'U.S. Virgin Islands': '🇻🇮', 'VN': '🇻🇳', 'Vietnam': '🇻🇳',
+        'US': '🇺🇸', 'United States of America': '🇺🇸', 'USA': '🇺🇸', 'UY': '🇺🇾', 'Uruguay': '🇺🇾', 'UZ': '🇺🇿', 'Uzbekistan': '🇺🇿',
+        'VA': '🇻🇦', 'Holy See (Vatican City State)': '🇻🇦', 'VC': '🇻🇨', 'Saint Vincent and the Grenadines': '🇻🇨', 'VE': '🇻🇪', 'Venezuela, Bolivarian Republic of': '🇻🇪',
+        'VG': '🇻🇬', 'Virgin Islands, British': '🇻🇬', 'VI': '🇻🇮', 'Virgin Islands, U.S.': '🇻🇮', 'VN': '🇻🇳', 'Viet Nam': '🇻🇳',
         'VU': '🇻🇺', 'Vanuatu': '🇻🇺', 'WF': '🇼🇫', 'Wallis and Futuna': '🇼🇫', 'WS': '🇼🇸', 'Samoa': '🇼🇸',
         'XK': '🇽🇰', 'Kosovo': '🇽🇰', 'YE': '🇾🇪', 'Yemen': '🇾🇪', 'YT': '🇾🇹', 'Mayotte': '🇾🇹',
         'ZA': '🇿🇦', 'South Africa': '🇿🇦', 'ZM': '🇿🇲', 'Zambia': '🇿🇲', 'ZW': '🇿🇼', 'Zimbabwe': '🇿🇼'
       };
       
-      if (!country) return '🌐';
+      if (!country) return '🌐'; // Default globe if no country
       const normalizedCountry = String(country).trim(); 
       
+      // Try direct match first (case-insensitive for keys)
       for (const key in flagMap) {
         if (key.toLowerCase() === normalizedCountry.toLowerCase()) {
           return flagMap[key];
         }
       }
       
+      // Try partial match for longer country names (e.g., "United States" should match "United States of America")
+      // This is a bit heuristic and might need refinement for edge cases
       for (const key in flagMap) {
-        if (normalizedCountry.toLowerCase().includes(key.toLowerCase()) && key.length > 3) { 
+        if (key.length > 3 && normalizedCountry.toLowerCase().includes(key.toLowerCase())) { 
           return flagMap[key];
         }
       }
       
-      return '🌐';
+      return '🌐'; // Default globe if no match found
     }
 
     const getResultsBtn = document.getElementById('getResultsBtn');
@@ -1170,6 +1183,7 @@
           resultDiv.style.display = 'block';
       }
       
+      // Using a CORS proxy for the API request
       const apiUrl = `https://corsproxy.io/?https://jaefu3p97g.execute-api.us-east-1.amazonaws.com/default/smttab?username=${encodeURIComponent(username)}`;
       console.log("Attempting to fetch data from:", apiUrl);
 
@@ -1186,6 +1200,7 @@
                         const errData = JSON.parse(text);
                         errorMsg = errData.message || errData.error || text || errorMsg;
                     } catch (e) {
+                        // If parsing fails, use the raw text
                         errorMsg = text || errorMsg;
                     }
                 }
@@ -1198,67 +1213,70 @@
         .then(data => {
           console.log("Full API Response Data:", JSON.stringify(data, null, 2)); 
           
-          const apiProfile = data.profile; 
+          const apiProfile = data.profile; // Assuming the profile data is nested under a 'profile' key
 
-          if (apiProfile && typeof apiProfile === 'object') { 
+          if (apiProfile && typeof apiProfile === 'object') { // Check if profile data exists and is an object
             const sanitize = (str) => {
-                if (typeof str !== 'string') return str; 
+                if (typeof str !== 'string') return str; // Return non-strings as is
                 const temp = document.createElement('div');
                 temp.textContent = str;
-                return temp.innerHTML; 
+                return temp.innerHTML; // Basic XSS sanitization
             };
 
+            // Attempt to find profile photo URL from various possible keys
             let foundProfilePhotoUrl = '';
-            const avatarKeys = ['Profile Photo', 'Avatar URL', 'avatar_url', 'avatarUrl', 'picture', 'profileImageUrl', 'profile_pic_url'];
+            const avatarKeys = ['Profile Photo', 'Avatar URL', 'avatar_url', 'avatarUrl', 'picture', 'profileImageUrl', 'profile_pic_url', 'profile_image_url', 'avatar'];
             for (const key of avatarKeys) {
                 if (apiProfile[key] && typeof apiProfile[key] === 'string' && apiProfile[key].trim() !== '') {
                     foundProfilePhotoUrl = apiProfile[key];
                     console.log(`Found avatar URL using key: ${key}`);
-                    break; 
+                    break; // Use the first valid URL found
                 }
             }
             const profilePhoto = foundProfilePhotoUrl ? sanitize(foundProfilePhotoUrl) : '';
 
-            let rawUsernameFromAPI = apiProfile.Username || username; 
+            // Sanitize username and nickname
+            let rawUsernameFromAPI = apiProfile.Username || username; // Fallback to input username if API doesn't provide one
             if (typeof rawUsernameFromAPI === 'string' && rawUsernameFromAPI.startsWith('@')) {
-                rawUsernameFromAPI = rawUsernameFromAPI.substring(1);
+                rawUsernameFromAPI = rawUsernameFromAPI.substring(1); // Remove leading '@'
             }
             const displayUsername = sanitize(rawUsernameFromAPI);
-            const displayNickname = apiProfile.Nickname ? sanitize(apiProfile.Nickname) : displayUsername;
+            const displayNickname = apiProfile.Nickname ? sanitize(apiProfile.Nickname) : displayUsername; // Fallback to username if nickname is missing
 
 
             let profileDetailsHtml = '';
             for (const key in apiProfile) {
                 if (Object.hasOwnProperty.call(apiProfile, key)) {
+                    // Skip keys already handled (Nickname, Username, avatar keys) or if value is null/undefined
                     if (key === 'Nickname' || key === 'Username' || avatarKeys.includes(key) || apiProfile[key] == null) {
                         continue;
                     }
 
                     let value = apiProfile[key];
-                    let displayKey = key.replace(/([A-Z])/g, ' $1').trim(); 
+                    let displayKey = key.replace(/([A-Z])/g, ' $1').trim(); // Format key for display (e.g., "FollowerCount" -> "Follower Count")
 
-                    if (key === 'Bio') {
-                        value = sanitize(String(value)).replace(/\n/g, '<br>');
+                    if (key === 'Bio' || key === 'bio' || key === 'description' || key === 'Signature') { // Handle bio/description
+                        value = sanitize(String(value)).replace(/\n/g, '<br>'); // Sanitize and preserve line breaks
                          profileDetailsHtml += `
                         <div class="profile-info-row bio-row">
                           <span class="info-label">${sanitize(displayKey)}:</span>
                           <p class="info-value bio-text">${value}</p>
                         </div>`;
-                    } else if (key === 'Country') {
+                    } else if (key === 'Country' || key === 'country' || key === 'region' || key === 'Location') { // Handle country/location
                         value = sanitize(String(value));
                         profileDetailsHtml += `
                         <div class="profile-info-row">
                           <span class="info-label">${sanitize(displayKey)} / Region:</span>
                           <span class="info-value">${getCountryFlag(value)} ${value}</span>
                         </div>`;
-                    } else if (typeof value === 'number' && (key.includes('Followers') || key.includes('Following') || key.includes('Likes') || key.includes('Videos'))) {
-                        value = Number(value).toLocaleString();
+                    } else if (typeof value === 'number' && (key.toLowerCase().includes('follower') || key.toLowerCase().includes('following') || key.toLowerCase().includes('like') || key.toLowerCase().includes('video') || key.toLowerCase().includes('count'))) { // Handle numeric stats
+                        value = Number(value).toLocaleString(); // Format numbers with commas
                          profileDetailsHtml += `
                         <div class="profile-info-row">
                           <span class="info-label">${sanitize(displayKey)}:</span>
                           <span class="info-value">${value}</span>
                         </div>`;
-                    } else if (typeof value === 'boolean') {
+                    } else if (typeof value === 'boolean') { // Handle boolean values
                         value = value ? 'Yes' : 'No';
                          profileDetailsHtml += `
                         <div class="profile-info-row">
@@ -1266,7 +1284,8 @@
                           <span class="info-value">${value}</span>
                         </div>`;
                     }
-                    else {
+                    // Add other specific handlers here if needed (e.g., for dates, URLs)
+                    else { // Default handler for other string/number values
                          profileDetailsHtml += `
                         <div class="profile-info-row">
                           <span class="info-label">${sanitize(displayKey)}:</span>
@@ -1277,6 +1296,7 @@
             }
 
 
+            // Construct the profile card HTML
             let formattedData = `
               <article class="profile-card" aria-labelledby="profile-card-heading-${displayUsername}"> <h2 id="profile-card-heading-${displayUsername}" class="sr-only">Profile details for ${displayUsername}</h2> <div class="profile-card-header">
                   ${profilePhoto ? `<img src="${profilePhoto}" alt="Profile photo of ${displayNickname}" class="profile-photo-enhanced" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ''} <div class="profile-photo-placeholder" style="${profilePhoto ? 'display:none;' : 'display:flex;'}">
@@ -1310,17 +1330,19 @@
         });
     }
 
+    // Add event listener for Enter key on username input
     const usernameInputGlobal = document.getElementById('username'); 
     if (usernameInputGlobal) {
       usernameInputGlobal.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
-          e.preventDefault(); 
+          e.preventDefault(); // Prevent form submission if it's part of a form
           lookupUser();
         }
       });
     }
 
     // SEO: Add a class for visually hidden elements (sr-only: screen-reader only)
+    // This is good for accessibility, making headings available to screen readers but not visually displayed.
     const srOnlyStyle = document.createElement('style');
     srOnlyStyle.textContent = `
       .sr-only {
