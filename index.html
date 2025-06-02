@@ -1227,6 +1227,17 @@
     // ===== TIKTOK USER LOOKUP FUNCTIONALITY ===== //
     const getResultsBtn = document.getElementById('getResultsBtn');
     const supportBtn = document.getElementById('supportBtn');
+    const usernameInputGlobal = document.getElementById('username'); // Get username input globally
+    let debounceTimeout; // Variable to hold the timeout for debounce
+
+    // Debounce function: delays function execution
+    function debounce(func, delay) {
+        return function(...args) {
+            clearTimeout(debounceTimeout);
+            debounceTimeout = setTimeout(() => func.apply(this, args), delay);
+        };
+    }
+
 
     if (getResultsBtn) {
         getResultsBtn.addEventListener('click', lookupUser);
@@ -1238,27 +1249,29 @@
     }
 
     function lookupUser() {
-      const usernameInput = document.getElementById('username');
+      // No need to get usernameInput again, it's usernameInputGlobal
       const resultDiv = document.getElementById('result');
-      const currentGetResultsBtn = document.getElementById('getResultsBtn');
+      const currentGetResultsBtn = document.getElementById('getResultsBtn'); // Keep this for button state
 
-      const username = usernameInput ? usernameInput.value.trim() : '';
+      const username = usernameInputGlobal ? usernameInputGlobal.value.trim() : '';
 
       if (!username) {
+        // Clear previous results if username is empty, or show a gentle prompt
         if(resultDiv) {
-            resultDiv.innerHTML = '<div class="message error-message">Please enter a valid TikTok username.</div>';
-            resultDiv.style.display = 'block';
+            // resultDiv.innerHTML = '<div class="message error-message">Please enter a TikTok username to search.</div>';
+            resultDiv.innerHTML = ''; // Or simply clear if preferred
+            resultDiv.style.display = 'block'; // Ensure it's visible if it was hidden
         }
         return;
       }
 
+      // Disable button during fetch, re-enable in finally block
       if(currentGetResultsBtn) currentGetResultsBtn.disabled = true;
       if(resultDiv) {
           resultDiv.innerHTML = '<div class="loading-spinner-container"><div class="loading-spinner"></div> Loading profile data...</div>';
           resultDiv.style.display = 'block';
       }
 
-      // UPDATED API URL
       const apiUrl = `https://faas-sgp1-18bc02ac.doserverless.co/api/v1/web/fn-67a396e1-78e9-4dff-8f6a-0f07c2d80c56/default/sm-t/?username=${encodeURIComponent(username)}`;
       console.log("Attempting to fetch data from:", apiUrl);
 
@@ -1338,8 +1351,7 @@
                         let flag = getCountryFlag(countryApiValue);
                         let displayCountryName = countryApiValue;
 
-                        // If the flag is for the USA, ensure the display name is "United States"
-                        if (flag === '🇺🇸') {
+                        if (flag === '🇺🇸') { // Ensure "United States" for US flag
                             displayCountryName = 'United States';
                         }
 
@@ -1406,12 +1418,21 @@
         });
     }
 
-    const usernameInputGlobal = document.getElementById('username');
+    // Debounced version of lookupUser
+    const debouncedLookupUser = debounce(lookupUser, 750); // 750ms delay
+
     if (usernameInputGlobal) {
+      // Listen for 'input' event for auto-fetching
+      usernameInputGlobal.addEventListener('input', function() {
+        debouncedLookupUser(); // Call the debounced function
+      });
+
+      // Keep Enter key functionality as well, but call the original lookupUser directly (or debounced, preference)
       usernameInputGlobal.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
           e.preventDefault();
-          lookupUser();
+          clearTimeout(debounceTimeout); // Clear any pending debounce
+          lookupUser(); // Perform lookup immediately on Enter
         }
       });
     }
