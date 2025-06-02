@@ -392,6 +392,7 @@
       display: flex;
       align-items: center; /* Vertically align avatar and text block */
       padding: 1.25rem; /* Increased padding */
+      /* flex-direction: row; /* Ensures avatar and identity block are side-by-side by default */
     }
 
     .profile-photo-enhanced, .profile-photo-placeholder {
@@ -399,7 +400,8 @@
       height: 72px;
       border-radius: 50%;
       object-fit: cover;
-      margin-right: 1.25rem;
+      margin-right: 1.25rem; /* Space between avatar and text */
+      margin-bottom: 0; /* Reset bottom margin if it was set for stacking */
       border-width: 3px;
       border-style: solid;
       flex-shrink: 0;
@@ -416,10 +418,10 @@
 
     .profile-identity {
       display: flex;
-      flex-direction: column; /* CHANGED: Stack nickname and username vertically */
-      align-items: flex-start; /* CHANGED: Align items to the start (left) */
+      flex-direction: column;
+      align-items: flex-start;
       min-width: 0;
-      gap: 0.1rem; /* ADDED: Small gap between nickname and username */
+      gap: 0.1rem;
     }
     .profile-nickname {
       font-size: clamp(1.25rem, 4vw, 1.5rem);
@@ -591,10 +593,23 @@
       .theme-toggle { top: 0.5rem; right: 0.5rem; width: 40px; height: 40px; }
       .theme-toggle svg { width: 20px; height: 20px; }
       input, button, textarea { padding: 0.65rem 0.85rem; }
-      .profile-card-header { padding: 1rem; flex-direction: column; text-align: center; }
-      .profile-photo-enhanced, .profile-photo-placeholder { margin-right: 0; margin-bottom: 0.75rem; }
+      .profile-card-header {
+        padding: 1rem;
+        /* flex-direction: column; /* REMOVED: To keep avatar and text side-by-side */
+        /* text-align: center; /* REMOVED: Not needed if items are aligned to start */
+      }
+      .profile-photo-enhanced, .profile-photo-placeholder {
+        margin-right: 1rem; /* ADDED: Space between avatar and text on small screens */
+        margin-bottom: 0; /* Ensure no bottom margin if it was previously stacked */
+        width: 60px; /* Slightly smaller avatar on mobile */
+        height: 60px;
+      }
+      .profile-photo-placeholder svg {
+        width: 30px;
+        height: 30px;
+      }
       .profile-identity {
-        align-items: center; /* Center the stacked nickname and username */
+        align-items: flex-start; /* Ensure text aligns to the start of its container */
       }
       .footer-nav { flex-direction: column; gap: 0.75rem; }
     }
@@ -624,7 +639,7 @@
 
     <main>
         <div class="page-content active" id="main-page">
-          <div class="patriotic-text">🇲🇦👑 الله الوطـــن الملك 🇲🇦👑</div>
+          <div class="patriotic-text">�🇦👑 الله الوطـــن الملك 🇲🇦👑</div>
           <h1>TikTok Account Location Finder</h1>
           <div class="credit">Created by <a href="https://www.tiktok.com/@mo.or__" target="_blank" rel="noopener">@_moro.__</a></div>
 
@@ -849,7 +864,7 @@
         'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
         'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
         'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
-        'AR': '🇦🇷', 'Argentina': '�🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
+        'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
         'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
         'AZ': '🇦🇿', 'Azerbaijan': '🇦🇿', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧🇧',
         'BD': '🇧🇩', 'Bangladesh': '🇧🇩', 'BE': '🇧🇪', 'Belgium': '🇧🇪', 'BF': '🇧🇫', 'Burkina Faso': '🇧🇫',
