@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>TikTok Account Location Finder | Full Profile Details & FAQ</title>
+  <title>TikTok Account Location Finder | Full Profile Details</title>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -1053,11 +1053,11 @@
     function getCountryFlag(country) {
       const flagMap = {
         'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
-        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
+        'AG': '🇦🇬', 'Antigua and Barbuda': '�🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
         'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
         'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
         'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
-        'AZ': '🇦🇿', 'Azerbaijan': '🇦🇿', 'BA': '🇧�', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧🇧',
+        'AZ': '🇦🇿', 'Azerbaijan': '🇦🇿', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧🇧',
         'BD': '🇧🇩', 'Bangladesh': '🇧🇩', 'BE': '🇧🇪', 'Belgium': '🇧🇪', 'BF': '🇧🇫', 'Burkina Faso': '🇧🇫',
         'BG': '🇧🇬', 'Bulgaria': '🇧🇬', 'BH': '🇧🇭', 'Bahrain': '🇧🇭', 'BI': '🇧🇮', 'Burundi': '🇧🇮',
         'BJ': '🇧🇯', 'Benin': '🇧🇯', 'BL': '🇧🇱', 'Saint Barthélemy': '🇧🇱', 'BM': '🇧🇲', 'Bermuda': '🇧🇲',
@@ -1222,21 +1222,17 @@
         .then(data => {
           console.log("Full API Response Data:", JSON.stringify(data, null, 2));
 
-          // Assuming the new API might have a different structure,
-          // we'll try to adapt. If the 'profile' key is still used, this will work.
-          // Otherwise, this part might need adjustment based on the new API's response format.
-          const apiProfile = data.profile || data; // Attempt to use data.profile or root data object
+          const apiProfile = data.profile || data;
 
-          if (apiProfile && typeof apiProfile === 'object' && Object.keys(apiProfile).length > 0) { // Check if apiProfile is not an empty object
+          if (apiProfile && typeof apiProfile === 'object' && Object.keys(apiProfile).length > 0) {
             const sanitize = (str) => {
-                if (typeof str !== 'string') return str === null || typeof str === 'undefined' ? '' : String(str); // Ensure string conversion for non-strings, handle null/undefined
+                if (typeof str !== 'string') return str === null || typeof str === 'undefined' ? '' : String(str);
                 const temp = document.createElement('div');
                 temp.textContent = str;
                 return temp.innerHTML;
             };
 
             let foundProfilePhotoUrl = '';
-            // Common keys for profile picture URLs
             const avatarKeys = ['Profile Photo', 'Avatar URL', 'avatar_url', 'avatarUrl', 'picture', 'profileImageUrl', 'profile_pic_url', 'profile_image_url', 'avatar', 'Avatar', 'profile_picture', 'photo_url', 'user_avatar'];
             for (const key of avatarKeys) {
                 if (apiProfile[key] && typeof apiProfile[key] === 'string' && apiProfile[key].trim() !== '') {
@@ -1247,29 +1243,30 @@
             }
             const profilePhoto = foundProfilePhotoUrl ? sanitize(foundProfilePhotoUrl) : '';
 
-            // Common keys for username
             let rawUsernameFromAPI = apiProfile.Username || apiProfile.username || apiProfile.user_name || apiProfile.unique_id || username;
             if (typeof rawUsernameFromAPI === 'string' && rawUsernameFromAPI.startsWith('@')) {
                 rawUsernameFromAPI = rawUsernameFromAPI.substring(1);
             }
             const displayUsername = sanitize(rawUsernameFromAPI);
-            // Common keys for nickname/display name
             const displayNickname = apiProfile.Nickname || apiProfile.nickname || apiProfile.name || apiProfile.display_name || apiProfile.user_display_name || displayUsername;
 
 
             let profileDetailsHtml = '';
             for (const key in apiProfile) {
                 if (Object.hasOwnProperty.call(apiProfile, key)) {
-                    // Skip explicitly handled fields or null/undefined values, or empty strings
                     if (['Nickname', 'nickname', 'Username', 'username', 'name', 'display_name', 'user_name', 'unique_id', 'user_display_name', ...avatarKeys].includes(key) || apiProfile[key] == null || String(apiProfile[key]).trim() === '') {
                         continue;
                     }
 
                     let value = apiProfile[key];
-                    // Create a more readable display key, e.g., "FollowerCount" -> "Follower Count"
                     let displayKey = key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()).trim();
 
-                    // Handle bio/description
+                    // Skip displaying "Sec U I D" as requested by the user
+                    if (displayKey === 'Sec U I D') {
+                        console.log(`Skipping field with displayKey: ${displayKey} (original key: ${key})`);
+                        continue;
+                    }
+
                     if (['Bio', 'bio', 'description', 'Signature', 'bio_text', 'user_bio'].includes(key)) {
                         value = sanitize(String(value)).replace(/\n/g, '<br>');
                          profileDetailsHtml += `
@@ -1278,7 +1275,6 @@
                           <p class="info-value bio-text">${value || 'N/A'}</p>
                         </div>`;
                     }
-                    // Handle country/location
                     else if (['Country', 'country', 'region', 'Location', 'country_code', 'user_region'].includes(key)) {
                         value = sanitize(String(value));
                         profileDetailsHtml += `
@@ -1287,7 +1283,6 @@
                           <span class="info-value">${getCountryFlag(value)} ${value || 'N/A'}</span>
                         </div>`;
                     }
-                    // Handle numeric counts
                     else if (typeof value === 'number' && (key.toLowerCase().includes('follower') || key.toLowerCase().includes('following') || key.toLowerCase().includes('like') || key.toLowerCase().includes('video') || key.toLowerCase().includes('count') || key.toLowerCase().includes('digg'))) {
                         value = Number(value).toLocaleString();
                          profileDetailsHtml += `
@@ -1296,7 +1291,6 @@
                           <span class="info-value">${value}</span>
                         </div>`;
                     }
-                    // Handle boolean values
                     else if (typeof value === 'boolean') {
                         value = value ? 'Yes' : 'No';
                          profileDetailsHtml += `
@@ -1305,7 +1299,6 @@
                           <span class="info-value">${value}</span>
                         </div>`;
                     }
-                     // Handle links specifically if they are URLs
                     else if (typeof value === 'string' && (value.startsWith('http://') || value.startsWith('https://'))) {
                         profileDetailsHtml += `
                         <div class="profile-info-row">
@@ -1313,7 +1306,6 @@
                           <span class="info-value"><a href="${sanitize(value)}" target="_blank" rel="noopener noreferrer" class="dm-link">${sanitize(value)}</a></span>
                         </div>`;
                     }
-                    // Handle other string values
                     else {
                          profileDetailsHtml += `
                         <div class="profile-info-row">
@@ -1324,9 +1316,9 @@
                 }
             }
 
-            if (profileDetailsHtml.trim() === '') { // If no details were added, it means the object was likely empty or only had skipped keys
+            if (profileDetailsHtml.trim() === '') {
                  if(resultDiv) resultDiv.innerHTML = `<div class="message error-message">No displayable profile data found for '${sanitize(username)}'. The user might not exist, or the API returned minimal information.</div>`;
-                 return; // Exit early
+                 return;
             }
 
             let formattedData = `
