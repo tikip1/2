@@ -390,7 +390,7 @@
 
     .profile-card-header {
       display: flex;
-      align-items: center;
+      align-items: center; /* Vertically align avatar and text block */
       padding: 1.25rem; /* Increased padding */
     }
 
@@ -415,12 +415,16 @@
     }
 
     .profile-identity {
+      display: flex;
+      flex-direction: column; /* CHANGED: Stack nickname and username vertically */
+      align-items: flex-start; /* CHANGED: Align items to the start (left) */
       min-width: 0;
+      gap: 0.1rem; /* ADDED: Small gap between nickname and username */
     }
     .profile-nickname {
       font-size: clamp(1.25rem, 4vw, 1.5rem);
       font-weight: 600;
-      margin: 0 0 0.25rem 0;
+      margin: 0;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -589,7 +593,9 @@
       input, button, textarea { padding: 0.65rem 0.85rem; }
       .profile-card-header { padding: 1rem; flex-direction: column; text-align: center; }
       .profile-photo-enhanced, .profile-photo-placeholder { margin-right: 0; margin-bottom: 0.75rem; }
-      .profile-identity { align-items: center; }
+      .profile-identity {
+        align-items: center; /* Center the stacked nickname and username */
+      }
       .footer-nav { flex-direction: column; gap: 0.75rem; }
     }
     @media screen and (max-width: 767px) {
@@ -843,8 +849,8 @@
         'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
         'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
         'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
-        'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
-        'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦�',
+        'AR': '🇦🇷', 'Argentina': '�🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
+        'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
         'AZ': '🇦🇿', 'Azerbaijan': '🇦🇿', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧🇧',
         'BD': '🇧🇩', 'Bangladesh': '🇧🇩', 'BE': '🇧🇪', 'Belgium': '🇧🇪', 'BF': '🇧🇫', 'Burkina Faso': '🇧🇫',
         'BG': '🇧🇬', 'Bulgaria': '🇧🇬', 'BH': '🇧🇭', 'Bahrain': '🇧🇭', 'BI': '🇧🇮', 'Burundi': '🇧🇮',
@@ -1020,13 +1026,16 @@
             let profileDetailsHtml = '';
             for (const key in apiProfile) {
                 if (Object.hasOwnProperty.call(apiProfile, key)) {
-                    if (['Nickname', 'nickname', 'Username', 'username', 'name', 'display_name', 'user_name', 'unique_id', 'user_display_name', ...avatarKeys].includes(key) || apiProfile[key] == null || String(apiProfile[key]).trim() === '') {
+                    // Skip fields that are already handled in the header, are null/empty, or specifically requested to be hidden
+                    if (['Nickname', 'nickname', 'Username', 'username', 'name', 'display_name', 'user_name', 'unique_id', 'user_display_name', ...avatarKeys].includes(key) ||
+                        apiProfile[key] == null || String(apiProfile[key]).trim() === '') {
                         continue;
                     }
                     let value = apiProfile[key];
                     let displayKey = key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()).trim();
 
-                    if (displayKey === 'Sec U I D') {
+                    // Skip "Sec U I D" and "Username Last Modified"
+                    if (displayKey === 'Sec U I D' || displayKey === 'Username Last Modified') {
                         console.log(`Skipping field with displayKey: ${displayKey} (original key: ${key})`);
                         continue;
                     }
@@ -1066,7 +1075,7 @@
                   </div>
                   <div class="profile-identity">
                     <h3 class="profile-nickname">${sanitize(displayNickname)}</h3>
-                    <p class="profile-username-display">@${displayUsername}</p>
+                    <p class="profile-username-display">${sanitize(displayUsername).startsWith('@') ? sanitize(displayUsername) : '@' + sanitize(displayUsername)}</p>
                   </div>
                 </div>
                 <div class="profile-card-body">${profileDetailsHtml}</div>
