@@ -254,77 +254,124 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-        <!-- Icon will be loaded by script.js -->
-      </svg>
-    </button>
-
-    <main>
-        <div class="page-content" id="main-page-content">
-          <div class="patriotic-text">❌🚬 | 🏋‍♀️✅</div>
-          <h1>TikTok Account Location Finder</h1>
-          <div class="credit">Created by <a href="https://www.tiktok.com/@mo.or__" target="_blank" rel="noopener">@_moro.__</a></div>
-
-          <section aria-labelledby="search-tool-heading">
-            <h2 id="search-tool-heading" class="sr-only">TikTok Profile Search Tool</h2>
-            <input type="text" id="username" placeholder="Enter TikTok username (without @)" required aria-label="TikTok Username Input">
-            <button id="getResultsBtn" aria-label="Search TikTok profile">Get Profile Details</button>
-            <button id="supportBtn" aria-label="Support the creator">Support Our Work ❤</button>
-          </section>
-          <!-- The #result div is used by script.js for both TikTok lookup and contact form messages -->
-          <div id="result" aria-live="polite"></div>
-
-          <article class="about-section" aria-labelledby="about-tool-heading">
-            <h2 id="about-tool-heading">About This TikTok Location Finder Tool</h2>
-            <p>This <strong>TikTok Location Finder</strong> is a free tool designed to help you retrieve complete public TikTok user profiles. With our <strong>TikTok profile lookup</strong> service, you can easily <strong>find TikTok user location</strong> information, along with other <strong>TikTok account details</strong> like username, bio, follower counts, video statistics, and more. It's an ideal resource for researchers, social media enthusiasts, or anyone curious about a TikTok user's public presence.</p>
-            <p><strong>Key Features:</strong> Comprehensive <strong>TikTok profile lookup</strong>, estimated country display with flags, full bio visibility, up-to-date follower and video statistics, responsive design for all devices, and a user-friendly dark/light mode switcher.</p>
-          </article>
-
-          <article class="about-section" aria-labelledby="faq-heading">
-            <h2 id="faq-heading">Frequently Asked Questions (FAQ)</h2>
-            <p><strong>How does the TikTok Location Finder work?</strong> Our tool fetches publicly available TikTok profile information using the username you provide. This includes data such as their display name, bio, follower and video counts, and an estimated country or region associated with the <strong>TikTok account location</strong>.</p>
-            <p><strong>Is this TikTok tool free to use?</strong> Yes, our <strong>TikTok location finder</strong> is completely free. There are no hidden charges or subscription fees to access <strong>TikTok account details</strong>.</p>
-            <p><strong>How accurate is the TikTok username location and other data?</strong> The information, including the <strong>TikTok username location</strong>, is based on publicly accessible data from TikTok profiles. While we strive for accuracy, the exactness of location and statistics can vary and is subject to the information publicly shared by the user. This <strong>free TikTok tool</strong> provides an estimate based on available data.</p>
-          </article>
-
-          <article class="about-section" aria-labelledby="about-creator-heading">
-            <h2 id="about-creator-heading">About the Creator</h2>
-            <p>I'm Moor, a Graphic Designer & Web Developer with 4+ years of experience, passionate about building tools like this.</p>
-            <p>Reach out on <a href="https://www.tiktok.com/@mo.or__" class="dm-link" target="_blank" rel="noopener">TikTok</a> or support my work!</p>
-          </article>
-
-          <article class="about-section" aria-labelledby="get-involved-heading">
-            <h2 id="get-involved-heading">Get Involved</h2>
-            <p>Enjoy this tool? Share it or support its development to keep it free!</p>
-            <p><a href="https://ko-fi.com/moroccan" class="dm-link" target="_blank" rel="noopener">Support on Ko-fi</a> | <a href="https://www.tiktok.com/@mo.or__" class="dm-link" target="_blank" rel="noopener">Follow on TikTok</a></p>
-          </article>
-
-          <article class="about-section" aria-labelledby="disclaimer-heading">
-            <h2 id="disclaimer-heading">Disclaimer</h2>
-            <p>For educational use only. Respect user privacy and use responsibly. Data is sourced publicly and may not be 100% accurate.</p>
-          </article>
-        </div>
-    </main>
-
-    <footer class="footer">
-      <nav class="footer-nav" aria-label="Footer navigation">
-        <a href="index.html">Home</a>
-        <a href="about.html">About Us</a>
-        <a href="contact.html">Contact Us</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms of Service</a>
-      </nav>
-    </footer>
-  </div>
-  <!-- Custom Alert Structure (if needed by script.js for non-contact form alerts, though current script.js uses #result) -->
-  <div class="custom-alert-overlay" id="customAlertOverlay">
-    <div class="custom-alert-box">
-        <p id="customAlertMessage"></p>
-        <button id="customAlertClose">OK</button>
+  <!-- Error message div, initially hidden -->
+  <div id="script-error-message" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:var(--light-bg); color:var(--light-text-color); z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; font-family: var(--font-family-sans-serif); text-align:center; padding: 20px;">
+    <div style="border: 2px solid var(--danger-color); padding: 30px 40px; background-color: var(--light-card-bg); border-radius: var(--border-radius); box-shadow: var(--box-shadow-lg);">
+        <h1 style="color:var(--danger-color); margin-bottom:15px; font-size:1.8em;">Critical Error</h1>
+        <p style="font-size:1.1em; margin-bottom:20px;">This page requires JavaScript to function correctly.</p>
+        <p>Please ensure JavaScript is enabled in your browser and try reloading the page.</p>
+        <p style="margin-top:15px; font-size:0.9em;">If the problem persists, the necessary script files might be missing or blocked by your network/browser extensions.</p>
     </div>
   </div>
-  <script src="script.js" defer></script>
+
+  <!-- Main application wrapper, initially hidden. script.js will show this. -->
+  <div id="app-wrapper" style="display:none; width:100%; display:flex; flex-direction:column; align-items:center;">
+    <div class="container">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <!-- Icon will be loaded by script.js -->
+        </svg>
+      </button>
+
+      <main>
+          <div class="page-content" id="main-page-content">
+            <div class="patriotic-text">❌🚬 | 🏋‍♀️✅</div>
+            <h1>TikTok Account Location Finder</h1>
+            <div class="credit">Created by <a href="https://www.tiktok.com/@mo.or__" target="_blank" rel="noopener">@_moro.__</a></div>
+
+            <section aria-labelledby="search-tool-heading">
+              <h2 id="search-tool-heading" class="sr-only">TikTok Profile Search Tool</h2>
+              <input type="text" id="username" placeholder="Enter TikTok username (without @)" required aria-label="TikTok Username Input">
+              <button id="getResultsBtn" aria-label="Search TikTok profile">Get Profile Details</button>
+              <button id="supportBtn" aria-label="Support the creator">Support Our Work ❤</button>
+            </section>
+            <div id="result" aria-live="polite"></div>
+
+            <article class="about-section" aria-labelledby="about-tool-heading">
+              <h2 id="about-tool-heading">About This TikTok Location Finder Tool</h2>
+              <p>This <strong>TikTok Location Finder</strong> is a free tool designed to help you retrieve complete public TikTok user profiles. With our <strong>TikTok profile lookup</strong> service, you can easily <strong>find TikTok user location</strong> information, along with other <strong>TikTok account details</strong> like username, bio, follower counts, video statistics, and more. It's an ideal resource for researchers, social media enthusiasts, or anyone curious about a TikTok user's public presence.</p>
+              <p><strong>Key Features:</strong> Comprehensive <strong>TikTok profile lookup</strong>, estimated country display with flags, full bio visibility, up-to-date follower and video statistics, responsive design for all devices, and a user-friendly dark/light mode switcher.</p>
+            </article>
+
+            <article class="about-section" aria-labelledby="faq-heading">
+              <h2 id="faq-heading">Frequently Asked Questions (FAQ)</h2>
+              <p><strong>How does the TikTok Location Finder work?</strong> Our tool fetches publicly available TikTok profile information using the username you provide. This includes data such as their display name, bio, follower and video counts, and an estimated country or region associated with the <strong>TikTok account location</strong>.</p>
+              <p><strong>Is this TikTok tool free to use?</strong> Yes, our <strong>TikTok location finder</strong> is completely free. There are no hidden charges or subscription fees to access <strong>TikTok account details</strong>.</p>
+              <p><strong>How accurate is the TikTok username location and other data?</strong> The information, including the <strong>TikTok username location</strong>, is based on publicly accessible data from TikTok profiles. While we strive for accuracy, the exactness of location and statistics can vary and is subject to the information publicly shared by the user. This <strong>free TikTok tool</strong> provides an estimate based on available data.</p>
+            </article>
+
+            <article class="about-section" aria-labelledby="about-creator-heading">
+              <h2 id="about-creator-heading">About the Creator</h2>
+              <p>I'm Moor, a Graphic Designer & Web Developer with 4+ years of experience, passionate about building tools like this.</p>
+              <p>Reach out on <a href="https://www.tiktok.com/@mo.or__" class="dm-link" target="_blank" rel="noopener">TikTok</a> or support my work!</p>
+            </article>
+
+            <article class="about-section" aria-labelledby="get-involved-heading">
+              <h2 id="get-involved-heading">Get Involved</h2>
+              <p>Enjoy this tool? Share it or support its development to keep it free!</p>
+              <p><a href="https://ko-fi.com/moroccan" class="dm-link" target="_blank" rel="noopener">Support on Ko-fi</a> | <a href="https://www.tiktok.com/@mo.or__" class="dm-link" target="_blank" rel="noopener">Follow on TikTok</a></p>
+            </article>
+
+            <article class="about-section" aria-labelledby="disclaimer-heading">
+              <h2 id="disclaimer-heading">Disclaimer</h2>
+              <p>For educational use only. Respect user privacy and use responsibly. Data is sourced publicly and may not be 100% accurate.</p>
+            </article>
+          </div>
+      </main>
+
+      <footer class="footer">
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="index.html">Home</a>
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact Us</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+        </nav>
+      </footer>
+    </div> <!-- End of .container -->
+
+    <!-- Custom Alert Structure (used by script.js) -->
+    <div class="custom-alert-overlay" id="customAlertOverlay">
+      <div class="custom-alert-box">
+          <p id="customAlertMessage"></p>
+          <button id="customAlertClose">OK</button>
+      </div>
+    </div>
+  </div> <!-- End of #app-wrapper -->
+
+  <script src="script.js" defer onerror="handleScriptLoadError()"></script>
+  <script>
+    function handleScriptLoadError() {
+      // This function is called if script.js fails to load (e.g., 404 error)
+      var appWrapper = document.getElementById('app-wrapper');
+      if (appWrapper) {
+        appWrapper.style.display = 'none';
+      }
+      var errorMessageDiv = document.getElementById('script-error-message');
+      if (errorMessageDiv) {
+        errorMessageDiv.style.display = 'flex'; // Use flex to enable centering of its content
+      }
+      // Attempt to apply a basic theme to the error message itself if variables are available
+      // This is a fallback and might not work if CSS variables aren't parsed yet, but worth a try.
+      const errorBody = document.getElementById('script-error-message');
+      const errorBox = errorBody.querySelector('div');
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          errorBody.style.backgroundColor = '#1A1A1A';
+          errorBody.style.color = '#EAEAEA';
+          if(errorBox) errorBox.style.backgroundColor = '#242424';
+          if(errorBox) errorBox.style.borderColor = '#dc3545';
+          errorBody.querySelector('h1').style.color = '#dc3545';
+      } else {
+          errorBody.style.backgroundColor = '#F8F9FA';
+          errorBody.style.color = '#212529';
+          if(errorBox) errorBox.style.backgroundColor = '#FFFFFF';
+          if(errorBox) errorBox.style.borderColor = '#dc3545';
+          errorBody.querySelector('h1').style.color = '#dc3545';
+      }
+    }
+    // Note: Your script.js should contain logic to set
+    // document.getElementById('app-wrapper').style.display = 'block'; (or 'flex')
+    // once it has loaded and initialized successfully, typically within a DOMContentLoaded event.
+  </script>
 </body>
 </html>
