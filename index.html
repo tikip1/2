@@ -47,6 +47,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="/favicon.png" type="image/png">
 
+  <!-- Include the API configuration file BEFORE your main script -->
+  <!-- Ensure 'api_config.js' is in the same directory as index.html, or adjust the path accordingly -->
+  <script src="api_config.js"></script>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -764,7 +768,8 @@
       </nav>
     </footer>
 
-  </div> <script>
+  </div>
+  <script>
     // Base title for the website
     const baseTitle = "TikTok Account Location Finder | Full Profile Details & FAQ";
 
@@ -827,12 +832,13 @@
           const name = nameInput ? nameInput.value.trim() : '';
           const email = emailInput ? emailInput.value.trim() : '';
           const message = messageInput ? messageInput.value.trim() : '';
-          const resultDiv = document.getElementById('result');
+          const resultDiv = document.getElementById('result'); // Assuming resultDiv is for general messages now
 
           if (name && email && message) {
-            if (resultDiv) {
+            if (resultDiv) { // Display success in the main result area for simplicity
                 resultDiv.innerHTML = '<div class="message success-message">Thank you for your message! We will get back to you soon.</div>';
                 resultDiv.style.display = 'block';
+                // Auto-hide message after a few seconds
                 setTimeout(() => {
                     if (resultDiv.contains(resultDiv.firstChild) && resultDiv.firstChild.classList.contains('success-message')) {
                         resultDiv.style.display = 'none';
@@ -844,10 +850,10 @@
             if(emailInput) emailInput.value = '';
             if(messageInput) messageInput.value = '';
           } else {
-            if (resultDiv) {
+            if (resultDiv) { // Display error in the main result area
                 resultDiv.innerHTML = '<div class="message error-message">Please fill in all fields in the contact form.</div>';
                 resultDiv.style.display = 'block';
-                setTimeout(() => {
+                 setTimeout(() => {
                      if (resultDiv.contains(resultDiv.firstChild) && resultDiv.firstChild.classList.contains('error-message')) {
                         resultDiv.style.display = 'none';
                         resultDiv.innerHTML = '';
@@ -947,15 +953,19 @@
         'XK': '🇽🇰', 'Kosovo': '🇽🇰', 'YE': '🇾🇪', 'Yemen': '🇾🇪', 'YT': '🇾🇹', 'Mayotte': '🇾🇹',
         'ZA': '🇿🇦', 'South Africa': '🇿🇦', 'ZM': '🇿🇲', 'Zambia': '🇿🇲', 'ZW': '🇿🇼', 'Zimbabwe': '🇿🇼'
       };
-      if (!country) return '🌐';
-      const normalizedCountry = String(country).trim();
+      if (!country) return '🌐'; // Default globe emoji if country is undefined or null
+      const normalizedCountry = String(country).trim(); // Ensure country is a string and trim whitespace
+      // Try exact match (case-insensitive) for both codes and full names
       for (const key in flagMap) {
         if (key.toLowerCase() === normalizedCountry.toLowerCase()) return flagMap[key];
       }
+      // Try partial match for full names (e.g., if API returns "United States" and map has "United States of America")
+      // This is a bit more lenient, ensure it doesn't cause wrong matches for short country names.
+      // Only do this for keys that are likely full country names (e.g., length > 3)
       for (const key in flagMap) {
         if (key.length > 3 && normalizedCountry.toLowerCase().includes(key.toLowerCase())) return flagMap[key];
       }
-      return '🌐';
+      return '🌐'; // Default if no match found
     }
 
     // ===== TIKTOK USER LOOKUP FUNCTIONALITY ===== //
@@ -979,14 +989,35 @@
         return;
       }
 
+      // Check if API_CONFIG and getApiUrl are defined (from api_config.js)
+      if (typeof API_CONFIG === 'undefined' || typeof getApiUrl === 'undefined') {
+        console.error("API configuration (api_config.js) is not loaded or is incorrect.");
+        if(resultDiv) {
+            resultDiv.innerHTML = '<div class="message error-message">API configuration error. Please ensure api_config.js is present and correct.</div>';
+            resultDiv.style.display = 'block';
+        }
+        return;
+      }
+
       if(currentGetResultsBtn) currentGetResultsBtn.disabled = true;
       if(resultDiv) {
           resultDiv.innerHTML = '<div class="loading-spinner-container"><div class="loading-spinner"></div> Loading profile data...</div>';
           resultDiv.style.display = 'block';
       }
 
-      const targetApiUrl = `https://faas-sgp1-18bc02ac.doserverless.co/api/v1/web/fn-67a396e1-78e9-4dff-8f6a-0f07c2d80c56/default/sm-t/?username=${encodeURIComponent(username)}`;
-      const apiUrl = `https://corsproxy.io/?${encodeURIComponent(targetApiUrl)}`;
+      // Use the getApiUrl function from api_config.js
+      const apiUrl = getApiUrl(username);
+
+      if (!apiUrl) {
+        console.error("Failed to construct API URL. Check api_config.js.");
+         if(resultDiv) {
+            resultDiv.innerHTML = '<div class="message error-message">Could not construct API URL. Configuration might be missing.</div>';
+            resultDiv.style.display = 'block';
+        }
+        if(currentGetResultsBtn) currentGetResultsBtn.disabled = false;
+        return;
+      }
+      
       console.log("Attempting to fetch data via CORS proxy from:", apiUrl);
 
       fetch(apiUrl)
@@ -1000,26 +1031,30 @@
                 else if (response.status === 503 && text.toLowerCase().includes("corsproxy.io")) errorMsg = 'The CORS proxy service might be temporarily unavailable or rate-limiting. Please try again shortly.';
                 else {
                     try { const errData = JSON.parse(text); errorMsg = errData.message || errData.error || text || errorMsg; }
-                    catch (e) { errorMsg = text || errorMsg; }
+                    catch (e) { errorMsg = text || errorMsg; } // Use raw text if JSON parsing fails
                 }
                 console.error("API Error:", errorMsg, "Raw text:", text);
-                throw new Error(errorMsg);
+                throw new Error(errorMsg); // Throw an error to be caught by .catch()
             });
           }
           return response.json();
         })
         .then(data => {
-          console.log("Full API Response Data:", JSON.stringify(data, null, 2));
-          const apiProfile = data.profile || data;
+          console.log("Full API Response Data:", JSON.stringify(data, null, 2)); // Log the full structure
+          // Adjust based on the actual structure of the successful response
+          // It seems the profile data might be directly in `data` or `data.profile`
+          const apiProfile = data.profile || data; // Try data.profile first, then data itself
 
           if (apiProfile && typeof apiProfile === 'object' && Object.keys(apiProfile).length > 0) {
+            // Sanitize function to prevent XSS
             const sanitize = (str) => {
                 if (typeof str !== 'string') return str === null || typeof str === 'undefined' ? '' : String(str);
                 const temp = document.createElement('div');
-                temp.textContent = str;
+                temp.textContent = str; // Use textContent for security, then innerHTML to get encoded entities
                 return temp.innerHTML;
             };
 
+            // Attempt to find profile photo URL using various common keys
             let foundProfilePhotoUrl = '';
             const avatarKeys = ['Profile Photo', 'Avatar URL', 'avatar_url', 'avatarUrl', 'picture', 'profileImageUrl', 'profile_pic_url', 'profile_image_url', 'avatar', 'Avatar', 'profile_picture', 'photo_url', 'user_avatar'];
             for (const key of avatarKeys) {
@@ -1031,12 +1066,15 @@
             }
             const profilePhoto = foundProfilePhotoUrl ? sanitize(foundProfilePhotoUrl) : '';
 
-            let rawUsernameFromAPI = apiProfile.Username || apiProfile.username || apiProfile.user_name || apiProfile.unique_id || username;
+
+            // Extract Username and Nickname, handling potential variations and sanitizing
+            let rawUsernameFromAPI = apiProfile.Username || apiProfile.username || apiProfile.user_name || apiProfile.unique_id || username; // Fallback to input username
             if (typeof rawUsernameFromAPI === 'string' && rawUsernameFromAPI.startsWith('@')) {
-                rawUsernameFromAPI = rawUsernameFromAPI.substring(1);
+                rawUsernameFromAPI = rawUsernameFromAPI.substring(1); // Remove leading '@' if present
             }
             const displayUsername = sanitize(rawUsernameFromAPI);
-            const displayNickname = apiProfile.Nickname || apiProfile.nickname || apiProfile.name || apiProfile.display_name || apiProfile.user_display_name || displayUsername;
+            const displayNickname = apiProfile.Nickname || apiProfile.nickname || apiProfile.name || apiProfile.display_name || apiProfile.user_display_name || displayUsername; // Fallback to username
+
 
             let profileDetailsHtml = '';
             for (const key in apiProfile) {
@@ -1046,39 +1084,44 @@
                         apiProfile[key] == null || String(apiProfile[key]).trim() === '') {
                         continue;
                     }
-                    let value = apiProfile[key];
-                    let displayKey = key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()).trim();
 
+                    let value = apiProfile[key];
+                    // Format display key: Add spaces before capitals (camelCase to Title Case), replace underscores, capitalize words
+                    let displayKey = key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()).trim();
+                    
                     // Skip "Sec U I D" and "Username Last Modified"
                     if (displayKey === 'Sec U I D' || displayKey === 'Username Last Modified') {
                         console.log(`Skipping field with displayKey: ${displayKey} (original key: ${key})`);
                         continue;
                     }
 
-                    if (['Bio', 'bio', 'description', 'Signature', 'bio_text', 'user_bio'].includes(key)) {
-                        value = sanitize(String(value)).replace(/\n/g, '<br>');
+
+                    if (['Bio', 'bio', 'description', 'Signature', 'bio_text', 'user_bio'].includes(key)) { // Handle bio specifically for formatting
+                        value = sanitize(String(value)).replace(/\n/g, '<br>'); // Sanitize and convert newlines
                          profileDetailsHtml += `<div class="profile-info-row bio-row"><span class="info-label">${sanitize(displayKey)}:</span><p class="info-value bio-text">${value || 'N/A'}</p></div>`;
-                    } else if (['Country', 'country', 'region', 'Location', 'country_code', 'user_region'].includes(key)) {
+                    } else if (['Country', 'country', 'region', 'Location', 'country_code', 'user_region'].includes(key)) { // Handle country for flag
                         value = sanitize(String(value));
                         profileDetailsHtml += `<div class="profile-info-row"><span class="info-label">${sanitize(displayKey)}:</span><span class="info-value">${getCountryFlag(value)} ${value || 'N/A'}</span></div>`;
                     } else if (typeof value === 'number' && (key.toLowerCase().includes('follower') || key.toLowerCase().includes('following') || key.toLowerCase().includes('like') || key.toLowerCase().includes('video') || key.toLowerCase().includes('count') || key.toLowerCase().includes('digg'))) {
-                        value = Number(value).toLocaleString();
+                        value = Number(value).toLocaleString(); // Format numbers with commas
                          profileDetailsHtml += `<div class="profile-info-row"><span class="info-label">${sanitize(displayKey)}:</span><span class="info-value">${value}</span></div>`;
                     } else if (typeof value === 'boolean') {
                         value = value ? 'Yes' : 'No';
                          profileDetailsHtml += `<div class="profile-info-row"><span class="info-label">${sanitize(displayKey)}:</span><span class="info-value">${value}</span></div>`;
-                    } else if (typeof value === 'string' && (value.startsWith('http://') || value.startsWith('https://'))) {
+                    } else if (typeof value === 'string' && (value.startsWith('http://') || value.startsWith('https://'))) { // Make links clickable
                         profileDetailsHtml += `<div class="profile-info-row"><span class="info-label">${sanitize(displayKey)}:</span><span class="info-value"><a href="${sanitize(value)}" target="_blank" rel="noopener noreferrer" class="dm-link">${sanitize(value)}</a></span></div>`;
-                    } else {
+                    } else { // Default case for other string values
                          profileDetailsHtml += `<div class="profile-info-row"><span class="info-label">${sanitize(displayKey)}:</span><span class="info-value">${sanitize(String(value)) || 'N/A'}</span></div>`;
                     }
                 }
             }
-
+            
+            // If after processing, no details were added (e.g., all fields were skipped or empty)
             if (profileDetailsHtml.trim() === '') {
                  if(resultDiv) resultDiv.innerHTML = `<div class="message error-message">No displayable profile data found for '${sanitize(username)}'. The user might not exist, or the API returned minimal information.</div>`;
-                 return;
+                 return; // Exit early
             }
+
 
             let formattedData = `
               <article class="profile-card" aria-labelledby="profile-card-heading-${displayUsername}">
@@ -1098,6 +1141,7 @@
               </article>`;
             if(resultDiv) resultDiv.innerHTML = formattedData;
           } else {
+            // This case handles if apiProfile is null, not an object, or an empty object
             console.warn("Profile data is missing, not an object, or empty in the API response.", "Received data:", data);
             if(resultDiv) resultDiv.innerHTML = `<div class="message error-message">Profile data not found or is incomplete for '${sanitize(username)}'. The API might be down, the user may not exist, or the response format is unexpected.</div>`;
           }
@@ -1111,11 +1155,12 @@
         });
     }
 
+    // Add event listener for Enter key on username input
     const usernameInputGlobal = document.getElementById('username');
     if (usernameInputGlobal) {
       usernameInputGlobal.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
-          e.preventDefault();
+          e.preventDefault(); // Prevent form submission if it's part of a form
           lookupUser();
         }
       });
