@@ -113,10 +113,10 @@
     .theme-toggle { background-color: var(--light-card-bg); border: 1px solid var(--light-border-color); box-shadow: var(--box-shadow-sm); }
     .theme-toggle svg { fill: var(--light-text-color); }
     .patriotic-text { color: var(--light-text-color); }
-    h1, .page-content h2 { color: var(--light-text-color); }
-    :root[data-theme="dark"] h1, :root[data-theme="dark"] .page-content h2 { color: var(--dark-text-color); }
-    .page-content h1, .page-content h2 { color: var(--primary-color); }
-   :root[data-theme="dark"] .page-content h1, :root[data-theme="dark"] .page-content h2 { color: var(--primary-color); }
+    h1, .page-content h2, .page-title { color: var(--light-text-color); }
+    :root[data-theme="dark"] h1, :root[data-theme="dark"] .page-content h2, :root[data-theme="dark"] .page-title { color: var(--dark-text-color); }
+    .page-content h1, .page-content h2, .page-title { color: var(--primary-color); } /* Page titles on subpages */
+   :root[data-theme="dark"] .page-content h1, :root[data-theme="dark"] .page-content h2, :root[data-theme="dark"] .page-title { color: var(--primary-color); }
     .credit { color: var(--light-text-secondary); }
     .credit a { color: var(--primary-color); }
     input { background-color: var(--input-bg-light); border: 1px solid var(--light-border-color); color: var(--light-text-color); box-shadow: var(--box-shadow-sm); }
@@ -139,11 +139,12 @@
     .info-value { color: var(--light-text-color); }
     .bio-row .info-value.bio-text { color: var(--light-text-secondary); }
     .profile-card-footer { background-color: var(--light-bg); border-top: 1px solid var(--light-border-color); }
+    .message { padding: 0.75rem 1rem; border-radius: var(--border-radius); font-weight: 500; margin: 1rem 0 0 0; display: block; box-shadow: var(--box-shadow-sm); text-align: center;} /* Updated message styling */
     .message.success-message { color: var(--success-color); background-color: #e9f7ef; border: 1px solid var(--success-color); }
     .message.error-message { color: var(--danger-color); background-color: #fdecea; border: 1px solid var(--danger-color); }
     .loading-spinner { border-top-color: var(--primary-color); }
     .about-section, .page-content > .about-section, .footer { background-color: var(--light-card-bg); border: 1px solid var(--light-border-color); box-shadow: var(--box-shadow-md); }
-    .about-section h2 { color: var(--primary-color); }
+    .about-section h2 { color: var(--primary-color); } /* Subheadings within articles */
     .about-section p { color: var(--light-text-secondary); }
     .dm-link { color: var(--primary-color); }
     .footer-nav a { color: var(--primary-color); }
@@ -152,7 +153,7 @@
     .contact-form input:focus, .contact-form textarea:focus { border-color: var(--primary-color); box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25), var(--box-shadow-sm); }
     .contact-form button { background: linear-gradient(145deg, var(--primary-color), var(--primary-hover-color)); }
     .contact-form button:hover, .contact-form button:focus { background: linear-gradient(145deg, var(--primary-hover-color), var(--primary-color)); }
-    .back-btn { background: linear-gradient(145deg, var(--secondary-color), #5a6268); color: #FFFFFF; text-decoration: none; display: inline-block; text-align:center; } /* Added color and text-decoration */
+    .back-btn { background: linear-gradient(145deg, var(--secondary-color), #5a6268); color: #FFFFFF; text-decoration: none; display: inline-block; text-align:center; }
     .back-btn:hover, .back-btn:focus { background: linear-gradient(145deg, #5a6268, var(--secondary-color)); }
     /* Dark Theme */
     :root[data-theme="dark"] body { background-color: var(--dark-bg); color: var(--dark-text-color); }
@@ -196,14 +197,14 @@
     .theme-toggle svg { width: 22px; height: 22px; transition: fill var(--transition-speed) ease-in-out; }
     .patriotic-text { font-size: clamp(1rem, 3vw, 1.25rem); text-align: center; margin-bottom: 0.75rem; font-weight: 600; width: 100%; padding: 0.5rem 0; }
     h1 { font-size: clamp(1.5rem, 5vw, 2rem); font-weight: 700; text-align: center; margin-bottom: 0.5rem; width: 100%; }
-    .page-content h2, .page-title { font-size: clamp(1.35rem, 4.5vw, 1.75rem); font-weight: 700; text-align: center; margin-bottom: 1.25rem; width: 100%; color: var(--primary-color); } /* .page-title for separate pages */
+    .page-content h2, .page-title { font-size: clamp(1.35rem, 4.5vw, 1.75rem); font-weight: 700; text-align: center; margin-bottom: 1.25rem; width: 100%; color: var(--primary-color); }
     .credit { font-size: clamp(0.75rem, 2.5vw, 0.875rem); text-align: center; margin-bottom: 1.5rem; width: 100%; }
     .credit a:hover { text-decoration: underline; }
     input, button, textarea { font-family: inherit; font-size: 1rem; border-radius: var(--border-radius); transition: all var(--transition-speed) ease-in-out; }
     input { width: 100%; padding: 0.75rem 1rem; margin-bottom: 1rem; -webkit-appearance: none; user-select: text; }
     button { width: 100%; padding: 0.75rem 1rem; font-weight: 600; cursor: pointer; margin-bottom: 0.75rem; border: none; -webkit-tap-highlight-color: transparent; }
     button:active { transform: translateY(1px) scale(0.98); }
-    #result { margin-top: 2rem; min-height: 50px; width: 100%; }
+    #result { margin-top: 2rem; min-height: 50px; width: 100%; display: none; /* Initially hidden, shown by script */}
     .profile-card { border-radius: var(--border-radius); overflow: hidden; width: 100%; margin-bottom: 1.5rem; }
     .profile-card-header { display: flex; align-items: center; padding: 1.25rem; }
     .profile-photo-enhanced, .profile-photo-placeholder { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; margin-right: 1.25rem; border-width: 3px; border-style: solid; flex-shrink: 0; }
@@ -221,19 +222,18 @@
     .bio-row .info-label { margin-bottom: 0.5rem; }
     .bio-row .info-value.bio-text { text-align: left; width: 100%; line-height: 1.5; font-size: clamp(0.8rem, 2.8vw, 0.9rem); }
     .profile-card-footer { padding: 1rem 1.25rem; text-align: center; }
-    .message { padding: 0.75rem 1rem; border-radius: var(--border-radius); font-weight: 500; margin: 0; display: inline-block; box-shadow: var(--box-shadow-sm); }
     .loading-spinner-container { display: flex; align-items: center; justify-content: center; padding: 1.5rem; text-align: center; width: 100%; }
     .loading-spinner { display: inline-block; width: 24px; height: 24px; border: 3px solid rgba(0,0,0,0.1); border-radius: 50%; animation: spin 0.8s linear infinite; margin-right: 0.75rem; }
     main { width: 100%; display: flex; flex-direction: column; align-items: center; padding-bottom: 2rem; }
     .about-section, .page-content > .about-section, .footer { margin-top: 2rem; padding: 1.25rem; border-radius: var(--border-radius); font-size: clamp(0.875rem, 3vw, 0.95rem); line-height: 1.7; width: 100%; }
-    .page-content { display: block; width: 100%; margin-top: 0; } /* Simplified for multi-page */
+    .page-content { display: block; width: 100%; margin-top: 0; }
     .about-section h2 { font-size: clamp(1.1rem, 3.5vw, 1.25rem); margin-bottom: 0.75rem; font-weight: 600; }
     .about-section p { margin-bottom: 0.75rem; }
     .about-section p:last-child { margin-bottom: 0; }
     .dm-link:hover { text-decoration: underline; }
     .footer { text-align: center; padding: 1.5rem; }
     .footer-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem 1.5rem; }
-    .footer-nav a { font-size: clamp(0.8rem, 2.8vw, 0.9rem); font-weight: 500; transition: color var(--transition-speed) ease-in-out, transform var(--transition-speed) ease-in-out; text-decoration: none;} /* Added text-decoration */
+    .footer-nav a { font-size: clamp(0.8rem, 2.8vw, 0.9rem); font-weight: 500; transition: color var(--transition-speed) ease-in-out, transform var(--transition-speed) ease-in-out; text-decoration: none;}
     .footer-nav a:hover { transform: translateY(-1px); }
     .contact-form { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.25rem; width: 100%; }
     .contact-form input, .contact-form textarea { width: 100%; padding: 0.75rem 1rem; border-radius: var(--border-radius); -webkit-appearance: none; user-select: text; }
@@ -243,18 +243,26 @@
     @media (max-width: 480px) { html { font-size: 14px; } body { padding: 0.5rem; } .container { padding: 0 0.5rem; } .theme-toggle { top: 0.5rem; right: 0.5rem; width: 40px; height: 40px; } .theme-toggle svg { width: 20px; height: 20px; } input, button, textarea { padding: 0.65rem 0.85rem; } .profile-card-header { padding: 1rem; } .profile-photo-enhanced, .profile-photo-placeholder { margin-right: 1rem; width: 60px; height: 60px; } .profile-photo-placeholder svg { width: 30px; height: 30px; } .profile-identity { align-items: flex-start; } .footer-nav { flex-direction: column; gap: 0.75rem; } }
     @media screen and (max-width: 767px) { input, select, textarea { font-size: 1rem; } }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0; }
+    /* Custom alert message box (used by script.js for contact form) */
+    .custom-alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 0; pointer-events: none; transition: opacity 0.3s ease-in-out; }
+    .custom-alert-overlay.active { opacity: 1; pointer-events: auto; }
+    .custom-alert-box { background-color: var(--light-card-bg); color: var(--light-text-color); padding: 2rem; border-radius: var(--border-radius); box-shadow: var(--box-shadow-lg); text-align: center; max-width: 90%; width: 400px; }
+    :root[data-theme="dark"] .custom-alert-box { background-color: var(--dark-card-bg); color: var(--dark-text-color); }
+    .custom-alert-box p { margin-bottom: 1.5rem; font-size: 1.1rem; }
+    .custom-alert-box button { background: var(--primary-color); color: white; padding: 0.6rem 1.2rem; border: none; border-radius: var(--border-radius); cursor: pointer; }
+    .custom-alert-box button:hover { background: var(--primary-hover-color); }
   </style>
 </head>
 <body>
   <div class="container">
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1-8.313-12.454z"/>
+        <!-- Icon will be loaded by script.js -->
       </svg>
     </button>
 
     <main>
-        <div class="page-content" id="main-page-content"> <!-- Changed ID to avoid conflict if any JS still looks for "main-page" -->
+        <div class="page-content" id="main-page-content">
           <div class="patriotic-text">❌🚬 | 🏋‍♀️✅</div>
           <h1>TikTok Account Location Finder</h1>
           <div class="credit">Created by <a href="https://www.tiktok.com/@mo.or__" target="_blank" rel="noopener">@_moro.__</a></div>
@@ -265,6 +273,7 @@
             <button id="getResultsBtn" aria-label="Search TikTok profile">Get Profile Details</button>
             <button id="supportBtn" aria-label="Support the creator">Support Our Work ❤</button>
           </section>
+          <!-- The #result div is used by script.js for both TikTok lookup and contact form messages -->
           <div id="result" aria-live="polite"></div>
 
           <article class="about-section" aria-labelledby="about-tool-heading">
@@ -309,147 +318,13 @@
       </nav>
     </footer>
   </div>
-
-  <script>
-    // --- Theme Toggle Functionality ---
-    const themeToggle = document.getElementById('themeToggle');
-    const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.894 6.166a.75.75 0 0 0-1.06-1.06l-1.591 1.59a.75.75 0 1 0 1.06 1.061l1.591-1.59ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5h2.25a.75.75 0 0 1 .75.75ZM17.834 18.894a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 1 0-1.061 1.06l1.59 1.591ZM12 18a.75.75 0 0 1 .75.75V21a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM7.758 17.303a.75.75 0 0 0-1.061-1.06l-1.591 1.59a.75.75 0 0 0 1.06 1.061l1.591-1.59ZM6 12a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h2.25A.75.75 0 0 1 6 12ZM6.166 7.758a.75.75 0 0 0 1.06-1.06L5.634 5.106a.75.75 0 0 0-1.06 1.06L6.166 7.758Z"/></svg>`;
-    const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1-8.313-12.454z"/></svg>`;
-
-    const applyTheme = (theme) => {
-        document.documentElement.setAttribute('data-theme', theme);
-        themeToggle.innerHTML = theme === 'dark' ? sunIcon : moonIcon;
-        localStorage.setItem('theme', theme);
-    };
-
-    const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    applyTheme(currentTheme);
-
-    themeToggle.addEventListener('click', () => {
-      let newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      applyTheme(newTheme);
-    });
-
-    // --- TikTok Profile Fetch Functionality (for index.html) ---
-    const usernameInput = document.getElementById('username');
-    const getResultsBtn = document.getElementById('getResultsBtn');
-    const resultDiv = document.getElementById('result');
-    const supportBtn = document.getElementById('supportBtn');
-
-    // This is a MOCK API call. Replace with your actual API endpoint and logic.
-    async function fetchTikTokProfile(username) {
-        resultDiv.innerHTML = \`
-            <div class="loading-spinner-container">
-                <div class="loading-spinner"></div> Searching for @\${username}...
-            </div>\`;
-        
-        // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 1500));
-
-        // Example: Using a public API (replace with your actual API if you have one)
-        // Note: Direct client-side calls to TikTok might be blocked by CORS or require authentication.
-        // This example uses a placeholder structure.
-        // You might need a backend proxy to fetch TikTok data reliably.
-        try {
-            // const response = await fetch(\`YOUR_BACKEND_API_ENDPOINT?username=\${username}\`);
-            // if (!response.ok) throw new Error('Network response was not ok.');
-            // const profileData = await response.json();
-
-            // --- MOCK DATA (Replace with actual API response handling) ---
-            const isSuccess = Math.random() > 0.2; // Simulate success/failure
-            if (!isSuccess) throw new Error('Simulated API error: User not found or private.');
-
-            const profileData = {
-                avatarLarger: \`https://placehold.co/100x100/007AFF/FFFFFF?text=\${username.charAt(0).toUpperCase()}\`,
-                nickname: username + (Math.random() > 0.5 ? ' Official' : ' Fan'),
-                uniqueId: '@' + username,
-                signature: 'This is a sample bio for ' + username + '. Follow for more cool content!\\nLoves 🍕 and 💻.\\nCheck my latest video! 👇',
-                followerCount: Math.floor(Math.random() * 1000000),
-                followingCount: Math.floor(Math.random() * 2000),
-                heartCount: Math.floor(Math.random() * 50000000),
-                videoCount: Math.floor(Math.random() * 500),
-                region: ['US', 'GB', 'CA', 'AU', 'DE', 'FR'][Math.floor(Math.random() * 6)],
-                verified: Math.random() > 0.8
-            };
-            // --- END MOCK DATA ---
-
-
-            if (profileData) { // Check if profileData is not null/undefined
-                const regionFlag = profileData.region ? \`https://flagcdn.com/w20/\${profileData.region.toLowerCase()}.png\` : '';
-                resultDiv.innerHTML = \`
-                <div class="profile-card">
-                    <div class="profile-card-header">
-                        <img src="\${profileData.avatarLarger || 'https://placehold.co/72x72/cccccc/999999?text=N/A'}" alt="\${profileData.nickname}'s profile photo" class="profile-photo-enhanced" onerror="this.onerror=null;this.src='https://placehold.co/72x72/cccccc/999999?text=N/A'; this.classList.add('profile-photo-placeholder');">
-                        <div class="profile-identity">
-                            <h3 class="profile-nickname">\${profileData.nickname || 'N/A'} \${profileData.verified ? '<svg viewBox="0 0 24 24" fill="var(--primary-color)" width="18" height="18" style="vertical-align: middle;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15l-3.5-3.5 1.41-1.41L11 13.17l5.09-5.09L17.5 9.5 11 16z"></path></svg>' : ''}</h3>
-                            <p class="profile-username-display">\${profileData.uniqueId || 'N/A'}</p>
-                        </div>
-                    </div>
-                    <div class="profile-card-body">
-                        \${profileData.signature ? \`
-                        <div class="profile-info-row bio-row">
-                            <span class="info-label">Bio:</span>
-                            <p class="info-value bio-text">\${profileData.signature.replace(/\\n/g, '<br>')}</p>
-                        </div>\` : ''}
-                        <div class="profile-info-row">
-                            <span class="info-label">Followers:</span>
-                            <span class="info-value">\${profileData.followerCount !== undefined ? profileData.followerCount.toLocaleString() : 'N/A'}</span>
-                        </div>
-                        <div class="profile-info-row">
-                            <span class="info-label">Following:</span>
-                            <span class="info-value">\${profileData.followingCount !== undefined ? profileData.followingCount.toLocaleString() : 'N/A'}</span>
-                        </div>
-                        <div class="profile-info-row">
-                            <span class="info-label">Likes:</span>
-                            <span class="info-value">\${profileData.heartCount !== undefined ? profileData.heartCount.toLocaleString() : 'N/A'}</span>
-                        </div>
-                        <div class="profile-info-row">
-                            <span class="info-label">Videos:</span>
-                            <span class="info-value">\${profileData.videoCount !== undefined ? profileData.videoCount.toLocaleString() : 'N/A'}</span>
-                        </div>
-                        \${profileData.region ? \`
-                        <div class="profile-info-row">
-                            <span class="info-label">Region:</span>
-                            <span class="info-value">\${profileData.region} \${regionFlag ? \`<img src="\${regionFlag}" alt="\${profileData.region} flag" style="width:20px; height:auto; vertical-align:middle; margin-left: 5px;">\` : ''}</span>
-                        </div>\` : ''}
-                    </div>
-                    <div class="profile-card-footer">
-                       <p class="message success-message">Profile details loaded successfully!</p>
-                    </div>
-                </div>\`;
-            } else {
-                 resultDiv.innerHTML = '<p class="message error-message">Could not retrieve profile. User may not exist or profile is private.</p>';
-            }
-        } catch (error) {
-            console.error("Error fetching TikTok profile:", error);
-            resultDiv.innerHTML = \`<p class="message error-message">Error: \${error.message}. Please try again later.</p>\`;
-        }
-    }
-
-    if (getResultsBtn) {
-        getResultsBtn.addEventListener('click', () => {
-            const usernameVal = usernameInput.value.trim();
-            if (usernameVal) {
-                fetchTikTokProfile(usernameVal);
-            } else {
-                resultDiv.innerHTML = '<p class="message error-message">Please enter a TikTok username.</p>';
-            }
-        });
-    }
-
-    if (usernameInput) {
-        usernameInput.addEventListener('keypress', (event) => {
-            if (event.key === 'Enter') {
-                getResultsBtn.click();
-            }
-        });
-    }
-
-    if (supportBtn) {
-        supportBtn.addEventListener('click', () => {
-            window.open('https://ko-fi.com/moroccan', '_blank');
-        });
-    }
-  </script>
+  <!-- Custom Alert Structure (if needed by script.js for non-contact form alerts, though current script.js uses #result) -->
+  <div class="custom-alert-overlay" id="customAlertOverlay">
+    <div class="custom-alert-box">
+        <p id="customAlertMessage"></p>
+        <button id="customAlertClose">OK</button>
+    </div>
+  </div>
+  <script src="script.js" defer></script>
 </body>
 </html>
