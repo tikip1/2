@@ -130,7 +130,20 @@
     }
     .theme-toggle svg { fill: var(--light-text-color); }
     .patriotic-text { color: var(--light-text-color); }
-    h1 { color: var(--light-text-color); }
+    h1, .page-content h2 { /* Adjusted to style new h2s like old h1s in page-content */
+        color: var(--light-text-color);
+    }
+    :root[data-theme="dark"] h1, :root[data-theme="dark"] .page-content h2 { /* Dark theme adjustment */
+        color: var(--dark-text-color);
+    }
+    .page-content h1, .page-content h2 { /* Specific styling for h1/h2 within .page-content */
+        color: var(--primary-color); /* This was the original style for h1 in .page-content */
+    }
+   :root[data-theme="dark"] .page-content h1, :root[data-theme="dark"] .page-content h2 {
+        color: var(--primary-color); /* Keep primary color for dark theme as well for these specific headings */
+    }
+
+
     .credit { color: var(--light-text-secondary); }
     .credit a { color: var(--primary-color); }
     input {
@@ -180,8 +193,8 @@
       border: 1px solid var(--light-border-color);
       box-shadow: var(--box-shadow-md);
     }
-    .page-content h1 { color: var(--primary-color); }
-    .about-section h2 { color: var(--primary-color); }
+    /* .page-content h1 was here, now handled above and with h2 */
+    .about-section h2 { color: var(--primary-color); } /* This styles h2s within about-section, distinct from page titles */
     .about-section p { color: var(--light-text-secondary); }
     .dm-link { color: var(--primary-color); }
     .footer-nav a { color: var(--primary-color); }
@@ -212,7 +225,7 @@
     }
     :root[data-theme="dark"] .theme-toggle svg { fill: var(--dark-text-color); }
     :root[data-theme="dark"] .patriotic-text { color: var(--dark-text-color); }
-    :root[data-theme="dark"] h1 { color: var(--dark-text-color); }
+    /* :root[data-theme="dark"] h1 was here, now handled above */
     :root[data-theme="dark"] .credit { color: var(--dark-text-secondary); }
     :root[data-theme="dark"] .credit a { color: var(--primary-color); } /* Keep primary for links */
     :root[data-theme="dark"] input {
@@ -249,8 +262,8 @@
       background-color: var(--dark-card-bg);
       border: 1px solid var(--dark-border-color);
     }
-    :root[data-theme="dark"] .page-content h1 { color: var(--primary-color); }
-    :root[data-theme="dark"] .about-section h2 { color: var(--primary-color); }
+    /* :root[data-theme="dark"] .page-content h1 was here, now handled above */
+    :root[data-theme="dark"] .about-section h2 { color: var(--primary-color); } /* This styles h2s within about-section */
     :root[data-theme="dark"] .about-section p { color: var(--dark-text-secondary); }
     :root[data-theme="dark"] .dm-link { color: var(--primary-color); }
     :root[data-theme="dark"] .footer-nav a { color: var(--primary-color); }
@@ -331,13 +344,22 @@
       padding: 0.5rem 0;
     }
 
-    h1 {
+    h1 { /* Main page title */
       font-size: clamp(1.5rem, 5vw, 2rem); /* Responsive heading */
       font-weight: 700; /* Bolder */
       text-align: center;
       margin-bottom: 0.5rem;
       width: 100%;
     }
+
+    .page-content h2 { /* Section titles like "Contact Us", "About Us" etc. */
+      font-size: clamp(1.35rem, 4.5vw, 1.75rem); /* Style like old h1s in page-content */
+      font-weight: 700; /* Match h1 boldness */
+      text-align: center; /* Match h1 alignment */
+      margin-bottom: 1.25rem; /* Match h1 margin */
+      width: 100%;
+    }
+
 
     .credit {
       font-size: clamp(0.75rem, 2.5vw, 0.875rem);
@@ -526,11 +548,9 @@
       margin-top: 2rem;
     }
     .page-content.active { display: block; }
-    .page-content h1 {
-      font-size: clamp(1.35rem, 4.5vw, 1.75rem);
-      margin-bottom: 1.25rem;
-    }
-    .about-section h2 {
+    /* .page-content h1 was here, now handled by .page-content h2 */
+
+    .about-section h2 { /* Titles within articles like "About this tool", "FAQ" */
       font-size: clamp(1.1rem, 3.5vw, 1.25rem);
       margin-bottom: 0.75rem;
       font-weight: 600;
@@ -682,7 +702,7 @@
         </div>
 
         <section class="page-content" id="contact-page" aria-labelledby="contact-page-heading">
-          <h1 id="contact-page-heading">Contact Us</h1>
+          <h2 id="contact-page-heading">Contact Us</h2>
           <article class="about-section"> <p>Have questions or feedback? Reach out to us using the form below or contact us directly via <a href="https://www.tiktok.com/@mo.or__" class="dm-link" target="_blank" rel="noopener">TikTok</a>.</p>
             <form class="contact-form" aria-labelledby="contact-page-heading">
               <input type="text" id="contact-name" placeholder="Your Name" required aria-label="Your Name">
@@ -695,7 +715,7 @@
         </section>
 
         <section class="page-content" id="about-page" aria-labelledby="about-us-page-heading">
-          <h1 id="about-us-page-heading">About Us</h1>
+          <h2 id="about-us-page-heading">About Us</h2>
           <article class="about-section">
             <p>Welcome to the TikTok Account Location Finder, a free tool created by <a href="https://www.tiktok.com/@mo.or__" class="dm-link" target="_blank" rel="noopener">@_moro.__</a>.</p>
             <p>Our mission is to provide a user-friendly platform for researchers, marketers, and social media enthusiasts to access public TikTok profile data. This tool is designed with simplicity, accessibility, and responsiveness in mind, ensuring it works seamlessly across all devices.</p>
@@ -705,7 +725,7 @@
         </section>
 
         <section class="page-content" id="privacy-page" aria-labelledby="privacy-policy-page-heading">
-          <h1 id="privacy-policy-page-heading">Privacy Policy</h1>
+          <h2 id="privacy-policy-page-heading">Privacy Policy</h2>
           <article class="about-section">
             <h2>1. Introduction</h2>
             <p>We value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you use the TikTok Account Location Finder.</p>
@@ -729,7 +749,7 @@
         </section>
 
         <section class="page-content" id="terms-page" aria-labelledby="terms-of-service-page-heading">
-          <h1 id="terms-of-service-page-heading">Terms of Service</h1>
+          <h2 id="terms-of-service-page-heading">Terms of Service</h2>
           <article class="about-section">
             <h2>1. Acceptance of Terms</h2>
             <p>By using the TikTok Account Location Finder, you agree to these Terms of Service. If you do not agree, please do not use the tool.</p>
