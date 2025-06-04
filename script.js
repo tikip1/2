@@ -1,7 +1,5 @@
-// script.js
 
-// Base title for the website
-const baseTitle = "TikTok Account Location Finder | Full Profile Details & FAQ";
+// script.js
 
 // ===== THEME TOGGLE FUNCTIONALITY ===== //
 const themeToggle = document.getElementById('themeToggle');
@@ -31,86 +29,80 @@ function updateThemeIcon(theme) {
   const icon = themeToggle.querySelector('svg');
   if (!icon) return; // Guard clause if icon is not found
 
+  // Paths for Moon (dark theme) and Sun (light theme) icons
+  const moonIconPath = '<path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1-8.313-12.454z"/>';
+  const sunIconPath = '<path d="M12 18a6 6 0 1 1 0-12 6 6 0 1 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 1 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/>';
+
   if (theme === 'dark') {
-    icon.innerHTML = '<path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1-8.313-12.454z"/>'; // Moon
+    icon.innerHTML = moonIconPath;
   } else {
-    icon.innerHTML = '<path d="M12 18a6 6 0 1 1 0-12 6 6 0 1 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 1 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/>'; // Sun
+    icon.innerHTML = sunIconPath;
   }
 }
 
-// ===== PAGE NAVIGATION + DYNAMIC TITLE UPDATE ===== //
-function showPage(pageId) {
-  document.querySelectorAll('.page-content').forEach(page => {
-    page.classList.remove('active');
-  });
-  const targetPage = document.getElementById(pageId);
-  if (targetPage) {
-    targetPage.classList.add('active');
-    const pageTitleElement = targetPage.querySelector('h1');
-    if (pageTitleElement && pageId !== 'main-page') {
-        document.title = pageTitleElement.textContent + " | TikTok Account Location Finder";
-    } else {
-        document.title = baseTitle;
-    }
-  } else {
-    console.warn(`Page with ID "${pageId}" not found. Defaulting to main page.`);
-    const mainPage = document.getElementById('main-page');
-    if(mainPage) mainPage.classList.add('active');
-    document.title = baseTitle;
-  }
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// ===== CONTACT FORM SUBMISSION ===== //
+// ===== CONTACT FORM SUBMISSION (for contact.html) ===== //
 const contactSubmitButton = document.getElementById('contact-submit');
-if (contactSubmitButton) {
-    contactSubmitButton.addEventListener('click', function(e) {
+const contactForm = document.getElementById('contactForm'); // Assuming form has id="contactForm"
+const formFeedbackDiv = document.getElementById('result'); // Using #result div on contact page for feedback
+
+if (contactForm && contactSubmitButton && formFeedbackDiv) {
+    contactForm.addEventListener('submit', function(e) {
       e.preventDefault();
       const nameInput = document.getElementById('contact-name');
       const emailInput = document.getElementById('contact-email');
-      const messageInput = document.getElementById('contact-message');
+      const messageInput = document.getElementById('contact-message'); // Matches ID in contact.html
+
       const name = nameInput ? nameInput.value.trim() : '';
       const email = emailInput ? emailInput.value.trim() : '';
       const message = messageInput ? messageInput.value.trim() : '';
-      const resultDiv = document.getElementById('result'); // Assuming you want to show messages in the main result area
+
+      formFeedbackDiv.innerHTML = ''; // Clear previous messages
+      formFeedbackDiv.style.display = 'none';
+
 
       if (name && email && message) {
-        if (resultDiv) { // Display success message in the main result area or a dedicated contact form message area
-            resultDiv.innerHTML = '<div class="message success-message">Thank you for your message! We will get back to you soon.</div>';
-            resultDiv.style.display = 'block';
-            // Auto-hide message after a few seconds
-            setTimeout(() => {
-                if (resultDiv.contains(resultDiv.firstChild) && resultDiv.firstChild.classList.contains('success-message')) {
-                    resultDiv.style.display = 'none';
-                    resultDiv.innerHTML = '';
-                }
-            }, 4000);
+        if (!email.includes('@') || !email.includes('.')) {
+            formFeedbackDiv.innerHTML = '<div class="message error-message">Please enter a valid email address.</div>';
+            formFeedbackDiv.style.display = 'block';
+            return;
         }
-        if(nameInput) nameInput.value = '';
-        if(emailInput) emailInput.value = '';
-        if(messageInput) messageInput.value = '';
+
+        // Simulate sending message
+        console.log("Contact form submitted:", { name, email, message });
+        formFeedbackDiv.innerHTML = '<div class="message success-message">Thank you for your message! We will get back to you soon. (Demo)</div>';
+        formFeedbackDiv.style.display = 'block';
+
+        contactForm.reset(); // Reset the form fields
+
+        // Optional: Auto-hide message after a few seconds
+        setTimeout(() => {
+            if (formFeedbackDiv.firstChild && formFeedbackDiv.firstChild.classList.contains('success-message')) {
+                formFeedbackDiv.style.display = 'none';
+                formFeedbackDiv.innerHTML = '';
+            }
+        }, 4000);
+
       } else {
-        if (resultDiv) { // Display error message
-            resultDiv.innerHTML = '<div class="message error-message">Please fill in all fields in the contact form.</div>';
-            resultDiv.style.display = 'block';
-            setTimeout(() => {
-                 if (resultDiv.contains(resultDiv.firstChild) && resultDiv.firstChild.classList.contains('error-message')) {
-                    resultDiv.style.display = 'none';
-                    resultDiv.innerHTML = '';
-                 }
-            }, 4000);
-        }
+        formFeedbackDiv.innerHTML = '<div class="message error-message">Please fill in all fields in the contact form.</div>';
+        formFeedbackDiv.style.display = 'block';
+        setTimeout(() => {
+             if (formFeedbackDiv.firstChild && formFeedbackDiv.firstChild.classList.contains('error-message')) {
+                formFeedbackDiv.style.display = 'none';
+                formFeedbackDiv.innerHTML = '';
+             }
+        }, 4000);
       }
     });
 }
 
-// ===== COUNTRY FLAG MAPPING ===== //
+
+// ===== COUNTRY FLAG MAPPING (Utility Function) ===== //
 function getCountryFlag(country) {
   const flagMap = {
     'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
     'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
     'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
-    'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
+    'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦�', 'AT': '🇦🇹', 'Austria': '🇦🇹',
     'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
     'AZ': '🇦🇿', 'Azerbaijan': '🇦🇿', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧🇧',
     'BD': '🇧🇩', 'Bangladesh': '🇧🇩', 'BE': '🇧🇪', 'Belgium': '🇧🇪', 'BF': '🇧🇫', 'Burkina Faso': '🇧🇫',
@@ -198,41 +190,40 @@ function getCountryFlag(country) {
   for (const key in flagMap) {
     if (key.toLowerCase() === normalizedCountry.toLowerCase()) return flagMap[key];
   }
-  // Fallback for full country names if code not found directly
   for (const key in flagMap) {
     if (key.length > 3 && normalizedCountry.toLowerCase().includes(key.toLowerCase())) return flagMap[key];
   }
   return '🌐'; // Default globe if no match
 }
 
-// ===== TIKTOK USER LOOKUP FUNCTIONALITY ===== //
+// ===== TIKTOK USER LOOKUP FUNCTIONALITY (for index.html) ===== //
 const getResultsBtn = document.getElementById('getResultsBtn');
 const supportBtn = document.getElementById('supportBtn');
+const usernameInput = document.getElementById('username'); // Changed from usernameInputGlobal
+const resultDiv = document.getElementById('result'); // Main result div on index.html
 
 if (getResultsBtn) getResultsBtn.addEventListener('click', lookupUser);
 if (supportBtn) supportBtn.addEventListener('click', () => window.open('https://ko-fi.com/moroccan', '_blank'));
 
 function lookupUser() {
-  const usernameInput = document.getElementById('username');
-  const resultDiv = document.getElementById('result');
-  const currentGetResultsBtn = document.getElementById('getResultsBtn'); // Re-select in case it was modified
-  const username = usernameInput ? usernameInput.value.trim() : '';
-
-  if (!username) {
-    if(resultDiv) {
-        resultDiv.innerHTML = '<div class="message error-message">Please enter a valid TikTok username.</div>';
-        resultDiv.style.display = 'block';
-    }
+  // Ensure elements are present on the page (primarily for index.html)
+  if (!usernameInput || !resultDiv || !getResultsBtn) {
+    console.warn("LookupUser called on a page without necessary elements (username input, result div, or getResults button).");
     return;
   }
 
-  if(currentGetResultsBtn) currentGetResultsBtn.disabled = true;
-  if(resultDiv) {
-      resultDiv.innerHTML = '<div class="loading-spinner-container"><div class="loading-spinner"></div> Loading profile data...</div>';
-      resultDiv.style.display = 'block';
+  const username = usernameInput.value.trim();
+
+  if (!username) {
+    resultDiv.innerHTML = '<div class="message error-message">Please enter a valid TikTok username.</div>';
+    resultDiv.style.display = 'block'; // Make sure #result is visible
+    return;
   }
 
-  // API URL is defined here
+  getResultsBtn.disabled = true;
+  resultDiv.innerHTML = '<div class="loading-spinner-container"><div class="loading-spinner"></div> Loading profile data...</div>';
+  resultDiv.style.display = 'block'; // Make sure #result is visible
+
   const targetApiUrl = `https://faas-sgp1-18bc02ac.doserverless.co/api/v1/web/fn-67a396e1-78e9-4dff-8f6a-0f07c2d80c56/default/sm-t/?username=${encodeURIComponent(username)}`;
   const apiUrl = `https://corsproxy.io/?${encodeURIComponent(targetApiUrl)}`;
   console.log("Attempting to fetch data via CORS proxy from:", apiUrl);
@@ -258,7 +249,7 @@ function lookupUser() {
     })
     .then(data => {
       console.log("Full API Response Data:", JSON.stringify(data, null, 2));
-      const apiProfile = data.profile || data; // Adapt based on actual API response structure
+      const apiProfile = data.profile || data;
 
       if (apiProfile && typeof apiProfile === 'object' && Object.keys(apiProfile).length > 0) {
         const sanitize = (str) => {
@@ -268,7 +259,6 @@ function lookupUser() {
             return temp.innerHTML;
         };
 
-        // Attempt to find profile photo URL from various possible keys
         let foundProfilePhotoUrl = '';
         const avatarKeys = ['Profile Photo', 'Avatar URL', 'avatar_url', 'avatarUrl', 'picture', 'profileImageUrl', 'profile_pic_url', 'profile_image_url', 'avatar', 'Avatar', 'profile_picture', 'photo_url', 'user_avatar'];
         for (const key of avatarKeys) {
@@ -280,7 +270,6 @@ function lookupUser() {
         }
         const profilePhoto = foundProfilePhotoUrl ? sanitize(foundProfilePhotoUrl) : '';
 
-        // Normalize username and nickname
         let rawUsernameFromAPI = apiProfile.Username || apiProfile.username || apiProfile.user_name || apiProfile.unique_id || username;
         if (typeof rawUsernameFromAPI === 'string' && rawUsernameFromAPI.startsWith('@')) {
             rawUsernameFromAPI = rawUsernameFromAPI.substring(1);
@@ -288,16 +277,13 @@ function lookupUser() {
         const displayUsername = sanitize(rawUsernameFromAPI);
         const displayNickname = apiProfile.Nickname || apiProfile.nickname || apiProfile.name || apiProfile.display_name || apiProfile.user_display_name || displayUsername;
 
-
         let profileDetailsHtml = '';
         for (const key in apiProfile) {
             if (Object.hasOwnProperty.call(apiProfile, key)) {
-                // Skip fields that are already handled in the header, are null/empty, or specifically requested to be hidden
                 if (['Nickname', 'nickname', 'Username', 'username', 'name', 'display_name', 'user_name', 'unique_id', 'user_display_name', ...avatarKeys].includes(key) ||
                     apiProfile[key] == null || String(apiProfile[key]).trim() === '') {
                     continue;
                 }
-                // Skip "Sec U I D" and "Username Last Modified" (case-insensitive for displayKey)
                 let displayKey = key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()).trim();
                 if (displayKey.toLowerCase() === 'sec u i d' || displayKey.toLowerCase() === 'username last modified') {
                     console.log(`Skipping field with displayKey: ${displayKey} (original key: ${key})`);
@@ -326,10 +312,9 @@ function lookupUser() {
             }
         }
 
-
         if (profileDetailsHtml.trim() === '') {
-             if(resultDiv) resultDiv.innerHTML = `<div class="message error-message">No displayable profile data found for '${sanitize(username)}'. The user might not exist, or the API returned minimal information.</div>`;
-             if(currentGetResultsBtn) currentGetResultsBtn.disabled = false; // Re-enable button
+             resultDiv.innerHTML = `<div class="message error-message">No displayable profile data found for '${sanitize(username)}'. The user might not exist, or the API returned minimal information.</div>`;
+             getResultsBtn.disabled = false;
              return;
         }
 
@@ -349,31 +334,89 @@ function lookupUser() {
             <div class="profile-card-body">${profileDetailsHtml}</div>
             <div class="profile-card-footer"><span class="message success-message">Profile data retrieved successfully!</span></div>
           </article>`;
-        if(resultDiv) resultDiv.innerHTML = formattedData;
+        resultDiv.innerHTML = formattedData;
       } else {
         console.warn("Profile data is missing, not an object, or empty in the API response.", "Received data:", data);
-        if(resultDiv) resultDiv.innerHTML = `<div class="message error-message">Profile data not found or is incomplete for '${sanitize(username)}'. The API might be down, the user may not exist, or the response format is unexpected.</div>`;
+        resultDiv.innerHTML = `<div class="message error-message">Profile data not found or is incomplete for '${sanitize(username)}'. The API might be down, the user may not exist, or the response format is unexpected.</div>`;
       }
     })
     .catch(error => {
       console.error("Fetch or processing error:", error);
-      if(resultDiv) resultDiv.innerHTML = `<div class="message error-message">Error: ${error.message || 'Failed to fetch profile data'}. Please check the username and try again. The API service or CORS proxy might be temporarily unavailable.</div>`;
+      resultDiv.innerHTML = `<div class="message error-message">Error: ${error.message || 'Failed to fetch profile data'}. Please check the username and try again. The API service or CORS proxy might be temporarily unavailable.</div>`;
     })
     .finally(() => {
-      if(currentGetResultsBtn) currentGetResultsBtn.disabled = false;
+      getResultsBtn.disabled = false;
     });
 }
 
-// Add event listener for Enter key on username input
-const usernameInputGlobal = document.getElementById('username');
-if (usernameInputGlobal) {
-  usernameInputGlobal.addEventListener('keypress', function(e) {
+// Add event listener for Enter key on username input (specific to index.html)
+if (usernameInput) { // Guard this listener as well
+  usernameInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
-      e.preventDefault(); // Prevent form submission if it's part of a form
-      lookupUser();
+      e.preventDefault();
+      if (typeof lookupUser === 'function') { // Ensure lookupUser is defined
+          lookupUser();
+      }
     }
   });
 }
 
-// Initialize theme when the script loads
-document.addEventListener('DOMContentLoaded', initializeTheme);
+// ===== INITIALIZATION ON DOM CONTENT LOADED ===== //
+document.addEventListener('DOMContentLoaded', function() {
+    // Show the main application content wrapper
+    const appWrapper = document.getElementById('app-wrapper');
+    if (appWrapper) {
+        // The #app-wrapper in HTML is set to display:flex, flex-direction:column, align-items:center
+        // So, we restore its intended display type.
+        appWrapper.style.display = 'flex';
+    }
+
+    // Ensure the script error message is hidden if the script loads successfully
+    const scriptErrorMsg = document.getElementById('script-error-message');
+    if (scriptErrorMsg) {
+        scriptErrorMsg.style.display = 'none';
+    }
+
+    // Initialize theme (globally applicable)
+    if (typeof initializeTheme === 'function') {
+        initializeTheme();
+    }
+
+    // Other initializations can be guarded here if needed,
+    // though most event listeners above are already guarded.
+    // For example, if there were functions to run only on specific pages:
+    // if (document.getElementById('some-index-only-element')) {
+    //     initializeIndexPageSpecificStuff();
+    // }
+    // if (document.getElementById('some-contact-only-element')) {
+    //     initializeContactPageSpecificStuff();
+    // }
+});
+
+// ===== CUSTOM ALERT FUNCTIONALITY (Used by Contact Form, potentially other features) ===== //
+const customAlertOverlay = document.getElementById('customAlertOverlay');
+const customAlertMessageEl = document.getElementById('customAlertMessage'); // Renamed to avoid conflict
+const customAlertCloseBtn = document.getElementById('customAlertClose'); // Renamed to avoid conflict
+
+function showAlert(message) {
+    if (customAlertMessageEl && customAlertOverlay) {
+        customAlertMessageEl.textContent = message;
+        customAlertOverlay.classList.add('active');
+    } else {
+        // Fallback to console if custom alert elements aren't on the page
+        console.warn("Custom alert elements not found. Alert message:", message);
+        // As a last resort, use browser's alert, but it's generally discouraged.
+        // window.alert(message);
+    }
+}
+
+if (customAlertCloseBtn && customAlertOverlay) {
+    customAlertCloseBtn.addEventListener('click', () => {
+        customAlertOverlay.classList.remove('active');
+    });
+    customAlertOverlay.addEventListener('click', (event) => {
+        if (event.target === customAlertOverlay) {
+            customAlertOverlay.classList.remove('active');
+        }
+    });
+}
