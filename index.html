@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Free TikTok Account Location Finder | Full Profile Details & FAQ</title>
+  <title>Free TikTok Account Location Finder | Full Profile Details</title>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -19,21 +19,19 @@
   <meta property="og:image" content="https://tikip.us/favicon.png">
   <meta property="og:site_name" content="TikTok Location Finder">
 
+
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:creator" content="@mo.or__">
   <meta name="twitter:title" content="TikTok Account Location Finder | Full Profile Details & FAQ">
   <meta name="twitter:description" content="Free tool to find TikTok user locations and full profile details by username. Check out our FAQ and learn more about how it works.">
   <meta name="twitter:image" content="https://tikip.us/favicon.png">
-
   <meta content="Global" name="distribution"/>
   <meta content="General" name="rating"/>
   <meta content="en" http-equiv="content-language"/>
-  <!-- Removed geo.country and geo.placename for broader global targeting -->
-  <!-- <meta content="Turkey" name="geo.country"/> -->
-  <!-- <meta content="Turkey" name="geo.placename"/> -->
+  <meta content="Turkey" name="geo.country"/>
   <meta content="en_US" property="og:locale"/>
   <meta content="en_UK" property="og:locale:alternate"/>
-
+  <meta content="Turkey" name="geo.placename"/>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-HTPQL6DM82"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -49,6 +47,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="/favicon.png" type="image/png">
 
+  <!-- Include the API configuration file BEFORE your main script -->
   <!-- Ensure 'api_config.js' is in the same directory as index.html, or adjust the path accordingly -->
   <script src="api_config.js"></script>
 
@@ -135,7 +134,7 @@
     }
     .theme-toggle svg { fill: var(--light-text-color); }
     .patriotic-text { color: var(--light-text-color); }
-    /* h1 { color: var(--light-text-color); } */ /* General h1 styling removed to be more specific below */
+    h1 { color: var(--light-text-color); }
     .credit { color: var(--light-text-secondary); }
     .credit a { color: var(--primary-color); }
     input {
@@ -185,8 +184,16 @@
       border: 1px solid var(--light-border-color);
       box-shadow: var(--box-shadow-md);
     }
-    /* .page-content h1 { color: var(--primary-color); } */ /* Further H1 styling handled below */
+    .page-content h1 { color: var(--primary-color); }
     .about-section h2 { color: var(--primary-color); }
+    /* Make H2 in about-section not have primary color by default to avoid confusion with clickable one */
+    .about-section h2:not([style*="cursor:pointer"]) { color: var(--light-text-color); }
+    :root[data-theme="dark"] .about-section h2:not([style*="cursor:pointer"]) { color: var(--dark-text-color); }
+     /* Style for the clickable H2 */
+    .about-section h2[style*="cursor:pointer"] { color: var(--primary-color) !important; }
+    :root[data-theme="dark"] .about-section h2[style*="cursor:pointer"] { color: var(--primary-color) !important; }
+
+
     .about-section p { color: var(--light-text-secondary); }
     .dm-link { color: var(--primary-color); }
     .footer-nav a { color: var(--primary-color); }
@@ -217,7 +224,7 @@
     }
     :root[data-theme="dark"] .theme-toggle svg { fill: var(--dark-text-color); }
     :root[data-theme="dark"] .patriotic-text { color: var(--dark-text-color); }
-    /* :root[data-theme="dark"] h1 { color: var(--dark-text-color); } */ /* General dark h1 styling removed */
+    :root[data-theme="dark"] h1 { color: var(--dark-text-color); }
     :root[data-theme="dark"] .credit { color: var(--dark-text-secondary); }
     :root[data-theme="dark"] .credit a { color: var(--primary-color); } /* Keep primary for links */
     :root[data-theme="dark"] input {
@@ -254,8 +261,8 @@
       background-color: var(--dark-card-bg);
       border: 1px solid var(--dark-border-color);
     }
-    /* :root[data-theme="dark"] .page-content h1 { color: var(--primary-color); } */ /* Further H1 styling handled below */
-    :root[data-theme="dark"] .about-section h2 { color: var(--primary-color); }
+    :root[data-theme="dark"] .page-content h1 { color: var(--primary-color); }
+    /* :root[data-theme="dark"] .about-section h2 { color: var(--primary-color); } */ /* Already handled by specific rules */
     :root[data-theme="dark"] .about-section p { color: var(--dark-text-secondary); }
     :root[data-theme="dark"] .dm-link { color: var(--primary-color); }
     :root[data-theme="dark"] .footer-nav a { color: var(--primary-color); }
@@ -336,27 +343,13 @@
       padding: 0.5rem 0;
     }
 
-    h1 { /* Base H1 styling for all page views */
-      font-size: clamp(1.5rem, 5vw, 2rem);
-      font-weight: 700;
+    h1 {
+      font-size: clamp(1.5rem, 5vw, 2rem); /* Responsive heading */
+      font-weight: 700; /* Bolder */
       text-align: center;
       margin-bottom: 0.5rem;
       width: 100%;
     }
-    /* H1 on the main page uses theme's default text color */
-    .page-content#main-page > h1 {
-        color: var(--light-text-color);
-    }
-    :root[data-theme="dark"] .page-content#main-page > h1 {
-        color: var(--dark-text-color);
-    }
-    /* H1s on other sub-pages use primary color */
-    .page-content:not(#main-page) > h1 {
-        color: var(--primary-color);
-        font-size: clamp(1.35rem, 4.5vw, 1.75rem); /* Slightly smaller for sub-page titles */
-        margin-bottom: 1.25rem;
-    }
-
 
     .credit {
       font-size: clamp(0.75rem, 2.5vw, 0.875rem);
@@ -411,6 +404,7 @@
       display: flex;
       align-items: center; /* Vertically align avatar and text block */
       padding: 1.25rem; /* Increased padding */
+      /* flex-direction: row; /* Ensures avatar and identity block are side-by-side by default */
     }
 
     .profile-photo-enhanced, .profile-photo-placeholder {
@@ -539,22 +533,20 @@
       width: 100%;
     }
     .page-content {
-      display: none; /* Initially hide all pages */
+      display: none;
       width: 100%;
       margin-top: 2rem;
     }
-    .page-content.active { display: block; } /* Show active page */
-
-    .about-section h2 { /* Targeting H2s within .about-section for all themes */
+    .page-content.active { display: block; }
+    .page-content h1 {
+      font-size: clamp(1.35rem, 4.5vw, 1.75rem);
+      margin-bottom: 1.25rem;
+    }
+    .about-section h2 {
       font-size: clamp(1.1rem, 3.5vw, 1.25rem);
       margin-bottom: 0.75rem;
       font-weight: 600;
-      color: var(--primary-color); /* H2s in about sections will use primary color */
     }
-    /* If H2s in dark theme need a different color for some reason, it would be specified here:
-    :root[data-theme="dark"] .about-section h2 { color: var(--some-other-color-for-dark-h2); }
-    */
-
     .about-section p { margin-bottom: 0.75rem; }
     .about-section p:last-child { margin-bottom: 0; }
     .dm-link:hover { text-decoration: underline; }
@@ -572,7 +564,6 @@
       font-size: clamp(0.8rem, 2.8vw, 0.9rem);
       font-weight: 500;
       transition: color var(--transition-speed) ease-in-out, transform var(--transition-speed) ease-in-out;
-      text-decoration: none;
     }
     .footer-nav a:hover {
       transform: translateY(-1px);
@@ -616,10 +607,13 @@
       input, button, textarea { padding: 0.65rem 0.85rem; }
       .profile-card-header {
         padding: 1rem;
+        /* flex-direction: column; /* REMOVED: To keep avatar and text side-by-side */
+        /* text-align: center; /* REMOVED: Not needed if items are aligned to start */
       }
       .profile-photo-enhanced, .profile-photo-placeholder {
-        margin-right: 1rem;
-        width: 60px;
+        margin-right: 1rem; /* ADDED: Space between avatar and text on small screens */
+        margin-bottom: 0; /* Ensure no bottom margin if it was previously stacked */
+        width: 60px; /* Slightly smaller avatar on mobile */
         height: 60px;
       }
       .profile-photo-placeholder svg {
@@ -627,7 +621,7 @@
         height: 30px;
       }
       .profile-identity {
-        align-items: flex-start;
+        align-items: flex-start; /* Ensure text aligns to the start of its container */
       }
       .footer-nav { flex-direction: column; gap: 0.75rem; }
     }
@@ -656,31 +650,36 @@
     </button>
 
     <main>
-        <!-- Main Search Page Content -->
-        <div class="page-content" id="main-page">
+        <div class="page-content active" id="main-page">
           <div class="patriotic-text">❌🚬 | 🏋‍♀️✅</div>
           <h1>TikTok Account Location Finder</h1>
           <div class="credit">Created by <a href="https://www.tiktok.com/@mo.or__" target="_blank" rel="noopener">@_moro.__</a></div>
 
           <section aria-labelledby="search-tool-heading">
-            <h2 id="search-tool-heading" class="sr-only">TikTok Profile Search Tool</h2>
-            <input type="text" id="username" placeholder="Enter TikTok username (without @)" required aria-label="TikTok Username Input">
+            <h2 id="search-tool-heading" class="sr-only">TikTok Profile Search Tool</h2> <input type="text" id="username" placeholder="Enter TikTok username (without @)" required aria-label="TikTok Username Input">
             <button id="getResultsBtn" aria-label="Search TikTok profile">Get Profile Details</button>
             <button id="supportBtn" aria-label="Support the creator">Support Our Work ❤</button>
           </section>
           <div id="result" aria-live="polite"></div>
 
+          <!-- MODIFIED SECTION -->
           <article class="about-section" aria-labelledby="about-tool-heading">
-            <h2 id="about-tool-heading">About This TikTok Location Finder Tool</h2>
-            <p>This TikTok Location Finder is a free tool designed to help you retrieve complete public TikTok user profiles. With our TikTok profile lookup service, you can easily find TikTok user location information, along with other TikTok account details like username, bio, follower counts, video statistics, and more. It's an ideal resource for researchers, social media enthusiasts, or anyone curious about a TikTok user's public presence.</p>
-            <p>Key Features: Comprehensive TikTok profile lookup, estimated country display with flags, full bio visibility, up-to-date follower and video statistics, responsive design for all devices, and a user-friendly dark/light mode switcher.</p>
+            <h2 id="about-tool-heading" style="cursor: pointer; user-select: none;">
+                About This TikTok Location Finder Tool
+                <span class="toggle-indicator" style="font-size: 0.8em; font-weight: normal; margin-left: 8px;">(Click to expand)</span>
+            </h2>
+            <div id="aboutToolDetailsSection" style="display: none; margin-top: 1em;">
+                <p>This <strong>TikTok Location Finder</strong> is a free tool designed to help you retrieve complete public TikTok user profiles. With our <strong>TikTok profile lookup</strong> service, you can easily <strong>find TikTok user location</strong> information, along with other <strong>TikTok account details</strong> like username, bio, follower counts, video statistics, and more. It's an ideal resource for researchers, social media enthusiasts, or anyone curious about a TikTok user's public presence.</p>
+                <p><strong>Key Features:</strong> Comprehensive <strong>TikTok profile lookup</strong>, estimated country display with flags, full bio visibility, up-to-date follower and video statistics, responsive design for all devices, and a user-friendly dark/light mode switcher.</p>
+            </div>
           </article>
+          <!-- END OF MODIFIED SECTION -->
 
           <article class="about-section" aria-labelledby="faq-heading">
             <h2 id="faq-heading">Frequently Asked Questions (FAQ)</h2>
-            <p>How does the TikTok Location Finder work? Our tool fetches publicly available TikTok profile information using the username you provide. This includes data such as their display name, bio, follower and video counts, and an estimated country or region associated with the TikTok account location.</p>
-            <p>Is this TikTok tool free to use? Yes, our TikTok location finder is completely free. There are no hidden charges or subscription fees to access TikTok account details.</p>
-            <p>How accurate is the TikTok username location and other data? The information, including the TikTok username location, is based on publicly accessible data from TikTok profiles. While we strive for accuracy, the exactness of location and statistics can vary and is subject to the information publicly shared by the user. This free TikTok tool provides an estimate based on available data.</p>
+            <p><strong>How does the TikTok Location Finder work?</strong> Our tool fetches publicly available TikTok profile information using the username you provide. This includes data such as their display name, bio, follower and video counts, and an estimated country or region associated with the <strong>TikTok account location</strong>.</p>
+            <p><strong>Is this TikTok tool free to use?</strong> Yes, our <strong>TikTok location finder</strong> is completely free. There are no hidden charges or subscription fees to access <strong>TikTok account details</strong>.</p>
+            <p><strong>How accurate is the TikTok username location and other data?</strong> The information, including the <strong>TikTok username location</strong>, is based on publicly accessible data from TikTok profiles. While we strive for accuracy, the exactness of location and statistics can vary and is subject to the information publicly shared by the user. This <strong>free TikTok tool</strong> provides an estimate based on available data.</p>
           </article>
 
           <article class="about-section" aria-labelledby="about-creator-heading">
@@ -701,89 +700,86 @@
           </article>
         </div>
 
-        <!-- Contact Page Content -->
         <section class="page-content" id="contact-page" aria-labelledby="contact-page-heading">
           <h1 id="contact-page-heading">Contact Us</h1>
-          <article class="about-section">
-            <h2 class="sr-only">Contact Information and Form</h2> <!-- Added sr-only h2 for structure -->
-            <p>Have questions or feedback? Reach out to us using the form below or contact us directly via <a href="https://www.tiktok.com/@mo.or__" class="dm-link" target="_blank" rel="noopener">TikTok</a>.</p>
+          <article class="about-section"> <p>Have questions or feedback? Reach out to us using the form below or contact us directly via <a href="https://www.tiktok.com/@mo.or__" class="dm-link" target="_blank" rel="noopener">TikTok</a>.</p>
             <form class="contact-form" aria-labelledby="contact-page-heading">
-              <label for="contact-name" class="sr-only">Your Name</label>
               <input type="text" id="contact-name" placeholder="Your Name" required aria-label="Your Name">
-              <label for="contact-email" class="sr-only">Your Email</label>
               <input type="email" id="contact-email" placeholder="Your Email" required aria-label="Your Email">
-              <label for="contact-message" class="sr-only">Your Message</label>
               <textarea id="contact-message" placeholder="Your Message" required aria-label="Your Message"></textarea>
               <button type="submit" id="contact-submit">Send Message</button>
             </form>
           </article>
-          <a href="#main-page" class="back-btn" style="display: block; text-align: center; text-decoration: none; margin-top: 1rem; padding: 0.75rem 1rem;">Back to Home</a>
+          <button class="back-btn" onclick="showPage('main-page')">Back to Home</button>
         </section>
 
-        <!-- About Us Page Content -->
         <section class="page-content" id="about-page" aria-labelledby="about-us-page-heading">
           <h1 id="about-us-page-heading">About Us</h1>
           <article class="about-section">
-            <h2 class="sr-only">More About The Tool and Creator</h2> <!-- Added sr-only h2 for structure -->
             <p>Welcome to the TikTok Account Location Finder, a free tool created by <a href="https://www.tiktok.com/@mo.or__" class="dm-link" target="_blank" rel="noopener">@_moro.__</a>.</p>
             <p>Our mission is to provide a user-friendly platform for researchers, marketers, and social media enthusiasts to access public TikTok profile data. This tool is designed with simplicity, accessibility, and responsiveness in mind, ensuring it works seamlessly across all devices.</p>
             <p>Built by Moor, a passionate Graphic Designer and Web Developer with over 4 years of experience, this project reflects a commitment to creating innovative tools for the community. Follow us on <a href="https://www.tiktok.com/@mo.or__" class="dm-link" target="_blank" rel="noopener">TikTok</a> for updates and more!</p>
           </article>
-           <a href="#main-page" class="back-btn" style="display: block; text-align: center; text-decoration: none; margin-top: 1rem; padding: 0.75rem 1rem;">Back to Home</a>
+          <button class="back-btn" onclick="showPage('main-page')">Back to Home</button>
         </section>
 
-        <!-- Privacy Policy Page Content -->
         <section class="page-content" id="privacy-page" aria-labelledby="privacy-policy-page-heading">
           <h1 id="privacy-policy-page-heading">Privacy Policy</h1>
           <article class="about-section">
-            <!-- H2s are already present and correctly used in this section -->
             <h2>1. Introduction</h2>
             <p>We value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you use the TikTok Account Location Finder.</p>
+
             <h2>2. Information We Collect</h2>
             <p>We do not collect personal information unless you voluntarily provide it (e.g., via the contact form). The tool fetches publicly available TikTok profile data, which may include usernames, bios, follower counts, and other public metrics.</p>
+
             <h2>3. How We Use Your Information</h2>
             <p>Any information provided through the contact form (e.g., name, email, message) is used solely to respond to your inquiries. Public TikTok data is retrieved and displayed for informational purposes only.</p>
+
             <h2>4. Data Sharing</h2>
             <p>We do not sell, trade, or share your personal information with third parties, except as required by law. Public TikTok data is sourced via a third-party API and is not stored by us.</p>
+
             <h2>5. Cookies and Tracking</h2>
             <p>This site uses local storage to track page visits for analytics purposes (e.g., visit counter). No cookies or third-party trackers are used.</p>
+
             <h2>6. Contact Us</h2>
             <p>If you have any questions about this Privacy Policy, please contact us via <a href="https://www.tiktok.com/@mo.or__" class="dm-link" target="_blank" rel="noopener">TikTok</a> or the contact form.</p>
           </article>
-           <a href="#main-page" class="back-btn" style="display: block; text-align: center; text-decoration: none; margin-top: 1rem; padding: 0.75rem 1rem;">Back to Home</a>
+          <button class="back-btn" onclick="showPage('main-page')">Back to Home</button>
         </section>
 
-        <!-- Terms of Service Page Content -->
         <section class="page-content" id="terms-page" aria-labelledby="terms-of-service-page-heading">
           <h1 id="terms-of-service-page-heading">Terms of Service</h1>
           <article class="about-section">
-            <!-- H2s are already present and correctly used in this section -->
             <h2>1. Acceptance of Terms</h2>
             <p>By using the TikTok Account Location Finder, you agree to these Terms of Service. If you do not agree, please do not use the tool.</p>
+
             <h2>2. Use of the Tool</h2>
             <p>This tool is for educational and research purposes only. You agree to use it responsibly and respect the privacy of others. Do not use the tool for illegal activities or to harm others.</p>
+
             <h2>3. Data Accuracy</h2>
             <p>The tool fetches publicly available TikTok data via a third-party API. We do not guarantee the accuracy or completeness of the data provided.</p>
+
             <h2>4. Intellectual Property</h2>
             <p>All content, design, and code on this site are the property of the creator (@_moro.__). Unauthorized copying or distribution is prohibited.</p>
+
             <h2>5. Limitation of Liability</h2>
             <p>We are not liable for any damages arising from the use of this tool. Use it at your own risk.</p>
+
             <h2>6. Changes to Terms</h2>
             <p>We may update these Terms of Service at any time. Continued use of the tool constitutes acceptance of the updated terms.</p>
+
             <h2>7. Contact Us</h2>
             <p>If you have any questions about these Terms, please contact us via <a href="https://www.tiktok.com/@mo.or__" class="dm-link" target="_blank" rel="noopener">TikTok</a> or the contact form.</p>
           </article>
-           <a href="#main-page" class="back-btn" style="display: block; text-align: center; text-decoration: none; margin-top: 1rem; padding: 0.75rem 1rem;">Back to Home</a>
+          <button class="back-btn" onclick="showPage('main-page')">Back to Home</button>
         </section>
     </main>
 
-    <footer class="footer">
-      <nav class="footer-nav" aria-label="Footer navigation">
-        <a href="#main-page">Home</a>
-        <a href="#about-page">About Us</a>
-        <a href="#contact-page">Contact Us</a>
-        <a href="#privacy-page">Privacy Policy</a>
-        <a href="#terms-page">Terms of Service</a>
+    <footer class="footer"> <nav class="footer-nav" aria-label="Footer navigation"> <a href="#" onclick="showPage('main-page'); return false;">Home</a>
+        <a href="#" onclick="showPage('about-page'); return false;">About Us</a>
+        <a href="#" onclick="showPage('contact-page'); return false;">Contact Us</a>
+        <a href="#" onclick="showPage('privacy-page'); return false;">Privacy Policy</a>
+        <a href="#" onclick="showPage('terms-page'); return false;">Terms of Service</a>
       </nav>
     </footer>
 
@@ -796,11 +792,17 @@
     const themeToggle = document.getElementById('themeToggle');
     const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
 
-    function applyTheme(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-        updateThemeIcon(theme);
-    }
+    const currentTheme = localStorage.getItem('theme') || (prefersDarkScheme.matches ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    updateThemeIcon(currentTheme);
+
+    themeToggle.addEventListener('click', function() {
+      let theme = document.documentElement.getAttribute('data-theme');
+      theme = theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      updateThemeIcon(theme);
+    });
 
     function updateThemeIcon(theme) {
       const icon = themeToggle.querySelector('svg');
@@ -811,27 +813,14 @@
       }
     }
 
-    const savedTheme = localStorage.getItem('theme') || (prefersDarkScheme.matches ? 'dark' : 'light');
-    applyTheme(savedTheme);
-
-    themeToggle.addEventListener('click', function() {
-      let currentTheme = document.documentElement.getAttribute('data-theme');
-      applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
-    });
-
-
-    // ===== PAGE NAVIGATION + DYNAMIC TITLE UPDATE (HASH-BASED ROUTING) ===== //
+    // ===== PAGE NAVIGATION + DYNAMIC TITLE UPDATE ===== //
     function showPage(pageId) {
-      // Remove 'active' class from all pages
       document.querySelectorAll('.page-content').forEach(page => {
         page.classList.remove('active');
       });
-
-      // Add 'active' class to the target page
       const targetPage = document.getElementById(pageId);
       if (targetPage) {
         targetPage.classList.add('active');
-        // Update document title
         const pageTitleElement = targetPage.querySelector('h1');
         if (pageTitleElement && pageId !== 'main-page') {
             document.title = pageTitleElement.textContent + " | TikTok Account Location Finder";
@@ -839,43 +828,13 @@
             document.title = baseTitle;
         }
       } else {
-        const mainPageDefault = document.getElementById('main-page');
-        if (mainPageDefault) mainPageDefault.classList.add('active');
-        document.title = baseTitle;
         console.warn(`Page with ID "${pageId}" not found. Defaulting to main page.`);
+        const mainPage = document.getElementById('main-page');
+        if(mainPage) mainPage.classList.add('active');
+        document.title = baseTitle;
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-
-    function handleHashChange() {
-        let hash = window.location.hash.substring(1);
-        if (!hash || !document.getElementById(hash)) { // If hash is empty or target doesn't exist
-            hash = 'main-page'; // Default to main page
-            window.location.hash = '#' + hash; // Optionally update URL to reflect default
-        }
-        showPage(hash);
-    }
-
-    window.addEventListener('hashchange', handleHashChange);
-
-    document.addEventListener('DOMContentLoaded', () => {
-        handleHashChange(); 
-
-        document.querySelectorAll('.footer-nav a, a.back-btn').forEach(link => {
-            link.addEventListener('click', function(event) {
-                // The default action of clicking a hash link will trigger 'hashchange'
-                // So, no need to call showPage explicitly or preventDefault unless there's an issue
-                // Ensuring the href is valid before allowing default action
-                const targetId = this.getAttribute('href').substring(1);
-                if (!document.getElementById(targetId)) {
-                    event.preventDefault(); 
-                    console.warn("Link target page not found: " + targetId + ". Navigating to main page.");
-                    window.location.hash = 'main-page'; // Correctly triggers hashchange for default
-                }
-            });
-        });
-    });
-
 
     // ===== CONTACT FORM SUBMISSION ===== //
     const contactSubmitButton = document.getElementById('contact-submit');
@@ -888,15 +847,13 @@
           const name = nameInput ? nameInput.value.trim() : '';
           const email = emailInput ? emailInput.value.trim() : '';
           const message = messageInput ? messageInput.value.trim() : '';
-          
-          const resultDiv = document.getElementById('result');
-          if(resultDiv) resultDiv.innerHTML = '';
-
+          const resultDiv = document.getElementById('result'); // Assuming resultDiv is for general messages now
 
           if (name && email && message) {
-            if (resultDiv) {
+            if (resultDiv) { // Display success in the main result area for simplicity
                 resultDiv.innerHTML = '<div class="message success-message">Thank you for your message! We will get back to you soon.</div>';
                 resultDiv.style.display = 'block';
+                // Auto-hide message after a few seconds
                 setTimeout(() => {
                     if (resultDiv.contains(resultDiv.firstChild) && resultDiv.firstChild.classList.contains('success-message')) {
                         resultDiv.style.display = 'none';
@@ -908,7 +865,7 @@
             if(emailInput) emailInput.value = '';
             if(messageInput) messageInput.value = '';
           } else {
-            if (resultDiv) {
+            if (resultDiv) { // Display error in the main result area
                 resultDiv.innerHTML = '<div class="message error-message">Please fill in all fields in the contact form.</div>';
                 resultDiv.style.display = 'block';
                  setTimeout(() => {
@@ -930,7 +887,7 @@
         'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
         'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
         'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
-        'AZ': '🇦🇿', 'Azerbaijan': '🇦�', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧🇧',
+        'AZ': '🇦🇿', 'Azerbaijan': '🇦🇿', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧🇧',
         'BD': '🇧🇩', 'Bangladesh': '🇧🇩', 'BE': '🇧🇪', 'Belgium': '🇧🇪', 'BF': '🇧🇫', 'Burkina Faso': '🇧🇫',
         'BG': '🇧🇬', 'Bulgaria': '🇧🇬', 'BH': '🇧🇭', 'Bahrain': '🇧🇭', 'BI': '🇧🇮', 'Burundi': '🇧🇮',
         'BJ': '🇧🇯', 'Benin': '🇧🇯', 'BL': '🇧🇱', 'Saint Barthélemy': '🇧🇱', 'BM': '🇧🇲', 'Bermuda': '🇧🇲',
@@ -1011,15 +968,19 @@
         'XK': '🇽🇰', 'Kosovo': '🇽🇰', 'YE': '🇾🇪', 'Yemen': '🇾🇪', 'YT': '🇾🇹', 'Mayotte': '🇾🇹',
         'ZA': '🇿🇦', 'South Africa': '🇿🇦', 'ZM': '🇿🇲', 'Zambia': '🇿🇲', 'ZW': '🇿🇼', 'Zimbabwe': '🇿🇼'
       };
-      if (!country) return '🌐';
-      const normalizedCountry = String(country).trim();
+      if (!country) return '🌐'; // Default globe emoji if country is undefined or null
+      const normalizedCountry = String(country).trim(); // Ensure country is a string and trim whitespace
+      // Try exact match (case-insensitive) for both codes and full names
       for (const key in flagMap) {
         if (key.toLowerCase() === normalizedCountry.toLowerCase()) return flagMap[key];
       }
+      // Try partial match for full names (e.g., if API returns "United States" and map has "United States of America")
+      // This is a bit more lenient, ensure it doesn't cause wrong matches for short country names.
+      // Only do this for keys that are likely full country names (e.g., length > 3)
       for (const key in flagMap) {
         if (key.length > 3 && normalizedCountry.toLowerCase().includes(key.toLowerCase())) return flagMap[key];
       }
-      return '🌐';
+      return '🌐'; // Default if no match found
     }
 
     // ===== TIKTOK USER LOOKUP FUNCTIONALITY ===== //
@@ -1043,6 +1004,7 @@
         return;
       }
 
+      // Check if API_CONFIG and getApiUrl are defined (from api_config.js)
       if (typeof API_CONFIG === 'undefined' || typeof getApiUrl === 'undefined') {
         console.error("API configuration (api_config.js) is not loaded or is incorrect.");
         if(resultDiv) {
@@ -1057,7 +1019,8 @@
           resultDiv.innerHTML = '<div class="loading-spinner-container"><div class="loading-spinner"></div> Loading profile data...</div>';
           resultDiv.style.display = 'block';
       }
-      
+
+      // Use the getApiUrl function from api_config.js
       const apiUrl = getApiUrl(username);
 
       if (!apiUrl) {
@@ -1083,26 +1046,30 @@
                 else if (response.status === 503 && text.toLowerCase().includes("corsproxy.io")) errorMsg = 'The CORS proxy service might be temporarily unavailable or rate-limiting. Please try again shortly.';
                 else {
                     try { const errData = JSON.parse(text); errorMsg = errData.message || errData.error || text || errorMsg; }
-                    catch (e) { errorMsg = text || errorMsg; }
+                    catch (e) { errorMsg = text || errorMsg; } // Use raw text if JSON parsing fails
                 }
                 console.error("API Error:", errorMsg, "Raw text:", text);
-                throw new Error(errorMsg);
+                throw new Error(errorMsg); // Throw an error to be caught by .catch()
             });
           }
           return response.json();
         })
         .then(data => {
-          console.log("Full API Response Data:", JSON.stringify(data, null, 2));
-          const apiProfile = data.profile || data;
+          console.log("Full API Response Data:", JSON.stringify(data, null, 2)); // Log the full structure
+          // Adjust based on the actual structure of the successful response
+          // It seems the profile data might be directly in `data` or `data.profile`
+          const apiProfile = data.profile || data; // Try data.profile first, then data itself
 
           if (apiProfile && typeof apiProfile === 'object' && Object.keys(apiProfile).length > 0) {
+            // Sanitize function to prevent XSS
             const sanitize = (str) => {
                 if (typeof str !== 'string') return str === null || typeof str === 'undefined' ? '' : String(str);
                 const temp = document.createElement('div');
-                temp.textContent = str;
+                temp.textContent = str; // Use textContent for security, then innerHTML to get encoded entities
                 return temp.innerHTML;
             };
 
+            // Attempt to find profile photo URL using various common keys
             let foundProfilePhotoUrl = '';
             const avatarKeys = ['Profile Photo', 'Avatar URL', 'avatar_url', 'avatarUrl', 'picture', 'profileImageUrl', 'profile_pic_url', 'profile_image_url', 'avatar', 'Avatar', 'profile_picture', 'photo_url', 'user_avatar'];
             for (const key of avatarKeys) {
@@ -1114,52 +1081,62 @@
             }
             const profilePhoto = foundProfilePhotoUrl ? sanitize(foundProfilePhotoUrl) : '';
 
-            let rawUsernameFromAPI = apiProfile.Username || apiProfile.username || apiProfile.user_name || apiProfile.unique_id || username;
+
+            // Extract Username and Nickname, handling potential variations and sanitizing
+            let rawUsernameFromAPI = apiProfile.Username || apiProfile.username || apiProfile.user_name || apiProfile.unique_id || username; // Fallback to input username
             if (typeof rawUsernameFromAPI === 'string' && rawUsernameFromAPI.startsWith('@')) {
-                rawUsernameFromAPI = rawUsernameFromAPI.substring(1);
+                rawUsernameFromAPI = rawUsernameFromAPI.substring(1); // Remove leading '@' if present
             }
             const displayUsername = sanitize(rawUsernameFromAPI);
-            const displayNickname = apiProfile.Nickname || apiProfile.nickname || apiProfile.name || apiProfile.display_name || apiProfile.user_display_name || displayUsername;
+            const displayNickname = apiProfile.Nickname || apiProfile.nickname || apiProfile.name || apiProfile.display_name || apiProfile.user_display_name || displayUsername; // Fallback to username
+
 
             let profileDetailsHtml = '';
             for (const key in apiProfile) {
                 if (Object.hasOwnProperty.call(apiProfile, key)) {
+                    // Skip fields that are already handled in the header, are null/empty, or specifically requested to be hidden
                     if (['Nickname', 'nickname', 'Username', 'username', 'name', 'display_name', 'user_name', 'unique_id', 'user_display_name', ...avatarKeys].includes(key) ||
                         apiProfile[key] == null || String(apiProfile[key]).trim() === '') {
                         continue;
                     }
+
                     let value = apiProfile[key];
+                    // Format display key: Add spaces before capitals (camelCase to Title Case), replace underscores, capitalize words
                     let displayKey = key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()).trim();
                     
+                    // Skip "Sec U I D" and "Username Last Modified"
                     if (displayKey === 'Sec U I D' || displayKey === 'Username Last Modified') {
                         console.log(`Skipping field with displayKey: ${displayKey} (original key: ${key})`);
                         continue;
                     }
 
-                    if (['Bio', 'bio', 'description', 'Signature', 'bio_text', 'user_bio'].includes(key)) {
-                        value = sanitize(String(value)).replace(/\n/g, '<br>');
+
+                    if (['Bio', 'bio', 'description', 'Signature', 'bio_text', 'user_bio'].includes(key)) { // Handle bio specifically for formatting
+                        value = sanitize(String(value)).replace(/\n/g, '<br>'); // Sanitize and convert newlines
                          profileDetailsHtml += `<div class="profile-info-row bio-row"><span class="info-label">${sanitize(displayKey)}:</span><p class="info-value bio-text">${value || 'N/A'}</p></div>`;
-                    } else if (['Country', 'country', 'region', 'Location', 'country_code', 'user_region'].includes(key)) {
+                    } else if (['Country', 'country', 'region', 'Location', 'country_code', 'user_region'].includes(key)) { // Handle country for flag
                         value = sanitize(String(value));
                         profileDetailsHtml += `<div class="profile-info-row"><span class="info-label">${sanitize(displayKey)}:</span><span class="info-value">${getCountryFlag(value)} ${value || 'N/A'}</span></div>`;
                     } else if (typeof value === 'number' && (key.toLowerCase().includes('follower') || key.toLowerCase().includes('following') || key.toLowerCase().includes('like') || key.toLowerCase().includes('video') || key.toLowerCase().includes('count') || key.toLowerCase().includes('digg'))) {
-                        value = Number(value).toLocaleString();
+                        value = Number(value).toLocaleString(); // Format numbers with commas
                          profileDetailsHtml += `<div class="profile-info-row"><span class="info-label">${sanitize(displayKey)}:</span><span class="info-value">${value}</span></div>`;
                     } else if (typeof value === 'boolean') {
                         value = value ? 'Yes' : 'No';
                          profileDetailsHtml += `<div class="profile-info-row"><span class="info-label">${sanitize(displayKey)}:</span><span class="info-value">${value}</span></div>`;
-                    } else if (typeof value === 'string' && (value.startsWith('http://') || value.startsWith('https://'))) {
+                    } else if (typeof value === 'string' && (value.startsWith('http://') || value.startsWith('https://'))) { // Make links clickable
                         profileDetailsHtml += `<div class="profile-info-row"><span class="info-label">${sanitize(displayKey)}:</span><span class="info-value"><a href="${sanitize(value)}" target="_blank" rel="noopener noreferrer" class="dm-link">${sanitize(value)}</a></span></div>`;
-                    } else {
+                    } else { // Default case for other string values
                          profileDetailsHtml += `<div class="profile-info-row"><span class="info-label">${sanitize(displayKey)}:</span><span class="info-value">${sanitize(String(value)) || 'N/A'}</span></div>`;
                     }
                 }
             }
             
+            // If after processing, no details were added (e.g., all fields were skipped or empty)
             if (profileDetailsHtml.trim() === '') {
                  if(resultDiv) resultDiv.innerHTML = `<div class="message error-message">No displayable profile data found for '${sanitize(username)}'. The user might not exist, or the API returned minimal information.</div>`;
-                 return;
+                 return; // Exit early
             }
+
 
             let formattedData = `
               <article class="profile-card" aria-labelledby="profile-card-heading-${displayUsername}">
@@ -1179,6 +1156,7 @@
               </article>`;
             if(resultDiv) resultDiv.innerHTML = formattedData;
           } else {
+            // This case handles if apiProfile is null, not an object, or an empty object
             console.warn("Profile data is missing, not an object, or empty in the API response.", "Received data:", data);
             if(resultDiv) resultDiv.innerHTML = `<div class="message error-message">Profile data not found or is incomplete for '${sanitize(username)}'. The API might be down, the user may not exist, or the response format is unexpected.</div>`;
           }
@@ -1191,12 +1169,45 @@
           if(currentGetResultsBtn) currentGetResultsBtn.disabled = false;
         });
     }
+    
+    // ===== COLLAPSIBLE ABOUT TOOL SECTION ===== //
+    const aboutToolHeading = document.getElementById('about-tool-heading'); // This is the H2
+    const aboutToolDetailsSection = document.getElementById('aboutToolDetailsSection'); // This is the div with paragraphs
+    
+    // Check if both elements exist before adding event listeners
+    if (aboutToolHeading && aboutToolDetailsSection) {
+        const aboutToggleIndicator = aboutToolHeading.querySelector('.toggle-indicator'); // Get the span for indicator text
 
+        aboutToolHeading.addEventListener('click', () => {
+            const isHidden = aboutToolDetailsSection.style.display === 'none';
+            aboutToolDetailsSection.style.display = isHidden ? 'block' : 'none';
+            if(aboutToggleIndicator) { // Check if indicator exists
+                 aboutToggleIndicator.textContent = isHidden ? '(Click to collapse)' : '(Click to expand)';
+            }
+        });
+
+        // Add keyboard accessibility for the H2 "button"
+        aboutToolHeading.setAttribute('role', 'button');
+        aboutToolHeading.setAttribute('tabindex', '0'); // Make it focusable
+        aboutToolHeading.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault(); // Prevent page scroll on Space
+                aboutToolHeading.click(); // Trigger the click event
+            }
+        });
+    } else {
+        // Log an error if elements are not found, which helps in debugging
+        if (!aboutToolHeading) console.error("Element with ID 'about-tool-heading' not found.");
+        if (!aboutToolDetailsSection) console.error("Element with ID 'aboutToolDetailsSection' not found.");
+    }
+
+
+    // Add event listener for Enter key on username input
     const usernameInputGlobal = document.getElementById('username');
     if (usernameInputGlobal) {
       usernameInputGlobal.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
-          e.preventDefault();
+          e.preventDefault(); // Prevent form submission if it's part of a form
           lookupUser();
         }
       });
