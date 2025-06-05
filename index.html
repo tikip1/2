@@ -134,7 +134,7 @@
     }
     .theme-toggle svg { fill: var(--light-text-color); }
     .patriotic-text { color: var(--light-text-color); }
-    h1 { color: var(--light-text-color); }
+    h1.site-title { color: var(--light-text-color); } /* For main site H1 */
     .credit { color: var(--light-text-secondary); }
     .credit a { color: var(--primary-color); }
     input {
@@ -184,12 +184,10 @@
       border: 1px solid var(--light-border-color);
       box-shadow: var(--box-shadow-md);
     }
-    .page-content h1 { color: var(--primary-color); }
-    .about-section h2 { color: var(--primary-color); }
-    /* Make H2 in about-section not have primary color by default to avoid confusion with clickable one */
+    .page-content .page-main-title { color: var(--primary-color); } /* For H2 page titles */
+    .about-section h2 { color: var(--primary-color); } /* Default for other H2s in about-section */
     .about-section h2:not([style*="cursor:pointer"]) { color: var(--light-text-color); }
     :root[data-theme="dark"] .about-section h2:not([style*="cursor:pointer"]) { color: var(--dark-text-color); }
-     /* Style for the clickable H2 */
     .about-section h2[style*="cursor:pointer"] { color: var(--primary-color) !important; }
     :root[data-theme="dark"] .about-section h2[style*="cursor:pointer"] { color: var(--primary-color) !important; }
 
@@ -224,9 +222,9 @@
     }
     :root[data-theme="dark"] .theme-toggle svg { fill: var(--dark-text-color); }
     :root[data-theme="dark"] .patriotic-text { color: var(--dark-text-color); }
-    :root[data-theme="dark"] h1 { color: var(--dark-text-color); }
+    :root[data-theme="dark"] h1.site-title { color: var(--dark-text-color); } /* For main site H1 */
     :root[data-theme="dark"] .credit { color: var(--dark-text-secondary); }
-    :root[data-theme="dark"] .credit a { color: var(--primary-color); } /* Keep primary for links */
+    :root[data-theme="dark"] .credit a { color: var(--primary-color); }
     :root[data-theme="dark"] input {
       background-color: var(--input-bg-dark);
       border: 1px solid var(--dark-border-color);
@@ -242,7 +240,7 @@
       border: 1px solid var(--dark-border-color);
     }
     :root[data-theme="dark"] .profile-card-header {
-      background-color: var(--dark-bg); /* Darker header */
+      background-color: var(--dark-bg);
       border-bottom: 1px solid var(--dark-border-color);
     }
     :root[data-theme="dark"] .profile-photo-placeholder { background-color: var(--dark-bg); border-color: var(--dark-border-color); }
@@ -261,8 +259,7 @@
       background-color: var(--dark-card-bg);
       border: 1px solid var(--dark-border-color);
     }
-    :root[data-theme="dark"] .page-content h1 { color: var(--primary-color); }
-    /* :root[data-theme="dark"] .about-section h2 { color: var(--primary-color); } */ /* Already handled by specific rules */
+    :root[data-theme="dark"] .page-content .page-main-title { color: var(--primary-color); } /* For H2 page titles */
     :root[data-theme="dark"] .about-section p { color: var(--dark-text-secondary); }
     :root[data-theme="dark"] .dm-link { color: var(--primary-color); }
     :root[data-theme="dark"] .footer-nav a { color: var(--primary-color); }
@@ -298,13 +295,13 @@
       line-height: 1.6;
       -webkit-text-size-adjust: 100%;
       transition: background-color var(--transition-speed) ease-in-out, color var(--transition-speed) ease-in-out;
-      padding: 1rem; /* Add some padding to the body */
+      padding: 1rem; 
     }
 
     .container {
       width: 100%;
-      max-width: 720px; /* Max width for content */
-      padding: 0 1rem; /* Padding for container content on smaller screens */
+      max-width: 720px; 
+      padding: 0 1rem; 
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -314,7 +311,7 @@
       position: fixed;
       top: 1rem;
       right: 1rem;
-      border-radius: 50%; /* Make it circular */
+      border-radius: 50%; 
       width: 44px;
       height: 44px;
       display: flex;
@@ -338,18 +335,26 @@
       font-size: clamp(1rem, 3vw, 1.25rem);
       text-align: center;
       margin-bottom: 0.75rem;
-      font-weight: 600; /* Bolder */
+      font-weight: 600; 
       width: 100%;
       padding: 0.5rem 0;
     }
 
-    h1 {
-      font-size: clamp(1.5rem, 5vw, 2rem); /* Responsive heading */
-      font-weight: 700; /* Bolder */
+    h1.site-title { /* Styles for the main H1 */
+      font-size: clamp(1.5rem, 5vw, 2rem); 
+      font-weight: 700; 
       text-align: center;
       margin-bottom: 0.5rem;
       width: 100%;
     }
+     .page-main-title { /* Styles for H2 page titles */
+      font-size: clamp(1.35rem, 4.5vw, 1.75rem);
+      margin-bottom: 1.25rem;
+      font-weight: 700; /* Make H2 page titles as bold as original H1 */
+      text-align: center; /* Center H2 page titles */
+      width: 100%;
+    }
+
 
     .credit {
       font-size: clamp(0.75rem, 2.5vw, 0.875rem);
@@ -368,7 +373,7 @@
 
     input {
       width: 100%;
-      padding: 0.75rem 1rem; /* More padding */
+      padding: 0.75rem 1rem; 
       margin-bottom: 1rem;
       -webkit-appearance: none;
       user-select: text;
@@ -377,7 +382,7 @@
     button {
       width: 100%;
       padding: 0.75rem 1rem;
-      font-weight: 600; /* Bolder buttons */
+      font-weight: 600; 
       cursor: pointer;
       margin-bottom: 0.75rem;
       border: none;
@@ -397,23 +402,22 @@
       border-radius: var(--border-radius);
       overflow: hidden;
       width: 100%;
-      margin-bottom: 1.5rem; /* Space below card */
+      margin-bottom: 1.5rem; 
     }
 
     .profile-card-header {
       display: flex;
-      align-items: center; /* Vertically align avatar and text block */
-      padding: 1.25rem; /* Increased padding */
-      /* flex-direction: row; /* Ensures avatar and identity block are side-by-side by default */
+      align-items: center; 
+      padding: 1.25rem; 
     }
 
     .profile-photo-enhanced, .profile-photo-placeholder {
-      width: 72px; /* Slightly larger */
+      width: 72px; 
       height: 72px;
       border-radius: 50%;
       object-fit: cover;
-      margin-right: 1.25rem; /* Space between avatar and text */
-      margin-bottom: 0; /* Reset bottom margin if it was set for stacking */
+      margin-right: 1.25rem; 
+      margin-bottom: 0; 
       border-width: 3px;
       border-style: solid;
       flex-shrink: 0;
@@ -452,7 +456,7 @@
     }
 
     .profile-card-body {
-      padding: 0.75rem 1.25rem 1.25rem; /* Adjusted padding */
+      padding: 0.75rem 1.25rem 1.25rem; 
     }
     .profile-info-row {
       display: flex;
@@ -463,7 +467,7 @@
     }
     .profile-info-row:last-child { border-bottom: none; }
     .info-label {
-      font-weight: 500; /* Slightly less bold */
+      font-weight: 500; 
       margin-right: 1rem;
       flex-shrink: 0;
     }
@@ -512,7 +516,7 @@
       height: 24px;
       border: 3px solid rgba(0,0,0,0.1);
       border-radius: 50%;
-      animation: spin 0.8s linear infinite; /* Faster spin */
+      animation: spin 0.8s linear infinite; 
       margin-right: 0.75rem;
     }
 
@@ -521,15 +525,15 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-bottom: 2rem; /* Space for footer */
+      padding-bottom: 2rem; 
     }
 
     .about-section, .page-content > .about-section, .footer {
-      margin-top: 2rem; /* More spacing between sections */
-      padding: 1.25rem; /* More padding */
+      margin-top: 2rem; 
+      padding: 1.25rem; 
       border-radius: var(--border-radius);
       font-size: clamp(0.875rem, 3vw, 0.95rem);
-      line-height: 1.7; /* Improved line height */
+      line-height: 1.7; 
       width: 100%;
     }
     .page-content {
@@ -538,11 +542,8 @@
       margin-top: 2rem;
     }
     .page-content.active { display: block; }
-    .page-content h1 {
-      font-size: clamp(1.35rem, 4.5vw, 1.75rem);
-      margin-bottom: 1.25rem;
-    }
-    .about-section h2 {
+    
+    .about-section h2 { /* General H2s within about-section */
       font-size: clamp(1.1rem, 3.5vw, 1.25rem);
       margin-bottom: 0.75rem;
       font-weight: 600;
@@ -552,13 +553,13 @@
     .dm-link:hover { text-decoration: underline; }
     .footer {
       text-align: center;
-      padding: 1.5rem; /* More padding for footer */
+      padding: 1.5rem; 
     }
     .footer-nav {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 1rem 1.5rem; /* More gap */
+      gap: 1rem 1.5rem; 
     }
     .footer-nav a {
       font-size: clamp(0.8rem, 2.8vw, 0.9rem);
@@ -594,12 +595,12 @@
 
     /* Responsive Adjustments */
     @media (max-width: 768px) {
-      html { font-size: 15px; } /* Slightly smaller base for tablets */
+      html { font-size: 15px; } 
       .container { padding: 0 0.75rem; }
     }
 
     @media (max-width: 480px) {
-      html { font-size: 14px; } /* Smaller base for mobile */
+      html { font-size: 14px; } 
       body { padding: 0.5rem; }
       .container { padding: 0 0.5rem; }
       .theme-toggle { top: 0.5rem; right: 0.5rem; width: 40px; height: 40px; }
@@ -607,13 +608,11 @@
       input, button, textarea { padding: 0.65rem 0.85rem; }
       .profile-card-header {
         padding: 1rem;
-        /* flex-direction: column; /* REMOVED: To keep avatar and text side-by-side */
-        /* text-align: center; /* REMOVED: Not needed if items are aligned to start */
       }
       .profile-photo-enhanced, .profile-photo-placeholder {
-        margin-right: 1rem; /* ADDED: Space between avatar and text on small screens */
-        margin-bottom: 0; /* Ensure no bottom margin if it was previously stacked */
-        width: 60px; /* Slightly smaller avatar on mobile */
+        margin-right: 1rem; 
+        margin-bottom: 0; 
+        width: 60px; 
         height: 60px;
       }
       .profile-photo-placeholder svg {
@@ -621,14 +620,14 @@
         height: 30px;
       }
       .profile-identity {
-        align-items: flex-start; /* Ensure text aligns to the start of its container */
+        align-items: flex-start; 
       }
       .footer-nav { flex-direction: column; gap: 0.75rem; }
     }
     @media screen and (max-width: 767px) {
-      input, select, textarea { font-size: 1rem; } /* Ensure readability on iOS */
+      input, select, textarea { font-size: 1rem; } 
     }
-    .sr-only { /* Screen reader only class */
+    .sr-only { 
         position: absolute;
         width: 1px;
         height: 1px;
@@ -652,7 +651,7 @@
     <main>
         <div class="page-content active" id="main-page">
           <div class="patriotic-text">❌🚬 | 🏋‍♀️✅</div>
-          <h1>TikTok Account Location Finder</h1>
+          <h1 class="site-title page-main-title">TikTok Account Location Finder</h1>
           <div class="credit">Created by <a href="https://www.tiktok.com/@mo.or__" target="_blank" rel="noopener">@_moro.__</a></div>
 
           <section aria-labelledby="search-tool-heading">
@@ -662,7 +661,6 @@
           </section>
           <div id="result" aria-live="polite"></div>
 
-          <!-- MODIFIED SECTION -->
           <article class="about-section" aria-labelledby="about-tool-heading">
             <h2 id="about-tool-heading" style="cursor: pointer; user-select: none;">
                 About This TikTok Location Finder Tool
@@ -673,7 +671,6 @@
                 <p><strong>Key Features:</strong> Comprehensive <strong>TikTok profile lookup</strong>, estimated country display with flags, full bio visibility, up-to-date follower and video statistics, responsive design for all devices, and a user-friendly dark/light mode switcher.</p>
             </div>
           </article>
-          <!-- END OF MODIFIED SECTION -->
 
           <article class="about-section" aria-labelledby="faq-heading">
             <h2 id="faq-heading">Frequently Asked Questions (FAQ)</h2>
@@ -701,7 +698,7 @@
         </div>
 
         <section class="page-content" id="contact-page" aria-labelledby="contact-page-heading">
-          <h1 id="contact-page-heading">Contact Us</h1>
+          <h2 id="contact-page-heading" class="page-main-title">Contact Us</h2>
           <article class="about-section"> <p>Have questions or feedback? Reach out to us using the form below or contact us directly via <a href="https://www.tiktok.com/@mo.or__" class="dm-link" target="_blank" rel="noopener">TikTok</a>.</p>
             <form class="contact-form" aria-labelledby="contact-page-heading">
               <input type="text" id="contact-name" placeholder="Your Name" required aria-label="Your Name">
@@ -714,7 +711,7 @@
         </section>
 
         <section class="page-content" id="about-page" aria-labelledby="about-us-page-heading">
-          <h1 id="about-us-page-heading">About Us</h1>
+          <h2 id="about-us-page-heading" class="page-main-title">About Us</h2>
           <article class="about-section">
             <p>Welcome to the TikTok Account Location Finder, a free tool created by <a href="https://www.tiktok.com/@mo.or__" class="dm-link" target="_blank" rel="noopener">@_moro.__</a>.</p>
             <p>Our mission is to provide a user-friendly platform for researchers, marketers, and social media enthusiasts to access public TikTok profile data. This tool is designed with simplicity, accessibility, and responsiveness in mind, ensuring it works seamlessly across all devices.</p>
@@ -724,7 +721,7 @@
         </section>
 
         <section class="page-content" id="privacy-page" aria-labelledby="privacy-policy-page-heading">
-          <h1 id="privacy-policy-page-heading">Privacy Policy</h1>
+          <h2 id="privacy-policy-page-heading" class="page-main-title">Privacy Policy</h2>
           <article class="about-section">
             <h2>1. Introduction</h2>
             <p>We value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you use the TikTok Account Location Finder.</p>
@@ -748,7 +745,7 @@
         </section>
 
         <section class="page-content" id="terms-page" aria-labelledby="terms-of-service-page-heading">
-          <h1 id="terms-of-service-page-heading">Terms of Service</h1>
+          <h2 id="terms-of-service-page-heading" class="page-main-title">Terms of Service</h2>
           <article class="about-section">
             <h2>1. Acceptance of Terms</h2>
             <p>By using the TikTok Account Location Finder, you agree to these Terms of Service. If you do not agree, please do not use the tool.</p>
@@ -821,11 +818,11 @@
       const targetPage = document.getElementById(pageId);
       if (targetPage) {
         targetPage.classList.add('active');
-        const pageTitleElement = targetPage.querySelector('h1');
+        const pageTitleElement = targetPage.querySelector('.page-main-title'); // Updated selector
         if (pageTitleElement && pageId !== 'main-page') {
             document.title = pageTitleElement.textContent + " | TikTok Account Location Finder";
         } else {
-            document.title = baseTitle;
+            document.title = baseTitle; // Default to base title for main page or if no title found
         }
       } else {
         console.warn(`Page with ID "${pageId}" not found. Defaulting to main page.`);
@@ -847,13 +844,12 @@
           const name = nameInput ? nameInput.value.trim() : '';
           const email = emailInput ? emailInput.value.trim() : '';
           const message = messageInput ? messageInput.value.trim() : '';
-          const resultDiv = document.getElementById('result'); // Assuming resultDiv is for general messages now
+          const resultDiv = document.getElementById('result'); 
 
           if (name && email && message) {
-            if (resultDiv) { // Display success in the main result area for simplicity
+            if (resultDiv) { 
                 resultDiv.innerHTML = '<div class="message success-message">Thank you for your message! We will get back to you soon.</div>';
                 resultDiv.style.display = 'block';
-                // Auto-hide message after a few seconds
                 setTimeout(() => {
                     if (resultDiv.contains(resultDiv.firstChild) && resultDiv.firstChild.classList.contains('success-message')) {
                         resultDiv.style.display = 'none';
@@ -865,7 +861,7 @@
             if(emailInput) emailInput.value = '';
             if(messageInput) messageInput.value = '';
           } else {
-            if (resultDiv) { // Display error in the main result area
+            if (resultDiv) { 
                 resultDiv.innerHTML = '<div class="message error-message">Please fill in all fields in the contact form.</div>';
                 resultDiv.style.display = 'block';
                  setTimeout(() => {
@@ -901,7 +897,7 @@
         'CO': '🇨🇴', 'Colombia': '🇨🇴', 'CR': '🇨🇷', 'Costa Rica': '🇨🇷', 'CU': '🇨🇺', 'Cuba': '🇨🇺',
         'CV': '🇨🇻', 'Cape Verde': '🇨🇻', 'CW': '🇨🇼', 'Curaçao': '🇨🇼', 'CX': '🇨🇽', 'Christmas Island': '🇨🇽',
         'CY': '🇨🇾', 'Cyprus': '🇨🇾', 'CZ': '🇨🇿', 'Czech Republic': '🇨🇿', 'DE': '🇩🇪', 'Germany': '🇩🇪',
-        'DJ': '🇩🇯', 'Djibouti': '🇩🇯', 'DK': '🇩🇰', 'Denmark': '🇩🇰', 'DM': '🇩🇲', 'Dominica': '🇩🇲',
+        'DJ': '🇩🇯', 'Djibouti': '🇩🇯', 'DK': '🇩🇰', 'Denmark': '�🇰', 'DM': '🇩🇲', 'Dominica': '🇩🇲',
         'DO': '🇩🇴', 'Dominican Republic': '🇩🇴', 'DZ': '🇩🇿', 'Algeria': '🇩🇿', 'EC': '🇪🇨', 'Ecuador': '🇪🇨',
         'EE': '🇪🇪', 'Estonia': '🇪🇪', 'EG': '🇪🇬', 'Egypt': '🇪🇬', 'EH': '🇪🇭', 'Western Sahara': '🇪🇭',
         'ER': '🇪🇷', 'Eritrea': '🇪🇷', 'ES': '🇪🇸', 'Spain': '🇪🇸', 'ET': '🇪🇹', 'Ethiopia': '🇪🇹',
@@ -968,19 +964,15 @@
         'XK': '🇽🇰', 'Kosovo': '🇽🇰', 'YE': '🇾🇪', 'Yemen': '🇾🇪', 'YT': '🇾🇹', 'Mayotte': '🇾🇹',
         'ZA': '🇿🇦', 'South Africa': '🇿🇦', 'ZM': '🇿🇲', 'Zambia': '🇿🇲', 'ZW': '🇿🇼', 'Zimbabwe': '🇿🇼'
       };
-      if (!country) return '🌐'; // Default globe emoji if country is undefined or null
-      const normalizedCountry = String(country).trim(); // Ensure country is a string and trim whitespace
-      // Try exact match (case-insensitive) for both codes and full names
+      if (!country) return '🌐'; 
+      const normalizedCountry = String(country).trim(); 
       for (const key in flagMap) {
         if (key.toLowerCase() === normalizedCountry.toLowerCase()) return flagMap[key];
       }
-      // Try partial match for full names (e.g., if API returns "United States" and map has "United States of America")
-      // This is a bit more lenient, ensure it doesn't cause wrong matches for short country names.
-      // Only do this for keys that are likely full country names (e.g., length > 3)
       for (const key in flagMap) {
         if (key.length > 3 && normalizedCountry.toLowerCase().includes(key.toLowerCase())) return flagMap[key];
       }
-      return '🌐'; // Default if no match found
+      return '🌐'; 
     }
 
     // ===== TIKTOK USER LOOKUP FUNCTIONALITY ===== //
@@ -1004,7 +996,6 @@
         return;
       }
 
-      // Check if API_CONFIG and getApiUrl are defined (from api_config.js)
       if (typeof API_CONFIG === 'undefined' || typeof getApiUrl === 'undefined') {
         console.error("API configuration (api_config.js) is not loaded or is incorrect.");
         if(resultDiv) {
@@ -1020,7 +1011,6 @@
           resultDiv.style.display = 'block';
       }
 
-      // Use the getApiUrl function from api_config.js
       const apiUrl = getApiUrl(username);
 
       if (!apiUrl) {
@@ -1046,30 +1036,26 @@
                 else if (response.status === 503 && text.toLowerCase().includes("corsproxy.io")) errorMsg = 'The CORS proxy service might be temporarily unavailable or rate-limiting. Please try again shortly.';
                 else {
                     try { const errData = JSON.parse(text); errorMsg = errData.message || errData.error || text || errorMsg; }
-                    catch (e) { errorMsg = text || errorMsg; } // Use raw text if JSON parsing fails
+                    catch (e) { errorMsg = text || errorMsg; } 
                 }
                 console.error("API Error:", errorMsg, "Raw text:", text);
-                throw new Error(errorMsg); // Throw an error to be caught by .catch()
+                throw new Error(errorMsg); 
             });
           }
           return response.json();
         })
         .then(data => {
-          console.log("Full API Response Data:", JSON.stringify(data, null, 2)); // Log the full structure
-          // Adjust based on the actual structure of the successful response
-          // It seems the profile data might be directly in `data` or `data.profile`
-          const apiProfile = data.profile || data; // Try data.profile first, then data itself
+          console.log("Full API Response Data:", JSON.stringify(data, null, 2)); 
+          const apiProfile = data.profile || data; 
 
           if (apiProfile && typeof apiProfile === 'object' && Object.keys(apiProfile).length > 0) {
-            // Sanitize function to prevent XSS
             const sanitize = (str) => {
                 if (typeof str !== 'string') return str === null || typeof str === 'undefined' ? '' : String(str);
                 const temp = document.createElement('div');
-                temp.textContent = str; // Use textContent for security, then innerHTML to get encoded entities
+                temp.textContent = str; 
                 return temp.innerHTML;
             };
 
-            // Attempt to find profile photo URL using various common keys
             let foundProfilePhotoUrl = '';
             const avatarKeys = ['Profile Photo', 'Avatar URL', 'avatar_url', 'avatarUrl', 'picture', 'profileImageUrl', 'profile_pic_url', 'profile_image_url', 'avatar', 'Avatar', 'profile_picture', 'photo_url', 'user_avatar'];
             for (const key of avatarKeys) {
@@ -1081,73 +1067,65 @@
             }
             const profilePhoto = foundProfilePhotoUrl ? sanitize(foundProfilePhotoUrl) : '';
 
-
-            // Extract Username and Nickname, handling potential variations and sanitizing
-            let rawUsernameFromAPI = apiProfile.Username || apiProfile.username || apiProfile.user_name || apiProfile.unique_id || username; // Fallback to input username
+            let rawUsernameFromAPI = apiProfile.Username || apiProfile.username || apiProfile.user_name || apiProfile.unique_id || username; 
             if (typeof rawUsernameFromAPI === 'string' && rawUsernameFromAPI.startsWith('@')) {
-                rawUsernameFromAPI = rawUsernameFromAPI.substring(1); // Remove leading '@' if present
+                rawUsernameFromAPI = rawUsernameFromAPI.substring(1); 
             }
             const displayUsername = sanitize(rawUsernameFromAPI);
-            const displayNickname = apiProfile.Nickname || apiProfile.nickname || apiProfile.name || apiProfile.display_name || apiProfile.user_display_name || displayUsername; // Fallback to username
+            const displayNickname = apiProfile.Nickname || apiProfile.nickname || apiProfile.name || apiProfile.display_name || apiProfile.user_display_name || displayUsername; 
 
 
             let profileDetailsHtml = '';
             for (const key in apiProfile) {
                 if (Object.hasOwnProperty.call(apiProfile, key)) {
-                    // Skip fields that are already handled in the header, are null/empty, or specifically requested to be hidden
                     if (['Nickname', 'nickname', 'Username', 'username', 'name', 'display_name', 'user_name', 'unique_id', 'user_display_name', ...avatarKeys].includes(key) ||
                         apiProfile[key] == null || String(apiProfile[key]).trim() === '') {
                         continue;
                     }
 
                     let value = apiProfile[key];
-                    // Format display key: Add spaces before capitals (camelCase to Title Case), replace underscores, capitalize words
                     let displayKey = key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()).trim();
                     
-                    // Skip "Sec U I D" and "Username Last Modified"
                     if (displayKey === 'Sec U I D' || displayKey === 'Username Last Modified') {
                         console.log(`Skipping field with displayKey: ${displayKey} (original key: ${key})`);
                         continue;
                     }
 
-
-                    if (['Bio', 'bio', 'description', 'Signature', 'bio_text', 'user_bio'].includes(key)) { // Handle bio specifically for formatting
-                        value = sanitize(String(value)).replace(/\n/g, '<br>'); // Sanitize and convert newlines
+                    if (['Bio', 'bio', 'description', 'Signature', 'bio_text', 'user_bio'].includes(key)) { 
+                        value = sanitize(String(value)).replace(/\n/g, '<br>'); 
                          profileDetailsHtml += `<div class="profile-info-row bio-row"><span class="info-label">${sanitize(displayKey)}:</span><p class="info-value bio-text">${value || 'N/A'}</p></div>`;
-                    } else if (['Country', 'country', 'region', 'Location', 'country_code', 'user_region'].includes(key)) { // Handle country for flag
+                    } else if (['Country', 'country', 'region', 'Location', 'country_code', 'user_region'].includes(key)) { 
                         value = sanitize(String(value));
                         profileDetailsHtml += `<div class="profile-info-row"><span class="info-label">${sanitize(displayKey)}:</span><span class="info-value">${getCountryFlag(value)} ${value || 'N/A'}</span></div>`;
                     } else if (typeof value === 'number' && (key.toLowerCase().includes('follower') || key.toLowerCase().includes('following') || key.toLowerCase().includes('like') || key.toLowerCase().includes('video') || key.toLowerCase().includes('count') || key.toLowerCase().includes('digg'))) {
-                        value = Number(value).toLocaleString(); // Format numbers with commas
+                        value = Number(value).toLocaleString(); 
                          profileDetailsHtml += `<div class="profile-info-row"><span class="info-label">${sanitize(displayKey)}:</span><span class="info-value">${value}</span></div>`;
                     } else if (typeof value === 'boolean') {
                         value = value ? 'Yes' : 'No';
                          profileDetailsHtml += `<div class="profile-info-row"><span class="info-label">${sanitize(displayKey)}:</span><span class="info-value">${value}</span></div>`;
-                    } else if (typeof value === 'string' && (value.startsWith('http://') || value.startsWith('https://'))) { // Make links clickable
+                    } else if (typeof value === 'string' && (value.startsWith('http://') || value.startsWith('https://'))) { 
                         profileDetailsHtml += `<div class="profile-info-row"><span class="info-label">${sanitize(displayKey)}:</span><span class="info-value"><a href="${sanitize(value)}" target="_blank" rel="noopener noreferrer" class="dm-link">${sanitize(value)}</a></span></div>`;
-                    } else { // Default case for other string values
+                    } else { 
                          profileDetailsHtml += `<div class="profile-info-row"><span class="info-label">${sanitize(displayKey)}:</span><span class="info-value">${sanitize(String(value)) || 'N/A'}</span></div>`;
                     }
                 }
             }
             
-            // If after processing, no details were added (e.g., all fields were skipped or empty)
             if (profileDetailsHtml.trim() === '') {
                  if(resultDiv) resultDiv.innerHTML = `<div class="message error-message">No displayable profile data found for '${sanitize(username)}'. The user might not exist, or the API returned minimal information.</div>`;
-                 return; // Exit early
+                 return; 
             }
-
 
             let formattedData = `
               <article class="profile-card" aria-labelledby="profile-card-heading-${displayUsername}">
-                <h2 id="profile-card-heading-${displayUsername}" class="sr-only">Profile details for ${sanitize(displayNickname)}</h2>
+                <h3 id="profile-card-heading-${displayUsername}" class="sr-only">Profile details for ${sanitize(displayNickname)}</h3> <!-- Changed to H3 for better structure under H2 page titles -->
                 <div class="profile-card-header">
                   ${profilePhoto ? `<img src="${profilePhoto}" alt="Profile photo of ${sanitize(displayNickname)}" class="profile-photo-enhanced" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ''}
                   <div class="profile-photo-placeholder" style="${profilePhoto ? 'display:none;' : 'display:flex;'}">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                   </div>
                   <div class="profile-identity">
-                    <h3 class="profile-nickname">${sanitize(displayNickname)}</h3>
+                    <h4 class="profile-nickname">${sanitize(displayNickname)}</h4> <!-- Changed to H4 -->
                     <p class="profile-username-display">${sanitize(displayUsername).startsWith('@') ? sanitize(displayUsername) : '@' + sanitize(displayUsername)}</p>
                   </div>
                 </div>
@@ -1156,7 +1134,6 @@
               </article>`;
             if(resultDiv) resultDiv.innerHTML = formattedData;
           } else {
-            // This case handles if apiProfile is null, not an object, or an empty object
             console.warn("Profile data is missing, not an object, or empty in the API response.", "Received data:", data);
             if(resultDiv) resultDiv.innerHTML = `<div class="message error-message">Profile data not found or is incomplete for '${sanitize(username)}'. The API might be down, the user may not exist, or the response format is unexpected.</div>`;
           }
@@ -1171,43 +1148,39 @@
     }
     
     // ===== COLLAPSIBLE ABOUT TOOL SECTION ===== //
-    const aboutToolHeading = document.getElementById('about-tool-heading'); // This is the H2
-    const aboutToolDetailsSection = document.getElementById('aboutToolDetailsSection'); // This is the div with paragraphs
+    const aboutToolHeading = document.getElementById('about-tool-heading'); 
+    const aboutToolDetailsSection = document.getElementById('aboutToolDetailsSection'); 
     
-    // Check if both elements exist before adding event listeners
     if (aboutToolHeading && aboutToolDetailsSection) {
-        const aboutToggleIndicator = aboutToolHeading.querySelector('.toggle-indicator'); // Get the span for indicator text
+        const aboutToggleIndicator = aboutToolHeading.querySelector('.toggle-indicator'); 
 
         aboutToolHeading.addEventListener('click', () => {
             const isHidden = aboutToolDetailsSection.style.display === 'none';
             aboutToolDetailsSection.style.display = isHidden ? 'block' : 'none';
-            if(aboutToggleIndicator) { // Check if indicator exists
+            if(aboutToggleIndicator) { 
                  aboutToggleIndicator.textContent = isHidden ? '(Click to collapse)' : '(Click to expand)';
             }
         });
 
-        // Add keyboard accessibility for the H2 "button"
         aboutToolHeading.setAttribute('role', 'button');
-        aboutToolHeading.setAttribute('tabindex', '0'); // Make it focusable
+        aboutToolHeading.setAttribute('tabindex', '0'); 
         aboutToolHeading.addEventListener('keydown', (event) => {
             if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault(); // Prevent page scroll on Space
-                aboutToolHeading.click(); // Trigger the click event
+                event.preventDefault(); 
+                aboutToolHeading.click(); 
             }
         });
     } else {
-        // Log an error if elements are not found, which helps in debugging
         if (!aboutToolHeading) console.error("Element with ID 'about-tool-heading' not found.");
         if (!aboutToolDetailsSection) console.error("Element with ID 'aboutToolDetailsSection' not found.");
     }
-
 
     // Add event listener for Enter key on username input
     const usernameInputGlobal = document.getElementById('username');
     if (usernameInputGlobal) {
       usernameInputGlobal.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
-          e.preventDefault(); // Prevent form submission if it's part of a form
+          e.preventDefault(); 
           lookupUser();
         }
       });
