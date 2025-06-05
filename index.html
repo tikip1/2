@@ -135,7 +135,7 @@
     }
     .theme-toggle svg { fill: var(--light-text-color); }
     .patriotic-text { color: var(--light-text-color); }
-    h1 { color: var(--light-text-color); }
+    /* h1 { color: var(--light-text-color); } */ /* General h1 styling removed to be more specific below */
     .credit { color: var(--light-text-secondary); }
     .credit a { color: var(--primary-color); }
     input {
@@ -185,7 +185,7 @@
       border: 1px solid var(--light-border-color);
       box-shadow: var(--box-shadow-md);
     }
-    .page-content h1 { color: var(--primary-color); }
+    /* .page-content h1 { color: var(--primary-color); } */ /* Further H1 styling handled below */
     .about-section h2 { color: var(--primary-color); }
     .about-section p { color: var(--light-text-secondary); }
     .dm-link { color: var(--primary-color); }
@@ -217,7 +217,7 @@
     }
     :root[data-theme="dark"] .theme-toggle svg { fill: var(--dark-text-color); }
     :root[data-theme="dark"] .patriotic-text { color: var(--dark-text-color); }
-    :root[data-theme="dark"] h1 { color: var(--dark-text-color); }
+    /* :root[data-theme="dark"] h1 { color: var(--dark-text-color); } */ /* General dark h1 styling removed */
     :root[data-theme="dark"] .credit { color: var(--dark-text-secondary); }
     :root[data-theme="dark"] .credit a { color: var(--primary-color); } /* Keep primary for links */
     :root[data-theme="dark"] input {
@@ -254,7 +254,7 @@
       background-color: var(--dark-card-bg);
       border: 1px solid var(--dark-border-color);
     }
-    :root[data-theme="dark"] .page-content h1 { color: var(--primary-color); }
+    /* :root[data-theme="dark"] .page-content h1 { color: var(--primary-color); } */ /* Further H1 styling handled below */
     :root[data-theme="dark"] .about-section h2 { color: var(--primary-color); }
     :root[data-theme="dark"] .about-section p { color: var(--dark-text-secondary); }
     :root[data-theme="dark"] .dm-link { color: var(--primary-color); }
@@ -336,19 +336,25 @@
       padding: 0.5rem 0;
     }
 
-    h1 {
-      font-size: clamp(1.5rem, 5vw, 2rem); /* Responsive heading */
-      font-weight: 700; /* Bolder */
+    h1 { /* Base H1 styling for all page views */
+      font-size: clamp(1.5rem, 5vw, 2rem);
+      font-weight: 700;
       text-align: center;
       margin-bottom: 0.5rem;
       width: 100%;
     }
-     /* Specific H1 styling for the main page title, if different from other H1s */
+    /* H1 on the main page uses theme's default text color */
     .page-content#main-page > h1 {
-        color: var(--light-text-color); /* Ensure it uses body text color for light mode */
+        color: var(--light-text-color);
     }
     :root[data-theme="dark"] .page-content#main-page > h1 {
-        color: var(--dark-text-color); /* Ensure it uses body text color for dark mode */
+        color: var(--dark-text-color);
+    }
+    /* H1s on other sub-pages use primary color */
+    .page-content:not(#main-page) > h1 {
+        color: var(--primary-color);
+        font-size: clamp(1.35rem, 4.5vw, 1.75rem); /* Slightly smaller for sub-page titles */
+        margin-bottom: 1.25rem;
     }
 
 
@@ -405,7 +411,6 @@
       display: flex;
       align-items: center; /* Vertically align avatar and text block */
       padding: 1.25rem; /* Increased padding */
-      /* flex-direction: row; /* Ensures avatar and identity block are side-by-side by default */
     }
 
     .profile-photo-enhanced, .profile-photo-placeholder {
@@ -540,17 +545,16 @@
     }
     .page-content.active { display: block; } /* Show active page */
 
-    .page-content h1 { /* This targets H1s within .page-content like About Us, Contact Us */
-      font-size: clamp(1.35rem, 4.5vw, 1.75rem);
-      margin-bottom: 1.25rem;
-      color: var(--primary-color); /* Use primary color for these H1s */
-    }
-
-    .about-section h2 {
+    .about-section h2 { /* Targeting H2s within .about-section for all themes */
       font-size: clamp(1.1rem, 3.5vw, 1.25rem);
       margin-bottom: 0.75rem;
       font-weight: 600;
+      color: var(--primary-color); /* H2s in about sections will use primary color */
     }
+    /* If H2s in dark theme need a different color for some reason, it would be specified here:
+    :root[data-theme="dark"] .about-section h2 { color: var(--some-other-color-for-dark-h2); }
+    */
+
     .about-section p { margin-bottom: 0.75rem; }
     .about-section p:last-child { margin-bottom: 0; }
     .dm-link:hover { text-decoration: underline; }
@@ -668,15 +672,15 @@
 
           <article class="about-section" aria-labelledby="about-tool-heading">
             <h2 id="about-tool-heading">About This TikTok Location Finder Tool</h2>
-            <p>This <strong>TikTok Location Finder</strong> is a free tool designed to help you retrieve complete public TikTok user profiles. With our <strong>TikTok profile lookup</strong> service, you can easily <strong>find TikTok user location</strong> information, along with other <strong>TikTok account details</strong> like username, bio, follower counts, video statistics, and more. It's an ideal resource for researchers, social media enthusiasts, or anyone curious about a TikTok user's public presence.</p>
-            <p><strong>Key Features:</strong> Comprehensive <strong>TikTok profile lookup</strong>, estimated country display with flags, full bio visibility, up-to-date follower and video statistics, responsive design for all devices, and a user-friendly dark/light mode switcher.</p>
+            <p>This TikTok Location Finder is a free tool designed to help you retrieve complete public TikTok user profiles. With our TikTok profile lookup service, you can easily find TikTok user location information, along with other TikTok account details like username, bio, follower counts, video statistics, and more. It's an ideal resource for researchers, social media enthusiasts, or anyone curious about a TikTok user's public presence.</p>
+            <p>Key Features: Comprehensive TikTok profile lookup, estimated country display with flags, full bio visibility, up-to-date follower and video statistics, responsive design for all devices, and a user-friendly dark/light mode switcher.</p>
           </article>
 
           <article class="about-section" aria-labelledby="faq-heading">
             <h2 id="faq-heading">Frequently Asked Questions (FAQ)</h2>
-            <p><strong>How does the TikTok Location Finder work?</strong> Our tool fetches publicly available TikTok profile information using the username you provide. This includes data such as their display name, bio, follower and video counts, and an estimated country or region associated with the <strong>TikTok account location</strong>.</p>
-            <p><strong>Is this TikTok tool free to use?</strong> Yes, our <strong>TikTok location finder</strong> is completely free. There are no hidden charges or subscription fees to access <strong>TikTok account details</strong>.</p>
-            <p><strong>How accurate is the TikTok username location and other data?</strong> The information, including the <strong>TikTok username location</strong>, is based on publicly accessible data from TikTok profiles. While we strive for accuracy, the exactness of location and statistics can vary and is subject to the information publicly shared by the user. This <strong>free TikTok tool</strong> provides an estimate based on available data.</p>
+            <p>How does the TikTok Location Finder work? Our tool fetches publicly available TikTok profile information using the username you provide. This includes data such as their display name, bio, follower and video counts, and an estimated country or region associated with the TikTok account location.</p>
+            <p>Is this TikTok tool free to use? Yes, our TikTok location finder is completely free. There are no hidden charges or subscription fees to access TikTok account details.</p>
+            <p>How accurate is the TikTok username location and other data? The information, including the TikTok username location, is based on publicly accessible data from TikTok profiles. While we strive for accuracy, the exactness of location and statistics can vary and is subject to the information publicly shared by the user. This free TikTok tool provides an estimate based on available data.</p>
           </article>
 
           <article class="about-section" aria-labelledby="about-creator-heading">
@@ -701,6 +705,7 @@
         <section class="page-content" id="contact-page" aria-labelledby="contact-page-heading">
           <h1 id="contact-page-heading">Contact Us</h1>
           <article class="about-section">
+            <h2 class="sr-only">Contact Information and Form</h2> <!-- Added sr-only h2 for structure -->
             <p>Have questions or feedback? Reach out to us using the form below or contact us directly via <a href="https://www.tiktok.com/@mo.or__" class="dm-link" target="_blank" rel="noopener">TikTok</a>.</p>
             <form class="contact-form" aria-labelledby="contact-page-heading">
               <label for="contact-name" class="sr-only">Your Name</label>
@@ -719,6 +724,7 @@
         <section class="page-content" id="about-page" aria-labelledby="about-us-page-heading">
           <h1 id="about-us-page-heading">About Us</h1>
           <article class="about-section">
+            <h2 class="sr-only">More About The Tool and Creator</h2> <!-- Added sr-only h2 for structure -->
             <p>Welcome to the TikTok Account Location Finder, a free tool created by <a href="https://www.tiktok.com/@mo.or__" class="dm-link" target="_blank" rel="noopener">@_moro.__</a>.</p>
             <p>Our mission is to provide a user-friendly platform for researchers, marketers, and social media enthusiasts to access public TikTok profile data. This tool is designed with simplicity, accessibility, and responsiveness in mind, ensuring it works seamlessly across all devices.</p>
             <p>Built by Moor, a passionate Graphic Designer and Web Developer with over 4 years of experience, this project reflects a commitment to creating innovative tools for the community. Follow us on <a href="https://www.tiktok.com/@mo.or__" class="dm-link" target="_blank" rel="noopener">TikTok</a> for updates and more!</p>
@@ -730,6 +736,7 @@
         <section class="page-content" id="privacy-page" aria-labelledby="privacy-policy-page-heading">
           <h1 id="privacy-policy-page-heading">Privacy Policy</h1>
           <article class="about-section">
+            <!-- H2s are already present and correctly used in this section -->
             <h2>1. Introduction</h2>
             <p>We value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you use the TikTok Account Location Finder.</p>
             <h2>2. Information We Collect</h2>
@@ -750,6 +757,7 @@
         <section class="page-content" id="terms-page" aria-labelledby="terms-of-service-page-heading">
           <h1 id="terms-of-service-page-heading">Terms of Service</h1>
           <article class="about-section">
+            <!-- H2s are already present and correctly used in this section -->
             <h2>1. Acceptance of Terms</h2>
             <p>By using the TikTok Account Location Finder, you agree to these Terms of Service. If you do not agree, please do not use the tool.</p>
             <h2>2. Use of the Tool</h2>
@@ -824,14 +832,13 @@
       if (targetPage) {
         targetPage.classList.add('active');
         // Update document title
-        const pageTitleElement = targetPage.querySelector('h1'); // Expecting an H1 in each page-content
+        const pageTitleElement = targetPage.querySelector('h1');
         if (pageTitleElement && pageId !== 'main-page') {
             document.title = pageTitleElement.textContent + " | TikTok Account Location Finder";
         } else {
-            document.title = baseTitle; // Reset to base title for main page
+            document.title = baseTitle;
         }
       } else {
-        // Fallback to main page if requested pageId doesn't exist
         const mainPageDefault = document.getElementById('main-page');
         if (mainPageDefault) mainPageDefault.classList.add('active');
         document.title = baseTitle;
@@ -840,46 +847,33 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Function to handle hash changes
     function handleHashChange() {
-        let hash = window.location.hash.substring(1); // Get hash without '#'
-        if (!hash) {
-            hash = 'main-page'; // Default to main page if no hash
+        let hash = window.location.hash.substring(1);
+        if (!hash || !document.getElementById(hash)) { // If hash is empty or target doesn't exist
+            hash = 'main-page'; // Default to main page
+            window.location.hash = '#' + hash; // Optionally update URL to reflect default
         }
         showPage(hash);
     }
 
-    // Add event listener for hash changes
     window.addEventListener('hashchange', handleHashChange);
 
-    // Initial page load: check hash and display correct page
     document.addEventListener('DOMContentLoaded', () => {
-        handleHashChange(); // Show page based on initial URL hash
+        handleHashChange(); 
 
-        // Make sure footer links also trigger hash change if clicked directly
-        // (though browser typically handles this for href="#...")
-        document.querySelectorAll('.footer-nav a, .back-btn').forEach(link => {
+        document.querySelectorAll('.footer-nav a, a.back-btn').forEach(link => {
             link.addEventListener('click', function(event) {
+                // The default action of clicking a hash link will trigger 'hashchange'
+                // So, no need to call showPage explicitly or preventDefault unless there's an issue
+                // Ensuring the href is valid before allowing default action
                 const targetId = this.getAttribute('href').substring(1);
-                if (document.getElementById(targetId)) {
-                    // Let the hashchange event handle the page switch
-                    // No need to call showPage directly if hashchange listener is robust
-                } else {
-                    event.preventDefault(); // Prevent changing hash if target doesn't exist
-                    console.warn("Link target page not found: " + targetId);
-                    showPage('main-page'); // Default to main
+                if (!document.getElementById(targetId)) {
+                    event.preventDefault(); 
+                    console.warn("Link target page not found: " + targetId + ". Navigating to main page.");
+                    window.location.hash = 'main-page'; // Correctly triggers hashchange for default
                 }
             });
         });
-
-        // Back buttons functionality (now handled by href="#main-page" and hashchange)
-        // const backButtons = document.querySelectorAll('.back-btn');
-        // backButtons.forEach(button => {
-        //   button.addEventListener('click', function(e) {
-        //     e.preventDefault(); // Prevent default if it's not an <a> or to be safe
-        //     window.location.hash = 'main-page'; // This will trigger hashchange
-        //   });
-        // });
     });
 
 
@@ -895,11 +889,7 @@
           const email = emailInput ? emailInput.value.trim() : '';
           const message = messageInput ? messageInput.value.trim() : '';
           
-          // Using the main #result div for simplicity for contact form messages as well
           const resultDiv = document.getElementById('result');
-          // Ensure other content (like profile card) in #result is cleared before showing contact message
-          // Or, consider a dedicated message area for the contact form within its own section.
-          // For this example, we'll reuse #result and clear it first.
           if(resultDiv) resultDiv.innerHTML = '';
 
 
@@ -936,11 +926,11 @@
     function getCountryFlag(country) {
       const flagMap = {
         'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
-        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '�🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
+        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
         'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
         'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
         'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
-        'AZ': '🇦🇿', 'Azerbaijan': '🇦🇿', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧🇧',
+        'AZ': '🇦🇿', 'Azerbaijan': '🇦�', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧🇧',
         'BD': '🇧🇩', 'Bangladesh': '🇧🇩', 'BE': '🇧🇪', 'Belgium': '🇧🇪', 'BF': '🇧🇫', 'Burkina Faso': '🇧🇫',
         'BG': '🇧🇬', 'Bulgaria': '🇧🇬', 'BH': '🇧🇭', 'Bahrain': '🇧🇭', 'BI': '🇧🇮', 'Burundi': '🇧🇮',
         'BJ': '🇧🇯', 'Benin': '🇧🇯', 'BL': '🇧🇱', 'Saint Barthélemy': '🇧🇱', 'BM': '🇧🇲', 'Bermuda': '🇧🇲',
