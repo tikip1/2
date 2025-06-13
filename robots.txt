@@ -1,0 +1,7 @@
+This file tells search engine crawlers which pages they are allowed to access.
+Allowing all crawlers to access the entire site.
+User-agent: *
+Allow: /
+
+Location of the sitemap file.
+Sitemap: https://tikip.us/sitemap.xml
