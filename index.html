@@ -342,6 +342,19 @@
       margin-bottom: 0.5rem;
       width: 100%;
     }
+    
+    /* Added style for new subtitle */
+    .h1-subtitle {
+      display: block;
+      font-size: 0.6em;
+      font-weight: 400;
+      margin-top: 0.8rem;
+      line-height: 1.5;
+      color: var(--light-text-secondary);
+    }
+    :root[data-theme="dark"] .h1-subtitle {
+      color: var(--dark-text-secondary);
+    }
 
     .credit {
       font-size: clamp(0.75rem, 2.5vw, 0.875rem);
@@ -631,6 +644,11 @@
         white-space: nowrap;
         border-width: 0;
     }
+    
+    /* Hide the navigation links */
+    .footer-nav {
+      display: none !important;
+    }
   </style>
 </head>
 <body>
@@ -644,8 +662,10 @@
     <main>
         <div class="page-content active" id="main-page">
           <div class="patriotic-text">❌🚬 | 🏋‍♀️✅</div>
-          <h1>TikTok Account Location Finder</h1>
-          <div class="credit">Created by <a href="https://www.tiktok.com/@mo.or__" target="_blank" rel="noopener">@_moro.__</a></div>
+          <h1>
+            TikTok Account Location Finder
+            <span class="h1-subtitle">Find TikTok account locations and full profile details by username. Contact the developer: <a href="https://www.tiktok.com/@mo.or__" target="_blank" rel="noopener">@_moro.__</a></span>
+          </h1>
 
           <section aria-labelledby="search-tool-heading">
             <h2 id="search-tool-heading" class="sr-only">TikTok Profile Search Tool</h2> <input type="text" id="username" placeholder="Enter TikTok username (without @)" required aria-label="TikTok Username Input">
@@ -742,7 +762,7 @@
             <p>This tool is for educational and research purposes only. You agree to use it responsibly and respect the privacy of others. Do not use the tool for illegal activities or to harm others.</p>
 
             <h2>3. Data Accuracy</h2>
-            <p>The tool fetches publicly available TikTok data via a third-party API. We do not guarantee the accuracy or completeness of the data provided.</p>
+            <p>We do not guarantee the accuracy or completeness of the data provided. All information is based on publicly available data from TikTok.</p>
 
             <h2>4. Intellectual Property</h2>
             <p>All content, design, and code on this site are the property of the creator (@_moro.__). Unauthorized copying or distribution is prohibited.</p>
