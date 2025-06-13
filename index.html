@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <meta name="description" content="Our TikTok Location Finder helps you discover TikTok account locations by username. Get full profile details, Free, accurate, and easy to use!">
+  <meta name="description" content="Our free TikTok Location Finder helps you instantly discover TikTok account locations and full profile details just by using a username. This accurate and easy-to-use tool provides complete user stats and geolocation data.">
   <meta name="keywords" content="TikTok location finder, معرفة موقع تيك توك, معرفة حساب تيك توك  معرفة موقع حساب تيكتوك, Find TikTok Influencers by Location, Tiktok Location Scraper, بوت تحديد موقع تيك توك, كيف يمكنني تحديد موقع حسابي على تيك توك؟, كيف تعرف صاحب حساب التيك توك؟, كيفية العثور على معلومات حساب TikTok؟, How do I find local TikTok users, How do I find a specific TikTok user, How do I look up an account on TikTok, Find TikTok User ID, Free Tiktok search tool, TikTok User Search Tool, account statistics for any TikTok user, tiktok profile lookup, tiktok lookup, tiktok account search, find TikTok user location, TikTok account location, TikTok username location, FAQ TikTok tool, About TikTok location tool, TikTok geolocation, TikTok user location search, Locate TikTok account by username, TikTok profile location, Free TikTok location finder, How to find TikTok user location, TikTok account details, TikTok stats checker">
   <meta name="author" content="@mo.or__">
   <meta name="robots" content="index, follow">
@@ -21,7 +21,7 @@
 
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:creator" content="@mo.or__">
+  <meta name="twitter:creator" content="@tikip111">
   <meta name="twitter:title" content="TikTok Account Location Finder | Full Profile Details & FAQ">
   <meta name="twitter:description" content="Free tool to find TikTok user locations and full profile details by username. Check out our FAQ and learn more about how it works.">
   <meta name="twitter:image" content="https://tikip.us/favicon.png">
@@ -185,7 +185,11 @@
       box-shadow: var(--box-shadow-md);
     }
     .page-content h1 { color: var(--primary-color); }
-    .about-section h2 { color: var(--primary-color); }
+    .about-section h2, .about-section h3 {
+      font-size: clamp(1.1rem, 3.5vw, 1.25rem);
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
     .about-section p { color: var(--light-text-secondary); }
     .dm-link { color: var(--primary-color); }
     .footer-nav a { color: var(--primary-color); }
@@ -254,7 +258,7 @@
       border: 1px solid var(--dark-border-color);
     }
     :root[data-theme="dark"] .page-content h1 { color: var(--primary-color); }
-    :root[data-theme="dark"] .about-section h2 { color: var(--primary-color); }
+    :root[data-theme="dark"] .about-section h2, :root[data-theme="dark"] .about-section h3 { color: var(--primary-color); }
     :root[data-theme="dark"] .about-section p { color: var(--dark-text-secondary); }
     :root[data-theme="dark"] .dm-link { color: var(--primary-color); }
     :root[data-theme="dark"] .footer-nav a { color: var(--primary-color); }
@@ -534,11 +538,7 @@
       font-size: clamp(1.35rem, 4.5vw, 1.75rem);
       margin-bottom: 1.25rem;
     }
-    .about-section h2 {
-      font-size: clamp(1.1rem, 3.5vw, 1.25rem);
-      margin-bottom: 0.75rem;
-      font-weight: 600;
-    }
+
     .about-section p { margin-bottom: 0.75rem; }
     .about-section p:last-child { margin-bottom: 0; }
     .dm-link:hover { text-decoration: underline; }
@@ -693,22 +693,22 @@
         <section class="page-content" id="privacy-page" aria-labelledby="privacy-policy-page-heading">
           <h1 id="privacy-policy-page-heading">Privacy Policy</h1>
           <article class="about-section">
-            <h2>1. Introduction</h2>
+            <h3>1. Introduction</h3>
             <p>We value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you use the TikTok Account Location Finder.</p>
 
-            <h2>2. Information We Collect</h2>
+            <h3>2. Information We Collect</h3>
             <p>We do not collect personal information unless you voluntarily provide it (e.g., via the contact form). The tool fetches publicly available TikTok profile data, which may include usernames, bios, follower counts, and other public metrics.</p>
 
-            <h2>3. How We Use Your Information</h2>
+            <h3>3. How We Use Your Information</h3>
             <p>Any information provided through the contact form (e.g., name, email, message) is used solely to respond to your inquiries. Public TikTok data is retrieved and displayed for informational purposes only.</p>
 
-            <h2>4. Data Sharing</h2>
+            <h3>4. Data Sharing</h3>
             <p>We do not sell, trade, or share your personal information with third parties, except as required by law. Public TikTok data is sourced via a third-party API and is not stored by us.</p>
 
-            <h2>5. Cookies and Tracking</h2>
+            <h3>5. Cookies and Tracking</h3>
             <p>This site uses local storage to track page visits for analytics purposes (e.g., visit counter). No cookies or third-party trackers are used.</p>
 
-            <h2>6. Contact Us</h2>
+            <h3>6. Contact Us</h3>
             <p>If you have any questions about this Privacy Policy, please contact us via <a href="https://www.tiktok.com/@mo.or__" class="dm-link" target="_blank" rel="noopener">TikTok</a> or the contact form.</p>
           </article>
           <button class="back-btn" onclick="showPage('main-page')">Back to Home</button>
@@ -717,25 +717,25 @@
         <section class="page-content" id="terms-page" aria-labelledby="terms-of-service-page-heading">
           <h1 id="terms-of-service-page-heading">Terms of Service</h1>
           <article class="about-section">
-            <h2>1. Acceptance of Terms</h2>
+            <h3>1. Acceptance of Terms</h3>
             <p>By using the TikTok Account Location Finder, you agree to these Terms of Service. If you do not agree, please do not use the tool.</p>
 
-            <h2>2. Use of the Tool</h2>
+            <h3>2. Use of the Tool</h3>
             <p>This tool is for educational and research purposes only. You agree to use it responsibly and respect the privacy of others. Do not use the tool for illegal activities or to harm others.</p>
 
-            <h2>3. Data Accuracy</h2>
+            <h3>3. Data Accuracy</h3>
             <p>The tool fetches publicly available TikTok data via a third-party API. We do not guarantee the accuracy or completeness of the data provided.</p>
 
-            <h2>4. Intellectual Property</h2>
+            <h3>4. Intellectual Property</h3>
             <p>All content, design, and code on this site are the property of the creator (@_moro.__). Unauthorized copying or distribution is prohibited.</p>
 
-            <h2>5. Limitation of Liability</h2>
+            <h3>5. Limitation of Liability</h3>
             <p>We are not liable for any damages arising from the use of this tool. Use it at your own risk.</p>
 
-            <h2>6. Changes to Terms</h2>
+            <h3>6. Changes to Terms</h3>
             <p>We may update these Terms of Service at any time. Continued use of the tool constitutes acceptance of the updated terms.</p>
 
-            <h2>7. Contact Us</h2>
+            <h3>7. Contact Us</h3>
             <p>If you have any questions about these Terms, please contact us via <a href="https://www.tiktok.com/@mo.or__" class="dm-link" target="_blank" rel="noopener">TikTok</a> or the contact form.</p>
           </article>
           <button class="back-btn" onclick="showPage('main-page')">Back to Home</button>
@@ -850,12 +850,12 @@
     function getCountryFlag(country) {
       const flagMap = {
         'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
-        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '�🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
+        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
         'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
         'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
         'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
         'AZ': '🇦🇿', 'Azerbaijan': '🇦🇿', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧🇧',
-        'BD': '🇧🇩', 'Bangladesh': '🇧🇩', 'BE': '🇧🇪', 'Belgium': '🇧🇪', 'BF': '🇧🇫', 'Burkina Faso': '🇧🇫',
+        'BD': '🇧🇩', 'Bangladesh': '🇧🇩', 'BE': '🇧🇪', 'Belgium': '🇧�', 'BF': '🇧🇫', 'Burkina Faso': '🇧🇫',
         'BG': '🇧🇬', 'Bulgaria': '🇧🇬', 'BH': '🇧🇭', 'Bahrain': '🇧🇭', 'BI': '🇧🇮', 'Burundi': '🇧🇮',
         'BJ': '🇧🇯', 'Benin': '🇧🇯', 'BL': '🇧🇱', 'Saint Barthélemy': '🇧🇱', 'BM': '🇧🇲', 'Bermuda': '🇧🇲',
         'BN': '🇧🇳', 'Brunei Darussalam': '🇧🇳', 'BO': '🇧🇴', 'Bolivia': '🇧🇴', 'BQ': '🇧🇶', 'Bonaire, Sint Eustatius and Saba': '🇧🇶',
