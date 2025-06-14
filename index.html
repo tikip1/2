@@ -399,10 +399,9 @@
 
     // ===== API & USER LOOKUP LOGIC ===== //
     function getCountryFlag(country) {
-      // ** FIX: Using the complete map from the original file **
       const flagMap = {
         'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
-        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦�', 'AL': '🇦🇱', 'Albania': '🇦🇱',
+        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦�',
         'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
         'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
         'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
@@ -577,91 +576,90 @@
             const displayNickname = sanitize(apiProfile.Nickname || apiProfile.nickname || apiProfile.name || apiProfile.display_name || apiProfile.user_display_name || displayUsername);
 
             // --- RESTRUCTURED DATA HANDLING ---
-            const stats = {};
             const details = {};
             let bio = '';
+            let bioLink = '';
 
-            const statKeys = ['follower', 'following', 'like', 'digg', 'video', 'heart'];
             const bioKeys = ['bio', 'description', 'signature'];
+            const linkKeys = ['website', 'bio_link', 'url'];
+            const ignoredKeys = ['nickname','username','name','display_name','user_name','unique_id', 'secuid', 'lastmodified', 'follower', 'following', 'like', 'digg', 'video', 'heart', ...avatarKeys.map(k => k.toLowerCase())];
 
             for (const key in apiProfile) {
                 if (!Object.hasOwnProperty.call(apiProfile, key) || apiProfile[key] == null || String(apiProfile[key]).trim() === '') continue;
 
                 const lowerKey = key.toLowerCase();
-                if (statKeys.some(statKey => lowerKey.includes(statKey))) {
-                    stats[key] = apiProfile[key];
+
+                if (linkKeys.some(linkKey => lowerKey.includes(linkKey))) {
+                    bioLink = apiProfile[key];
                 } else if (bioKeys.some(bioKey => lowerKey.includes(bioKey))) {
                     bio = apiProfile[key];
-                } else if (!['nickname','username','name','display_name','user_name','unique_id', 'secuid', 'lastmodified', ...avatarKeys.map(k => k.toLowerCase())].includes(lowerKey)) {
+                } else if (!ignoredKeys.some(ignoredKey => lowerKey.includes(ignoredKey))) {
                     details[key] = apiProfile[key];
                 }
             }
             
-            // --- BUILD STATS HTML ---
-            const statIcons = {
-                followers: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>',
-                following: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path></svg>',
-                likes: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>',
-                videos: '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>'
-            };
-            
-            let statsHtml = '<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">';
-            const statMapping = { 'Followers': stats['Follower Count'] || stats['followers'] || 0, 'Following': stats['Following Count'] || stats['following'] || 0, 'Likes': stats['Like Count'] || stats['diggCount'] || stats['likes'] || 0, 'Videos': stats['Video Count'] || stats['videoCount'] || 0 };
-            
-            Object.entries(statMapping).forEach(([label, value]) => {
-                statsHtml += `<div class="p-3 rounded-lg bg-black/5 dark:bg-white/5">
-                    <div class="flex items-center justify-center gap-2" style="color: var(--text-secondary);">${statIcons[label.toLowerCase()] || ''}<span class="text-xs font-semibold uppercase tracking-wider">${label}</span></div>
-                    <div class="text-xl font-bold mt-1" style="color: var(--text-primary);">${Number(value).toLocaleString()}</div>
-                </div>`;
-            });
-            statsHtml += '</div>';
-
             // --- BUILD DETAILS HTML ---
-            let detailsHtml = '<div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">';
-            for (const key in details) {
-                let value = details[key];
-                let displayKey = key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()).trim();
-                let valueHtml;
+            let detailsHtml = '';
+            if (Object.keys(details).length > 0) {
+                detailsHtml += '<div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">';
+                for (const key in details) {
+                    let value = details[key];
+                    let displayKey = key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()).trim();
+                    let valueHtml;
 
-                if (['country', 'region', 'location'].some(k => key.toLowerCase().includes(k))) {
-                    valueHtml = `${getCountryFlag(value)} ${sanitize(String(value)) || 'N/A'}`;
-                } else if (typeof value === 'boolean') {
-                    valueHtml = value ? '<span class="font-semibold text-green-500">Yes</span>' : '<span class="font-semibold text-red-500">No</span>';
-                } else if (typeof value === 'string' && value.startsWith('http')) {
-                    valueHtml = `<a href="${sanitize(value)}" target="_blank" rel="noopener" class="text-cyan-400 hover:underline break-all">${sanitize(value)}</a>`;
-                } else {
-                    valueHtml = sanitize(String(value)) || 'N/A';
+                    if (['country', 'region', 'location'].some(k => key.toLowerCase().includes(k))) {
+                        valueHtml = `${getCountryFlag(value)} ${sanitize(String(value)) || 'N/A'}`;
+                    } else if (typeof value === 'boolean') {
+                        valueHtml = value ? '<span class="font-semibold text-green-500">Yes</span>' : '<span class="font-semibold text-red-500">No</span>';
+                    } else if (typeof value === 'string' && value.startsWith('http')) {
+                        valueHtml = `<a href="${sanitize(value)}" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline break-all">${sanitize(value)}</a>`;
+                    } else {
+                        valueHtml = sanitize(String(value)) || 'N/A';
+                    }
+                    detailsHtml += `<div class="text-sm"><div class="font-semibold" style="color: var(--text-primary);">${displayKey}</div><div class="font-medium" style="color: var(--text-secondary);">${valueHtml}</div></div>`;
                 }
-                detailsHtml += `<div class="text-sm"><div class="font-semibold" style="color: var(--text-primary);">${displayKey}</div><div class="font-medium" style="color: var(--text-secondary);">${valueHtml}</div></div>`;
+                detailsHtml += '</div>';
             }
-            detailsHtml += '</div>';
+            
+            // --- BUILD BIO LINK HTML ---
+            let bioLinkHtml = '';
+            if(bioLink) {
+                bioLinkHtml = `<div class="mt-4">
+                    <a href="${sanitize(bioLink)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 btn-3d w-full sm:w-auto justify-center px-6 py-3 text-sm font-bold text-white rounded-full bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-400 hover:to-red-400 shadow-lg">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        <span>Visit Link in Bio</span>
+                    </a>
+                </div>`;
+            }
+
 
             // --- BUILD BIO HTML ---
             let bioHtml = '';
             if (bio) {
-                bioHtml = `<div class="mt-6 pt-4 border-t border-white/10 dark:border-black/20">
+                 const urlRegex = /(https?:\/\/[^\s]+)/g;
+                 const sanitizedBio = sanitize(String(bio)).replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">$1</a>');
+                bioHtml = `<div class="mt-6 pt-4 border-t border-white/10 dark:border-black/20 text-left">
                     <h4 class="font-bold text-md mb-2" style="color: var(--text-primary);">Bio</h4>
-                    <p class="text-sm whitespace-pre-wrap" style="color: var(--text-secondary);">${sanitize(String(bio)).replace(/\n/g, '<br>')}</p>
+                    <p class="text-sm whitespace-pre-wrap" style="color: var(--text-secondary);">${sanitizedBio.replace(/\n/g, '<br>')}</p>
                 </div>`;
             }
 
             const formattedData = `
               <article class="glass-card p-6" aria-labelledby="profile-card-heading-${displayUsername}">
-                <div class="flex flex-col sm:flex-row items-center gap-5">
+                <div class="flex flex-row items-center gap-5">
                    <div class="relative flex-shrink-0">
-                      <img src="${profilePhoto}" alt="Profile photo of ${displayNickname}" class="h-24 w-24 rounded-full object-cover border-4 border-white/50 dark:border-white/10 shadow-lg" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                      <div class="h-24 w-24 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center" style="display:none;">
+                      <img src="${profilePhoto}" alt="Profile photo of ${displayNickname}" class="h-20 w-20 sm:h-24 sm:w-24 rounded-full object-cover border-4 border-white/50 dark:border-white/10 shadow-lg" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                      <div class="h-20 w-20 sm:h-24 sm:w-24 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center" style="display:none;">
                         <svg class="h-12 w-12 text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.998a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                       </div>
                     </div>
-                    <div class="text-center sm:text-left flex-grow">
-                        <h3 class="text-2xl font-bold" style="color: var(--text-primary);">${displayNickname}</h3>
-                        <p class="text-md font-mono" style="color: var(--text-secondary);">${displayUsername.startsWith('@') ? displayUsername : '@' + displayUsername}</p>
+                    <div class="text-left flex-grow">
+                        <h3 class="text-xl sm:text-2xl font-bold" style="color: var(--text-primary);">${displayNickname}</h3>
+                        <p class="text-sm sm:text-md font-mono" style="color: var(--text-secondary);">${displayUsername.startsWith('@') ? displayUsername : '@' + displayUsername}</p>
+                         ${bioLinkHtml}
                     </div>
                 </div>
-                <div class="my-6 h-px bg-white/10 dark:bg-black/20"></div>
-                ${statsHtml}
-                ${Object.keys(details).length > 0 ? `<div class="my-6 h-px bg-white/10 dark:bg-black/20"></div>${detailsHtml}` : ''}
+                ${detailsHtml ? `<div class="my-6 h-px bg-white/10 dark:bg-black/20"></div>${detailsHtml}` : ''}
                 ${bioHtml}
               </article>`;
 
