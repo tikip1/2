@@ -401,7 +401,7 @@
     function getCountryFlag(country) {
       const flagMap = {
         'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
-        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦�',
+        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦�', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
         'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
         'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
         'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
@@ -575,23 +575,17 @@
             const displayUsername = sanitize(rawUsernameFromAPI);
             const displayNickname = sanitize(apiProfile.Nickname || apiProfile.nickname || apiProfile.name || apiProfile.display_name || apiProfile.user_display_name || displayUsername);
 
-            // --- RESTRUCTURED DATA HANDLING ---
+            // --- DATA HANDLING ---
             const details = {};
             let bio = '';
-            let bioLink = '';
-
+            
             const bioKeys = ['bio', 'description', 'signature'];
-            const linkKeys = ['website', 'bio_link', 'url'];
-            const ignoredKeys = ['nickname','username','name','display_name','user_name','unique_id', 'secuid', 'lastmodified', 'follower', 'following', 'like', 'digg', 'video', 'heart', ...avatarKeys.map(k => k.toLowerCase())];
+            const ignoredKeys = ['nickname','username','name','display_name','user_name','unique_id', 'secuid', 'lastmodified', 'follower', 'following', 'like', 'digg', 'video', 'heart', 'website', 'bio_link', 'url', ...avatarKeys.map(k => k.toLowerCase())];
 
             for (const key in apiProfile) {
                 if (!Object.hasOwnProperty.call(apiProfile, key) || apiProfile[key] == null || String(apiProfile[key]).trim() === '') continue;
-
                 const lowerKey = key.toLowerCase();
-
-                if (linkKeys.some(linkKey => lowerKey.includes(linkKey))) {
-                    bioLink = apiProfile[key];
-                } else if (bioKeys.some(bioKey => lowerKey.includes(bioKey))) {
+                if (bioKeys.some(bioKey => lowerKey.includes(bioKey))) {
                     bio = apiProfile[key];
                 } else if (!ignoredKeys.some(ignoredKey => lowerKey.includes(ignoredKey))) {
                     details[key] = apiProfile[key];
@@ -621,23 +615,21 @@
                 detailsHtml += '</div>';
             }
             
-            // --- BUILD BIO LINK HTML ---
-            let bioLinkHtml = '';
-            if(bioLink) {
-                bioLinkHtml = `<div class="mt-4">
-                    <a href="${sanitize(bioLink)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 btn-3d w-full sm:w-auto justify-center px-6 py-3 text-sm font-bold text-white rounded-full bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-400 hover:to-red-400 shadow-lg">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                        <span>Visit Link in Bio</span>
-                    </a>
-                </div>`;
+            // --- BUILD DOWNLOAD BUTTON HTML ---
+            let downloadButtonHtml = '';
+            if(profilePhoto) {
+                downloadButtonHtml = `
+                    <a href="${profilePhoto}" download="${displayUsername}_avatar" rel="noopener noreferrer" class="flex items-center gap-1.5 btn-3d px-3 py-1.5 text-xs font-bold text-white rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 shadow-lg">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        <span>Download Avatar</span>
+                    </a>`;
             }
-
 
             // --- BUILD BIO HTML ---
             let bioHtml = '';
             if (bio) {
                  const urlRegex = /(https?:\/\/[^\s]+)/g;
-                 const sanitizedBio = sanitize(String(bio)).replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">$1</a>');
+                 const sanitizedBio = sanitize(String(bio)).replace(urlRegex, '<a href="$&" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">$&</a>');
                 bioHtml = `<div class="mt-6 pt-4 border-t border-white/10 dark:border-black/20 text-left">
                     <h4 class="font-bold text-md mb-2" style="color: var(--text-primary);">Bio</h4>
                     <p class="text-sm whitespace-pre-wrap" style="color: var(--text-secondary);">${sanitizedBio.replace(/\n/g, '<br>')}</p>
@@ -655,8 +647,10 @@
                     </div>
                     <div class="text-left flex-grow">
                         <h3 class="text-xl sm:text-2xl font-bold" style="color: var(--text-primary);">${displayNickname}</h3>
-                        <p class="text-sm sm:text-md font-mono" style="color: var(--text-secondary);">${displayUsername.startsWith('@') ? displayUsername : '@' + displayUsername}</p>
-                         ${bioLinkHtml}
+                        <div class="flex items-center gap-3 mt-1">
+                            <p class="text-sm sm:text-md font-mono" style="color: var(--text-secondary);">${displayUsername.startsWith('@') ? displayUsername : '@' + displayUsername}</p>
+                            ${downloadButtonHtml}
+                        </div>
                     </div>
                 </div>
                 ${detailsHtml ? `<div class="my-6 h-px bg-white/10 dark:bg-black/20"></div>${detailsHtml}` : ''}
