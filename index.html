@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="en" class="dark">
 <head>
   <title>Get TikTok Account Location Finder | Full Profile Details</title>
 
@@ -99,37 +99,14 @@
   <style>
     /* Custom Styles for 3D effect and aesthetics */
     :root {
-        --bg-light: #f0f2f5;
-        --bg-dark: #111827;
-        --card-light: rgba(255, 255, 255, 0.5);
-        --card-dark: rgba(31, 41, 55, 0.5); /* Adjusted for better contrast */
-        --border-light: rgba(255, 255, 255, 0.8);
-        --border-dark: rgba(255, 255, 255, 0.1);
-        --shadow-light: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
-        --shadow-dark: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        --text-light: #1f2937;
-        --text-dark: #e5e7eb;
-        --text-secondary-light: #4b5563;
-        --text-secondary-dark: #9ca3af;
-        --font-sans: 'Inter', sans-serif;
-        --font-mono: 'Roboto Mono', monospace;
-    }
-
-    html.dark {
-        --bg: var(--bg-dark);
-        --card-bg: var(--card-dark);
-        --border-color: var(--border-dark);
-        --shadow-color: var(--shadow-dark);
-        --text-primary: var(--text-dark);
-        --text-secondary: var(--text-secondary-dark);
-    }
-    html:not(.dark) {
-        --bg: var(--bg-light);
-        --card-bg: var(--card-light);
-        --border-color: var(--border-light);
-        --shadow-color: var(--shadow-light);
-        --text-primary: var(--text-light);
-        --text-secondary: var(--text-secondary-light);
+      --bg: #000000;
+      --card-bg: rgba(31, 41, 55, 0.5);
+      --border-color: rgba(255, 255, 255, 0.1);
+      --shadow-color: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      --text-primary: #e5e7eb;
+      --text-secondary: #9ca3af;
+      --font-sans: 'Inter', sans-serif;
+      --font-mono: 'Roboto Mono', monospace;
     }
 
     body {
@@ -146,8 +123,8 @@
 
     .glass-card {
         background: var(--card-bg);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         border-radius: 1.5rem; /* 24px */
         border: 1px solid var(--border-color);
         box-shadow: var(--shadow-color);
@@ -157,9 +134,6 @@
     
     .glass-card:hover {
         transform: translateY(-5px) scale(1.01);
-        box-shadow: 0 16px 40px 0 rgba(31, 38, 135, 0.2);
-    }
-    html.dark .glass-card:hover {
         box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.5);
     }
 
@@ -174,13 +148,9 @@
             radial-gradient(circle at 15% 15%, #00f2fe 0%, transparent 30%),
             radial-gradient(circle at 85% 85%, #ff0070 0%, transparent 30%),
             radial-gradient(circle at 90% 10%, #6200ea 0%, transparent 30%);
-        opacity: 0.25;
-        filter: blur(120px);
+        opacity: 0.35;
+        filter: blur(140px);
         transition: opacity 0.5s ease;
-    }
-    
-    html.dark .background-gradient {
-      opacity: 0.35;
     }
     
     .btn-3d {
@@ -215,12 +185,6 @@
     <div class="flex-grow w-full flex items-center justify-center">
         <div class="container w-full max-w-3xl mx-auto">
     
-            <!-- Theme Toggle Button -->
-            <button class="theme-toggle absolute top-4 right-4 z-10 p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700/50 transition-colors duration-200" id="themeToggle" aria-label="Toggle theme">
-              <svg id="theme-icon-sun" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-              <svg id="theme-icon-moon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-            </button>
-          
             <main class="w-full">
                 <!-- Main Search Page -->
                 <div class="page-content active" id="main-page">
@@ -235,7 +199,7 @@
                     <section aria-labelledby="search-tool-heading" class="max-w-xl mx-auto">
                       <h2 id="search-tool-heading" class="sr-only">TikTok Profile Search Tool</h2>
                       <div class="relative">
-                        <input type="text" id="username" placeholder="Enter TikTok username (without @)" required aria-label="TikTok Username Input" class="w-full pl-5 pr-12 py-4 text-base rounded-full bg-white/20 dark:bg-black/20 border border-gray-300 dark:border-gray-600/50 focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 outline-none transition-all duration-300 shadow-inner" style="color: var(--text-primary);">
+                        <input type="text" id="username" placeholder="Enter TikTok username (without @)" required aria-label="TikTok Username Input" class="w-full pl-5 pr-12 py-4 text-base rounded-full bg-black/20 border border-gray-600/50 focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 outline-none transition-all duration-300 shadow-inner" style="color: var(--text-primary);">
                       </div>
                       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
                         <button id="getResultsBtn" aria-label="Search TikTok profile" class="btn-3d w-full py-4 text-base font-bold text-white rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 shadow-lg">Get Profile Details</button>
@@ -279,9 +243,9 @@
                   <h1 id="contact-page-heading" class="text-2xl sm:text-3xl font-bold mb-4" style="color: var(--text-primary);">Contact Us</h1>
                   <p class="mb-6" style="color: var(--text-secondary);">Have questions or feedback? Reach out using the form below or contact us directly via <a href="https://www.tiktok.com/@mo.or__" class="font-semibold text-cyan-500 hover:text-pink-500" target="_blank" rel="noopener">TikTok</a>.</p>
                   <form class="space-y-4" id="contact-form">
-                    <input type="text" id="contact-name" placeholder="Your Name" required class="w-full px-4 py-3 rounded-lg bg-white/20 dark:bg-black/20 border border-gray-300 dark:border-gray-600/50 focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 outline-none transition-all" style="color: var(--text-primary);">
-                    <input type="email" id="contact-email" placeholder="Your Email" required class="w-full px-4 py-3 rounded-lg bg-white/20 dark:bg-black/20 border border-gray-300 dark:border-gray-600/50 focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 outline-none transition-all" style="color: var(--text-primary);">
-                    <textarea id="contact-message" placeholder="Your Message" required rows="4" class="w-full px-4 py-3 rounded-lg bg-white/20 dark:bg-black/20 border border-gray-300 dark:border-gray-600/50 focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 outline-none transition-all" style="color: var(--text-primary);"></textarea>
+                    <input type="text" id="contact-name" placeholder="Your Name" required class="w-full px-4 py-3 rounded-lg bg-black/20 border border-gray-600/50 focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 outline-none transition-all" style="color: var(--text-primary);">
+                    <input type="email" id="contact-email" placeholder="Your Email" required class="w-full px-4 py-3 rounded-lg bg-black/20 border border-gray-600/50 focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 outline-none transition-all" style="color: var(--text-primary);">
+                    <textarea id="contact-message" placeholder="Your Message" required rows="4" class="w-full px-4 py-3 rounded-lg bg-black/20 border border-gray-600/50 focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 outline-none transition-all" style="color: var(--text-primary);"></textarea>
                     <button type="submit" class="btn-3d w-full py-3 font-bold text-white rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 shadow-lg">Send Message</button>
                   </form>
                    <button class="back-btn mt-4 w-full py-3 font-bold text-white rounded-full bg-gray-500 hover:bg-gray-600 transition-colors" onclick="showPage('main-page')">Back to Home</button>
@@ -349,25 +313,6 @@
   </div>
 
   <script>
-    // ===== THEME TOGGLE FUNCTIONALITY ===== //
-    const themeToggle = document.getElementById('themeToggle');
-    const sunIcon = document.getElementById('theme-icon-sun');
-    const moonIcon = document.getElementById('theme-icon-moon');
-    const htmlEl = document.documentElement;
-
-    const currentTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    htmlEl.classList.toggle('dark', currentTheme === 'dark');
-    sunIcon.classList.toggle('hidden', currentTheme === 'dark');
-    moonIcon.classList.toggle('hidden', currentTheme !== 'dark');
-
-    themeToggle.addEventListener('click', () => {
-        htmlEl.classList.toggle('dark');
-        const isDark = htmlEl.classList.contains('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        sunIcon.classList.toggle('hidden', isDark);
-        moonIcon.classList.toggle('hidden', !isDark);
-    });
-    
     // ===== PAGE NAVIGATION LOGIC ===== //
     const baseTitle = "TikTok Account Location Finder | Full Profile Details & FAQ";
     function showPage(pageId) {
@@ -400,9 +345,9 @@
     // ===== API & USER LOOKUP LOGIC ===== //
     function getCountryFlag(country) {
       const flagMap = {
-        'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '�🇫', 'Afghanistan': '🇦🇫',
+        'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
         'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
-        'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
+        'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '�🇶', 'Antarctica': '🇦🇶',
         'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
         'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
         'AZ': '🇦🇿', 'Azerbaijan': '🇦🇿', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧🇧',
@@ -630,8 +575,8 @@
               <article class="glass-card p-6" aria-labelledby="profile-card-heading-${displayUsername}">
                 <div class="flex flex-row items-center gap-5">
                    <div class="relative flex-shrink-0">
-                      <img src="${profilePhoto}" alt="Profile photo of ${displayNickname}" class="h-20 w-20 sm:h-24 sm:w-24 rounded-full object-cover border-4 border-white/50 dark:border-white/10 shadow-lg" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                      <div class="h-20 w-20 sm:h-24 sm:w-24 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center" style="display:none;">
+                      <img src="${profilePhoto}" alt="Profile photo of ${displayNickname}" class="h-20 w-20 sm:h-24 sm:w-24 rounded-full object-cover border-4 border-white/10 shadow-lg" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                      <div class="h-20 w-20 sm:h-24 sm:w-24 rounded-full bg-gray-700 flex items-center justify-center" style="display:none;">
                         <svg class="h-12 w-12 text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.998a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                       </div>
                     </div>
@@ -640,7 +585,7 @@
                         <p class="text-sm sm:text-md font-mono mt-1" style="color: var(--text-secondary);">${displayUsername.startsWith('@') ? displayUsername : '@' + displayUsername}</p>
                     </div>
                 </div>
-                ${detailsHtml ? `<div class="my-6 h-px bg-white/10 dark:bg-black/20"></div>${detailsHtml}` : ''}
+                ${detailsHtml ? `<div class="my-6 h-px bg-white/10"></div>${detailsHtml}` : ''}
                 ${bioHtml}
               </article>`;
 
