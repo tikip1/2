@@ -100,7 +100,7 @@
     /* Custom Styles for Professional Design */
     :root {
       --bg: #000000;
-      --card-bg: rgba(23, 23, 23, 0.6);
+      --card-bg: rgba(23, 23, 23, 0.85); /* Increased opacity for readability */
       --border-color: rgba(255, 255, 255, 0.1);
       --shadow-color: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
       --text-primary: #f9fafb;
@@ -122,8 +122,8 @@
 
     .glass-card {
         background: var(--card-bg);
-        backdrop-filter: blur(24px);
-        -webkit-backdrop-filter: blur(24px);
+        /* backdrop-filter: blur(24px); */ /* BLUR REMOVED */
+        /* -webkit-backdrop-filter: blur(24px); */ /* BLUR REMOVED */
         border-radius: 1.5rem; /* 24px */
         border: 1px solid var(--border-color);
         box-shadow: var(--shadow-color);
@@ -344,9 +344,9 @@
     function getCountryFlag(country) {
       const flagMap = {
         'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
-        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
+        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '�🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
         'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
-        'AR': '🇦🇷', 'Argentina': '�🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
+        'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
         'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
         'AZ': '🇦🇿', 'Azerbaijan': '🇦🇿', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧🇧',
         'BD': '🇧🇩', 'Bangladesh': '🇧🇩', 'BE': '🇧🇪', 'Belgium': '🇧🇪', 'BF': '🇧🇫', 'Burkina Faso': '🇧🇫',
@@ -563,14 +563,14 @@
             if (bio) {
                  const urlRegex = /(https?:\/\/[^\s]+)/g;
                  const sanitizedBio = sanitize(String(bio)).replace(urlRegex, '<a href="$&" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline">$&</a>');
-                bioHtml = `<div class="mt-6 pt-4 border-t border-white/10 dark:border-black/20 text-left">
-                    <h4 class="font-bold text-md mb-2" style="color: var(--text-primary);">Bio</h4>
-                    <p class="text-sm whitespace-pre-wrap" style="color: var(--text-secondary);">${sanitizedBio.replace(/\n/g, '<br>')}</p>
+                bioHtml = `<div class="mt-6 pt-6 border-t border-white/10">
+                    <h4 class="font-bold text-md mb-2 text-left" style="color: var(--text-primary);">Bio</h4>
+                    <p class="text-sm whitespace-pre-wrap text-left" style="color: var(--text-secondary);">${sanitizedBio.replace(/\n/g, '<br>')}</p>
                 </div>`;
             }
 
             const formattedData = `
-              <article class="glass-card p-6" aria-labelledby="profile-card-heading-${displayUsername}">
+              <article class="glass-card p-6 sm:p-8" aria-labelledby="profile-card-heading-${displayUsername}">
                 <div class="flex flex-col sm:flex-row items-center text-center sm:text-left gap-5">
                    <div class="relative flex-shrink-0">
                       <img src="${profilePhoto}" alt="Profile photo of ${displayNickname}" class="h-24 w-24 rounded-full object-cover border-4 border-white/10 shadow-lg" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
