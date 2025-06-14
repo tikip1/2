@@ -97,14 +97,14 @@
   </script>
 
   <style>
-    /* Custom Styles for 3D effect and aesthetics */
+    /* Custom Styles for Professional Design */
     :root {
       --bg: #000000;
-      --card-bg: rgba(31, 41, 55, 0.5);
+      --card-bg: rgba(23, 23, 23, 0.6);
       --border-color: rgba(255, 255, 255, 0.1);
       --shadow-color: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-      --text-primary: #e5e7eb;
-      --text-secondary: #9ca3af;
+      --text-primary: #f9fafb;
+      --text-secondary: #a1a1aa;
       --font-sans: 'Inter', sans-serif;
       --font-mono: 'Roboto Mono', monospace;
     }
@@ -113,7 +113,6 @@
         font-family: var(--font-sans);
         background-color: var(--bg);
         color: var(--text-primary);
-        transition: background-color 0.3s ease;
         overflow-x: hidden;
     }
 
@@ -123,8 +122,8 @@
 
     .glass-card {
         background: var(--card-bg);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
         border-radius: 1.5rem; /* 24px */
         border: 1px solid var(--border-color);
         box-shadow: var(--shadow-color);
@@ -145,12 +144,11 @@
         height: 100%;
         z-index: -1;
         background-image: 
-            radial-gradient(circle at 15% 15%, #00f2fe 0%, transparent 30%),
-            radial-gradient(circle at 85% 85%, #ff0070 0%, transparent 30%),
-            radial-gradient(circle at 90% 10%, #6200ea 0%, transparent 30%);
-        opacity: 0.35;
-        filter: blur(140px);
-        transition: opacity 0.5s ease;
+            radial-gradient(circle at 15% 15%, #00f2fe 0%, transparent 40%),
+            radial-gradient(circle at 85% 85%, #ff0070 0%, transparent 40%),
+            radial-gradient(circle at 90% 10%, #6200ea 0%, transparent 40%);
+        opacity: 0.25;
+        filter: blur(150px);
     }
     
     .btn-3d {
@@ -347,8 +345,8 @@
       const flagMap = {
         'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
         'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
-        'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '�🇶', 'Antarctica': '🇦🇶',
-        'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
+        'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
+        'AR': '🇦🇷', 'Argentina': '�🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
         'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
         'AZ': '🇦🇿', 'Azerbaijan': '🇦🇿', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧🇧',
         'BD': '🇧🇩', 'Bangladesh': '🇧🇩', 'BE': '🇧🇪', 'Belgium': '🇧🇪', 'BF': '🇧🇫', 'Burkina Faso': '🇧🇫',
@@ -573,16 +571,16 @@
 
             const formattedData = `
               <article class="glass-card p-6" aria-labelledby="profile-card-heading-${displayUsername}">
-                <div class="flex flex-row items-center gap-5">
+                <div class="flex flex-col sm:flex-row items-center text-center sm:text-left gap-5">
                    <div class="relative flex-shrink-0">
-                      <img src="${profilePhoto}" alt="Profile photo of ${displayNickname}" class="h-20 w-20 sm:h-24 sm:w-24 rounded-full object-cover border-4 border-white/10 shadow-lg" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                      <div class="h-20 w-20 sm:h-24 sm:w-24 rounded-full bg-gray-700 flex items-center justify-center" style="display:none;">
+                      <img src="${profilePhoto}" alt="Profile photo of ${displayNickname}" class="h-24 w-24 rounded-full object-cover border-4 border-white/10 shadow-lg" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                      <div class="h-24 w-24 rounded-full bg-gray-700 flex items-center justify-center" style="display:none;">
                         <svg class="h-12 w-12 text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.998a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                       </div>
                     </div>
-                    <div class="text-left flex-grow">
-                        <h3 class="text-xl sm:text-2xl font-bold" style="color: var(--text-primary);">${displayNickname}</h3>
-                        <p class="text-sm sm:text-md font-mono mt-1" style="color: var(--text-secondary);">${displayUsername.startsWith('@') ? displayUsername : '@' + displayUsername}</p>
+                    <div class="flex-grow">
+                        <h3 class="text-2xl font-bold" style="color: var(--text-primary);">${displayNickname}</h3>
+                        <p class="text-md font-mono mt-1" style="color: var(--text-secondary);">${displayUsername.startsWith('@') ? displayUsername : '@' + displayUsername}</p>
                     </div>
                 </div>
                 ${detailsHtml ? `<div class="my-6 h-px bg-white/10"></div>${detailsHtml}` : ''}
