@@ -654,7 +654,7 @@
     <main>
         <div class="page-content active" id="main-page">
           <div id="main-content-wrapper">
-            <div class="patriotic-text">❌🚬 | 🏋‍♀️✅</div>
+            <div class="patriotic-text">❌� | 🏋‍♀️✅</div>
             <h1>TikTok Account Location Finder</h1>
             <div class="credit">Created by <a href="https://www.tiktok.com/@mo.or__" target="_blank" rel="noopener">@_moro.__</a></div>
 
@@ -887,7 +887,7 @@
         'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
         'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
         'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
-        'AR': '🇦🇷', 'Argentina': '�🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
+        'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
         'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
         'AZ': '🇦🇿', 'Azerbaijan': '🇦🇿', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧🇧',
         'BD': '🇧🇩', 'Bangladesh': '🇧🇩', 'BE': '🇧🇪', 'Belgium': '🇧🇪', 'BF': '🇧🇫', 'Burkina Faso': '🇧🇫',
@@ -1126,12 +1126,20 @@
                 `;
             }
 
+            const handledKeys = new Set([
+                'nickname', 'username', 'name', 'display_name', 'user_name', 'unique_id', 'user_display_name',
+                'profilephoto', 'avatarurl', 'avatar_url', 'avatarurl', 'picture', 'profileimageurl', 'profile_pic_url',
+                'profile_image_url', 'avatar', 'profile_picture', 'photo_url', 'user_avatar',
+                'followers', 'following', 'likes', 'diggcount',
+                'bio', 'description', 'signature', 'bio_text', 'user_bio'
+            ]);
+
             let detailsListHtml = '';
             for (const key in apiProfile) {
                 if (Object.hasOwnProperty.call(apiProfile, key)) {
-                     const lowerKey = key.toLowerCase();
-                    if (['nickname', 'username', 'name', 'display_name', 'user_name', 'unique_id', 'user_display_name', ...avatarKeys, 'followers', 'following', 'likes', 'bio', 'description'].includes(lowerKey) ||
-                        apiProfile[key] == null || String(apiProfile[key]).trim() === '') {
+                     const normalizedKey = key.toLowerCase().replace(/_|\s/g, '');
+
+                    if (handledKeys.has(normalizedKey) || apiProfile[key] == null || String(apiProfile[key]).trim() === '') {
                         continue;
                     }
 
@@ -1141,8 +1149,8 @@
                     if (displayKey === 'Sec U I D' || displayKey === 'Username Last Modified') {
                         continue;
                     }
-
-                    if (lowerKey === 'country' || lowerKey === 'region' || lowerKey === 'location' || lowerKey === 'country_code') {
+                    
+                    if (normalizedKey === 'country' || normalizedKey === 'region' || normalizedKey === 'location' || normalizedKey === 'countrycode') {
                         value = `${getCountryFlag(value)} ${sanitize(String(value)) || 'N/A'}`;
                     } else if (typeof value === 'boolean') {
                         value = value ? 'Yes' : 'No';
