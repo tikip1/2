@@ -529,6 +529,17 @@
         justify-content: space-between;
         align-items: center;
         height: 64px;
+        position: relative; /* Added for title positioning */
+    }
+    
+    .header-title {
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        pointer-events: none; /* Make it non-interactive */
     }
     
     .menu-container {
@@ -680,6 +691,7 @@
       body { padding: 0.5rem; padding-top: 70px; }
       .container { padding: 0 0.5rem; }
       .header { padding: 0 0.5rem; height: 56px; }
+      .header-title { font-size: 1.25rem; }
       input, button, textarea { padding: 0.65rem 0.85rem; }
       .profile-card-header {
         padding: 1rem;
@@ -743,6 +755,7 @@
                 </a>
             </nav>
         </div>
+        <div class="header-title">Tikip</div>
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1-8.313-12.454z"/>
@@ -967,11 +980,11 @@
     function getCountryFlag(country) {
       const flagMap = {
         'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
-        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦�', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
+        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
         'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
         'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
         'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
-        'AZ': '🇦🇿', 'Azerbaijan': '🇦🇿', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧🇧',
+        'AZ': '🇦🇿', 'Azerbaijan': '🇦🇿', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '�🇧',
         'BD': '🇧🇩', 'Bangladesh': '🇧🇩', 'BE': '🇧🇪', 'Belgium': '🇧🇪', 'BF': '🇧🇫', 'Burkina Faso': '🇧🇫',
         'BG': '🇧🇬', 'Bulgaria': '🇧🇬', 'BH': '🇧🇭', 'Bahrain': '🇧🇭', 'BI': '🇧🇮', 'Burundi': '🇧🇮',
         'BJ': '🇧🇯', 'Benin': '🇧🇯', 'BL': '🇧🇱', 'Saint Barthélemy': '🇧🇱', 'BM': '🇧🇲', 'Bermuda': '🇧🇲',
