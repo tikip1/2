@@ -678,6 +678,37 @@
       resize: vertical;
       min-height: 120px;
     }
+    
+    .social-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    .social-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.6rem 1.2rem;
+        border-radius: var(--border-radius);
+        text-decoration: none;
+        color: #fff;
+        font-weight: 500;
+        transition: transform var(--transition-speed);
+    }
+    .social-btn:hover {
+        transform: translateY(-2px);
+    }
+    .social-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+    .social-btn.twitter { background-color: #1DA1F2; }
+    .social-btn.facebook { background-color: #1877F2; }
+    .social-btn.whatsapp { background-color: #25D366; }
+    .social-btn.tiktok { background-color: #000; }
+
 
     @keyframes spin {
       to { transform: rotate(360deg); }
@@ -786,15 +817,34 @@
             
             <article class="about-section" aria-labelledby="about-tool-heading">
                 <h2 id="about-tool-heading">About Our TikTok Location Finder Tool</h2>
-                <p>Our <strong>TikTok Location Finder</strong> is a powerful, free tool designed for seamless user profile analysis. Instantly find valuable <strong>TikTok account details</strong>, including location data, with just a username. Whether you're a researcher, a marketer, or simply curious, our <strong>TikTok stats checker</strong> provides comprehensive public information. Use this service to explore public data such as bios, follower counts, video statistics, and estimated <strong>TikTok geolocation</strong>.</p>
-                <p><strong>Key Features:</strong> Get a complete profile overview with our <strong>free TikTok tool</strong>. It features country display with flags, full bio visibility, up-to-date follower and video statistics, a fully responsive design, and a user-friendly dark/light mode for your comfort.</p>
+                <p>Our <strong>TikTok Location Finder</strong> is a powerful, free tool designed for seamless user profile analysis. Instantly find valuable <strong>TikTok account details</strong>, including location data, with just a username. Whether you're a researcher, a marketer, or simply curious, our stats checker provides comprehensive public information. Use this service to explore public data such as bios, follower counts, video statistics, and estimated geolocation.</p>
+                <p><em>Key Features:</em> Get a complete profile overview with our free tool. It features country display with flags, full bio visibility, up-to-date follower and video statistics, a fully responsive design, and a user-friendly dark/light mode for your comfort.</p>
             </article>
 
             <article class="about-section" aria-labelledby="about-creator-heading">
               <h2 id="about-creator-heading">About the Creator</h2>
-              <p>I'm Moor, the developer behind this <strong>free TikTok location finder</strong>. As a Graphic Designer & Web Developer with over four years of experience, I am passionate about creating useful and accessible online tools for everyone. My goal is to build innovative solutions that help people navigate the digital world.</p>
+              <p>I'm Moor, the developer behind this free TikTok location finder. As a Graphic Designer & Web Developer with over four years of experience, I am passionate about creating useful and accessible online tools for everyone. My goal is to build innovative solutions that help people navigate the digital world.</p>
               <p>You can connect with me on <a href="https://www.tiktok.com/@mo.or__" class="dm-link" target="_blank" rel="noopener">TikTok</a> or support my ongoing work to keep this tool free and updated!</p>
             </article>
+
+            <article class="about-section" aria-labelledby="share-heading">
+                <h2 id="share-heading">Share & Follow Us</h2>
+                <div class="social-buttons">
+                    <a href="https://twitter.com/intent/tweet?text=Check%20out%20Tikip%2C%20a%20free%20TikTok%20Location%20Finder%21&url=https%3A%2F%2Ftikip.us&via=tikip111" target="_blank" class="social-btn twitter" aria-label="Share on Twitter">
+                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.58-2.46.67.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.22-1.95-.55v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.52 8.52 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21c7.35 0 11.37-6.08 11.37-11.37 0-.17 0-.34-.01-.51.78-.57 1.45-1.29 1.98-2.08z"></path></svg>
+                        <span>Share</span>
+                    </a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftikip.us" target="_blank" class="social-btn facebook" aria-label="Share on Facebook">
+                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06c0 5.52 4.5 10.02 10 10.02 5.52 0 10-4.5 10-10.02C22 6.53 17.52 2.04 12 2.04zM13.6 19.33V12.5h2.23l.33-2.58H13.6V8.21c0-.75.21-1.25 1.28-1.25h1.36V4.68c-.24-.03-.99-.1-1.89-.1-1.87 0-3.15 1.14-3.15 3.23v1.91H8.87v2.58h2.34v6.83h2.39z"></path></svg>
+                        <span>Share</span>
+                    </a>
+                     <a href="https://tiktok.com/@tikip.us" target="_blank" class="social-btn tiktok" aria-label="Follow on TikTok">
+                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.43.05-4.84-.94-6.44-2.91-1.6-1.97-2.18-4.56-1.57-7.04.57-2.3 2.1-4.29 4.12-5.51 1.9-1.13 4.1-1.46 6.13-1.01l.02.01c.22-1.22.42-2.44.64-3.66z"></path></svg>
+                        <span>Follow</span>
+                    </a>
+                </div>
+            </article>
+
           </div>
           
           <div id="result" aria-live="polite"></div>
@@ -984,12 +1034,12 @@
     // ===== COUNTRY FLAG MAPPING ===== //
     function getCountryFlag(country) {
       const flagMap = {
-        'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
+        'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '�🇫',
         'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
         'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
         'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
         'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
-        'AZ': '🇦🇿', 'Azerbaijan': '🇦🇿', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧�',
+        'AZ': '🇦🇿', 'Azerbaijan': '🇦🇿', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧🇧',
         'BD': '🇧🇩', 'Bangladesh': '🇧🇩', 'BE': '🇧🇪', 'Belgium': '🇧🇪', 'BF': '🇧🇫', 'Burkina Faso': '🇧🇫',
         'BG': '🇧🇬', 'Bulgaria': '🇧🇬', 'BH': '🇧🇭', 'Bahrain': '🇧🇭', 'BI': '🇧🇮', 'Burundi': '🇧🇮',
         'BJ': '🇧🇯', 'Benin': '🇧🇯', 'BL': '🇧🇱', 'Saint Barthélemy': '🇧🇱', 'BM': '🇧🇲', 'Bermuda': '🇧🇲',
