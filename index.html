@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script>(function(s,u,z,p){s.src=u,s.setAttribute('data-zone',z),p.appendChild(s);})(document.createElement('script'),'https://al5sm.com/tag.min.js',9389621,document.body||document.documentElement)</script>
   <title>Tikip | Get TikTok Account Location Finder | Full Profile Details</title>
 
   <meta charset="UTF-8">
@@ -565,9 +564,7 @@
         background-color: var(--dark-card-bg);
         border-color: var(--dark-border-color);
     }
-    :root[data-theme="dark"] .header-title,
-    :root[data-theme="dark"] .profile-nickname,
-    :root[data-theme="dark"] .stat-item .stat-value {
+    :root[data-theme="dark"] .header-title {
         color: var(--dark-text-color);
     }
     :root[data-theme="dark"] #menu-toggle svg { stroke: var(--dark-text-color); }
@@ -580,6 +577,9 @@
       background-color: var(--input-bg-dark);
       border-color: var(--dark-border-color);
     }
+    :root[data-theme="dark"] .profile-nickname { color: var(--dark-text-color); }
+    :root[data-theme="dark"] .stat-item .stat-value { color: var(--dark-text-color); }
+
     :root[data-theme="dark"] .profile-bio p, 
     :root[data-theme="dark"] .profile-details-list .info-value {
         color: var(--dark-text-secondary);
@@ -654,7 +654,7 @@
     <main>
         <div class="page-content active" id="main-page">
           <div id="main-content-wrapper">
-            <div class="patriotic-text">❌� | 🏋‍♀️✅</div>
+            <div class="patriotic-text">❌🚬 | 🏋‍♀️✅</div>
             <h1>TikTok Account Location Finder</h1>
             <div class="credit">Created by <a href="https://www.tiktok.com/@mo.or__" target="_blank" rel="noopener">@_moro.__</a></div>
 
@@ -885,7 +885,7 @@
     function getCountryFlag(country) {
       const flagMap = {
         'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
-        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
+        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦�', 'AL': '🇦🇱', 'Albania': '🇦🇱',
         'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
         'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
         'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
@@ -1099,25 +1099,27 @@
                 'Likes': apiProfile.likes || apiProfile.Likes || 0,
             };
 
-            statsHtml = `
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <span class="stat-value">${Number(stats.Followers).toLocaleString()}</span>
-                        <span class="stat-label">Followers</span>
+            if (stats.Followers > 0 || stats.Following > 0 || stats.Likes > 0) {
+                statsHtml = `
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-value">${Number(stats.Followers).toLocaleString()}</span>
+                            <span class="stat-label">Followers</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">${Number(stats.Following).toLocaleString()}</span>
+                            <span class="stat-label">Following</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">${Number(stats.Likes).toLocaleString()}</span>
+                            <span class="stat-label">Likes</span>
+                        </div>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-value">${Number(stats.Following).toLocaleString()}</span>
-                        <span class="stat-label">Following</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value">${Number(stats.Likes).toLocaleString()}</span>
-                        <span class="stat-label">Likes</span>
-                    </div>
-                </div>
-            `;
+                `;
+            }
             
-            if (apiProfile.bio || apiProfile.Bio || apiProfile.description) {
-                const bioText = apiProfile.bio || apiProfile.Bio || apiProfile.description;
+            const bioText = apiProfile.bio || apiProfile.Bio || apiProfile.description;
+            if (bioText && String(bioText).trim()) {
                 bioHtml = `
                     <div class="profile-bio">
                         <h3>Bio</h3>
