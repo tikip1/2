@@ -205,7 +205,6 @@
         z-index: 1000;
         padding: 0 1rem;
         box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.09"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
     }
 
     .header-container {
@@ -470,19 +469,90 @@
       border: 3px solid var(--primary-color);
       flex-shrink: 0;
     }
-    .profile-info-row {
+    .profile-identity {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: flex-start;
-      padding: 0.75rem 0;
-      font-size: clamp(0.875rem, 3vw, 0.95rem);
-      border-bottom: 1px solid var(--light-border-color);
+      min-width: 0;
+      gap: 0.1rem;
     }
-    .profile-info-row:last-child { border-bottom: none; }
-    .profile-card-body {
-      padding: 0.75rem 1.25rem 1.25rem;
+    .profile-nickname {
+      font-size: clamp(1.25rem, 4vw, 1.5rem);
+      font-weight: 600;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--light-text-color);
+    }
+    .profile-username-display {
+      font-size: clamp(0.875rem, 3vw, 1rem);
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--light-text-secondary);
     }
     
+    .profile-card-body {
+      padding: 1.25rem;
+    }
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1.25rem;
+        text-align: center;
+    }
+    .stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+    }
+    .stat-item .stat-value {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--light-text-color);
+    }
+    .stat-item .stat-label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        color: var(--light-text-secondary);
+    }
+
+    .profile-bio, .profile-details-list {
+        margin-top: 1.25rem;
+        padding-top: 1.25rem;
+        border-top: 1px solid var(--light-border-color);
+    }
+    .profile-bio h3, .profile-details-list h3 {
+        margin-bottom: 0.75rem;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+    .profile-bio p {
+        line-height: 1.6;
+        color: var(--light-text-secondary);
+    }
+    
+    .profile-details-list .profile-info-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid var(--light-border-color);
+    }
+    .profile-details-list .profile-info-row:last-child {
+        border-bottom: none;
+    }
+    .profile-details-list .info-label {
+        font-weight: 500;
+    }
+    .profile-details-list .info-value {
+        text-align: right;
+        color: var(--light-text-secondary);
+    }
+
     /* Dark Mode Specifics */
     :root[data-theme="dark"] body {
       background-color: var(--dark-bg);
@@ -495,7 +565,9 @@
         background-color: var(--dark-card-bg);
         border-color: var(--dark-border-color);
     }
-    :root[data-theme="dark"] .header-title {
+    :root[data-theme="dark"] .header-title,
+    :root[data-theme="dark"] .profile-nickname,
+    :root[data-theme="dark"] .stat-item .stat-value {
         color: var(--dark-text-color);
     }
     :root[data-theme="dark"] #menu-toggle svg { stroke: var(--dark-text-color); }
@@ -508,7 +580,15 @@
       background-color: var(--input-bg-dark);
       border-color: var(--dark-border-color);
     }
-    :root[data-theme="dark"] .profile-nickname { color: var(--dark-text-color); }
+    :root[data-theme="dark"] .profile-bio p, 
+    :root[data-theme="dark"] .profile-details-list .info-value {
+        color: var(--dark-text-secondary);
+    }
+    :root[data-theme="dark"] .profile-bio, 
+    :root[data-theme="dark"] .profile-details-list,
+    :root[data-theme="dark"] .profile-details-list .profile-info-row {
+        border-color: var(--dark-border-color);
+    }
     :root[data-theme="dark"] .social-btn::after {
         background-color: var(--light-bg);
         color: var(--dark-bg);
@@ -807,9 +887,9 @@
         'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
         'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
         'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
-        'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
+        'AR': '🇦🇷', 'Argentina': '�🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
         'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
-        'AZ': '🇦🇿', 'Azerbaijan': '�🇿', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧🇧',
+        'AZ': '🇦🇿', 'Azerbaijan': '🇦🇿', 'BA': '🇧🇦', 'Bosnia and Herzegovina': '🇧🇦', 'BB': '🇧🇧', 'Barbados': '🇧🇧',
         'BD': '🇧🇩', 'Bangladesh': '🇧🇩', 'BE': '🇧🇪', 'Belgium': '🇧🇪', 'BF': '🇧🇫', 'Burkina Faso': '🇧🇫',
         'BG': '🇧🇬', 'Bulgaria': '🇧🇬', 'BH': '🇧🇭', 'Bahrain': '🇧🇭', 'BI': '🇧🇮', 'Burundi': '🇧🇮',
         'BJ': '🇧🇯', 'Benin': '🇧🇯', 'BL': '🇧🇱', 'Saint Barthélemy': '🇧🇱', 'BM': '🇧🇲', 'Bermuda': '🇧🇲',
@@ -1010,9 +1090,47 @@
             const displayNickname = apiProfile.Nickname || apiProfile.nickname || apiProfile.name || apiProfile.display_name || apiProfile.user_display_name || displayUsername;
 
             let profileDetailsHtml = '';
+            let statsHtml = '';
+            let bioHtml = '';
+
+            const stats = {
+                'Followers': apiProfile.followers || apiProfile.Followers || 0,
+                'Following': apiProfile.following || apiProfile.Following || 0,
+                'Likes': apiProfile.likes || apiProfile.Likes || 0,
+            };
+
+            statsHtml = `
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-value">${Number(stats.Followers).toLocaleString()}</span>
+                        <span class="stat-label">Followers</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">${Number(stats.Following).toLocaleString()}</span>
+                        <span class="stat-label">Following</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">${Number(stats.Likes).toLocaleString()}</span>
+                        <span class="stat-label">Likes</span>
+                    </div>
+                </div>
+            `;
+            
+            if (apiProfile.bio || apiProfile.Bio || apiProfile.description) {
+                const bioText = apiProfile.bio || apiProfile.Bio || apiProfile.description;
+                bioHtml = `
+                    <div class="profile-bio">
+                        <h3>Bio</h3>
+                        <p>${sanitize(bioText).replace(/\n/g, '<br>')}</p>
+                    </div>
+                `;
+            }
+
+            let detailsListHtml = '';
             for (const key in apiProfile) {
                 if (Object.hasOwnProperty.call(apiProfile, key)) {
-                    if (['Nickname', 'nickname', 'Username', 'username', 'name', 'display_name', 'user_name', 'unique_id', 'user_display_name', ...avatarKeys].includes(key) ||
+                     const lowerKey = key.toLowerCase();
+                    if (['nickname', 'username', 'name', 'display_name', 'user_name', 'unique_id', 'user_display_name', ...avatarKeys, 'followers', 'following', 'likes', 'bio', 'description'].includes(lowerKey) ||
                         apiProfile[key] == null || String(apiProfile[key]).trim() === '') {
                         continue;
                     }
@@ -1024,34 +1142,26 @@
                         continue;
                     }
 
-                    if (['Bio', 'bio', 'description', 'Signature', 'bio_text', 'user_bio'].includes(key)) {
-                        value = sanitize(String(value)).replace(/\n/g, '<br>');
-                         profileDetailsHtml += `<div class="profile-info-row bio-row"><span class="info-label">${sanitize(displayKey)}:</span><p class="info-value bio-text">${value || 'N/A'}</p></div>`;
-                    } else if (['Country', 'country', 'region', 'Location', 'country_code', 'user_region'].includes(key)) {
-                        value = sanitize(String(value));
-                        profileDetailsHtml += `<div class="profile-info-row"><span class="info-label">${sanitize(displayKey)}:</span><span class="info-value">${getCountryFlag(value)} ${value || 'N/A'}</span></div>`;
-                    } else if (typeof value === 'number' && (key.toLowerCase().includes('follower') || key.toLowerCase().includes('following') || key.toLowerCase().includes('like') || key.toLowerCase().includes('video') || key.toLowerCase().includes('count') || key.toLowerCase().includes('digg'))) {
-                        value = Number(value).toLocaleString();
-                         profileDetailsHtml += `<div class="profile-info-row"><span class="info-label">${sanitize(displayKey)}:</span><span class="info-value">${value}</span></div>`;
+                    if (lowerKey === 'country' || lowerKey === 'region' || lowerKey === 'location' || lowerKey === 'country_code') {
+                        value = `${getCountryFlag(value)} ${sanitize(String(value)) || 'N/A'}`;
                     } else if (typeof value === 'boolean') {
                         value = value ? 'Yes' : 'No';
-                         profileDetailsHtml += `<div class="profile-info-row"><span class="info-label">${sanitize(displayKey)}:</span><span class="info-value">${value}</span></div>`;
                     } else if (typeof value === 'string' && (value.startsWith('http://') || value.startsWith('https://'))) {
-                        profileDetailsHtml += `<div class="profile-info-row"><span class="info-label">${sanitize(displayKey)}:</span><span class="info-value"><a href="${sanitize(value)}" target="_blank" rel="noopener noreferrer" class="dm-link">${sanitize(value)}</a></span></div>`;
+                        value = `<a href="${sanitize(value)}" target="_blank" rel="noopener noreferrer" class="dm-link">${sanitize(value)}</a>`;
                     } else {
-                         profileDetailsHtml += `<div class="profile-info-row"><span class="info-label">${sanitize(displayKey)}:</span><span class="info-value">${sanitize(String(value)) || 'N/A'}</span></div>`;
+                        value = sanitize(String(value)) || 'N/A';
                     }
+                    detailsListHtml += `<div class="profile-info-row"><span class="info-label">${sanitize(displayKey)}:</span><span class="info-value">${value}</span></div>`;
                 }
             }
-            
-            if (profileDetailsHtml.trim() === '') {
-                 if(resultDiv) resultDiv.innerHTML = `<div class="message error-message">No displayable profile data found for '${sanitize(username)}'.</div>`;
-                 return;
+
+            if(detailsListHtml) {
+                profileDetailsHtml = `<div class="profile-details-list"><h3>Additional Details</h3>${detailsListHtml}</div>`;
             }
+
 
             let formattedData = `
               <article class="profile-card" aria-labelledby="profile-card-heading-${displayUsername}">
-                <h2 id="profile-card-heading-${displayUsername}" class="sr-only">Profile details for ${sanitize(displayNickname)}</h2>
                 <div class="profile-card-header">
                   ${profilePhoto ? `<img src="${profilePhoto}" alt="Profile photo of ${sanitize(displayNickname)}" class="profile-photo-enhanced" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ''}
                   <div class="profile-photo-placeholder" style="${profilePhoto ? 'display:none;' : 'display:flex;'}">
@@ -1062,8 +1172,11 @@
                     <p class="profile-username-display">${sanitize(displayUsername).startsWith('@') ? sanitize(displayUsername) : '@' + sanitize(displayUsername)}</p>
                   </div>
                 </div>
-                <div class="profile-card-body">${profileDetailsHtml}</div>
-                <div class="profile-card-footer"><span class="message success-message">Profile data retrieved successfully!</span></div>
+                <div class="profile-card-body">
+                    ${statsHtml}
+                    ${bioHtml}
+                    ${profileDetailsHtml}
+                </div>
               </article>`;
             if(resultDiv) resultDiv.innerHTML = formattedData;
           } else {
