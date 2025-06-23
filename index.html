@@ -885,8 +885,8 @@
     // ===== COUNTRY FLAG MAPPING ===== //
     function getCountryFlag(country) {
       const flagMap = {
-        'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
-        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦�', 'AL': '🇦🇱', 'Albania': '🇦🇱',
+        'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '�🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
+        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
         'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
         'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
         'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
@@ -1129,46 +1129,8 @@
                 `;
             }
 
-            const handledKeys = new Set([
-                'nickname', 'username', 'name', 'display_name', 'user_name', 'unique_id', 'user_display_name',
-                'profilephoto', 'avatarurl', 'avatar_url', 'avatarurl', 'picture', 'profileimageurl', 'profile_pic_url',
-                'profile_image_url', 'avatar', 'profile_picture', 'photo_url', 'user_avatar',
-                'followers', 'following', 'likes', 'diggcount',
-                'bio', 'description', 'signature', 'bio_text', 'user_bio'
-            ]);
-
-            let detailsListHtml = '';
-            for (const key in apiProfile) {
-                if (Object.hasOwnProperty.call(apiProfile, key)) {
-                     const normalizedKey = key.toLowerCase().replace(/_|\s/g, '');
-
-                    if (handledKeys.has(normalizedKey) || apiProfile[key] == null || String(apiProfile[key]).trim() === '') {
-                        continue;
-                    }
-
-                    let value = apiProfile[key];
-                    let displayKey = key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase()).trim();
-                    
-                    if (displayKey === 'Sec U I D' || displayKey === 'Username Last Modified') {
-                        continue;
-                    }
-                    
-                    if (normalizedKey === 'country' || normalizedKey === 'region' || normalizedKey === 'location' || normalizedKey === 'countrycode') {
-                        value = `${getCountryFlag(value)} ${sanitize(String(value)) || 'N/A'}`;
-                    } else if (typeof value === 'boolean') {
-                        value = value ? 'Yes' : 'No';
-                    } else if (typeof value === 'string' && (value.startsWith('http://') || value.startsWith('https://'))) {
-                        value = `<a href="${sanitize(value)}" target="_blank" rel="noopener noreferrer" class="dm-link">${sanitize(value)}</a>`;
-                    } else {
-                        value = sanitize(String(value)) || 'N/A';
-                    }
-                    detailsListHtml += `<div class="profile-info-row"><span class="info-label">${sanitize(displayKey)}:</span><span class="info-value">${value}</span></div>`;
-                }
-            }
-
-            if(detailsListHtml) {
-                profileDetailsHtml = `<div class="profile-details-list"><h3>Additional Details</h3>${detailsListHtml}</div>`;
-            }
+            // No longer generating the "Additional Details" section
+            profileDetailsHtml = '';
 
 
             let formattedData = `
