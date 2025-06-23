@@ -1,7 +1,12 @@
-This file tells search engine crawlers which pages they are allowed to access.
-Allowing all crawlers to access the entire site.
+# Tells all web crawlers that they are allowed to crawl the site.
 User-agent: *
+
+# Allows crawlers to access all content.
 Allow: /
 
-Location of the sitemap file.
+# Disallows crawlers from accessing the API configuration file.
+Disallow: /api_config.js
+
+# Specifies the location of the sitemap.
 Sitemap: https://tikip.us/sitemap.xml
+
