@@ -253,6 +253,9 @@
       border-color: var(--primary-color);
       box-shadow: 0 0 0 0.2rem rgba(193, 39, 45, .25), var(--box-shadow-sm);
     }
+    :root[data-theme="dark"] footer {
+        color: var(--dark-text-secondary);
+    }
 
     /* Base Styles */
     * {
@@ -286,6 +289,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      flex-grow: 1; /* Allow container to grow */
     }
 
     .patriotic-text {
@@ -520,7 +524,7 @@
     :root[data-theme="dark"] .header {
         background-color: var(--dark-card-bg);
         border-bottom: 1px solid var(--dark-border-color);
-        background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.07"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+        background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.07"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
     }
 
     .header-container {
@@ -675,6 +679,24 @@
       resize: vertical;
       min-height: 120px;
     }
+    
+    footer {
+        text-align: center;
+        padding: 1.5rem 1rem;
+        margin-top: auto; /* Pushes footer to the bottom */
+        font-size: 0.875rem;
+        color: var(--light-text-secondary);
+        width: 100%;
+    }
+    footer a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+    }
+    footer a:hover {
+        text-decoration: underline;
+    }
+
 
     @keyframes spin {
       to { transform: rotate(360deg); }
@@ -861,6 +883,9 @@
           <button class="back-btn" onclick="showPage('main-page')">Back to Home</button>
         </section>
     </main>
+    <footer>
+        © 2025 Tikip. Created with ❤️ by <a href="https://www.tiktok.com/@mo.or__" target="_blank" rel="noopener">@mo.or__</a>
+    </footer>
   </div>
 
   <script>
@@ -981,7 +1006,7 @@
     function getCountryFlag(country) {
       const flagMap = {
         'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
-        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '�🇱', 'Albania': '🇦🇱',
+        'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦�', 'Albania': '🇦🇱',
         'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
         'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
         'AU': '🇦🇺', 'Australia': '🇦🇺', 'AW': '🇦🇼', 'Aruba': '🇦🇼', 'AX': '🇦🇽', 'Åland Islands': '🇦🇽',
