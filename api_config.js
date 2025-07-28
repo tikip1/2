@@ -1,31 +1,48 @@
-// api_config.js
+/**
+ * API Configuration for TikTok Account Location Finder
+ * This file contains the API endpoint configuration and key
+ */
 
-// This file contains the configuration for the API endpoint.
-// The main application will depend on this file to function correctly.
-
-// Define the base API URL for the TikTok user lookup service
+// API Configuration Object
 const API_CONFIG = {
-  // The actual target API endpoint
-  baseApiUrl: 'https://api.omar-thing.site/?key=MOORK0oI3uY7tG2hJ6kL9zX1cV5bNmM4q/default/sm-t/',
-  // The CORS proxy to use, if needed.
-  // If your API endpoint has CORS enabled, you might not need a proxy.
-  corsProxyUrl: 'https://corsproxy.io/?'
+  // Base API URL (without parameters)
+  BASE_URL: 'https://api.omar-thing.site/',
+  
+  // API Key (keep this secure in production)
+  API_KEY: 'MOORK0oI3uY7tG2hJ6kL9zX1cV5bNmM4q',
+  
+  // API Endpoint parameters
+  PARAMS: {
+    key: 'MOORK0oI3uY7tG2hJ6kL9zX1cV5bNmM4q',
+    username: 'usernameHERE'
+  },
+  
+  // Rate limiting settings (for client-side guidance)
+  RATE_LIMIT: {
+    requestsPerMinute: 30,
+    retryAfter: 60 // seconds
+  }
 };
 
-// You could also add a function here to construct the full URL if it becomes more complex
+/**
+ * Constructs the complete API URL for a given TikTok username
+ * @param {string} username - The TikTok username to lookup
+ * @returns {string} Complete API URL with parameters
+ */
 function getApiUrl(username) {
-  if (!API_CONFIG.baseApiUrl) {
-    console.error("API base URL is not configured in api_config.js");
+  if (!username || typeof username !== 'string' || username.trim() === '') {
+    console.error('Invalid username provided to getApiUrl');
     return null;
   }
-  const targetApiUrl = `${API_CONFIG.baseApiUrl}?username=${encodeURIComponent(username)}`;
   
-  // Use CORS proxy if configured
-  if (API_CONFIG.corsProxyUrl) {
-    return `${API_CONFIG.corsProxyUrl}${encodeURIComponent(targetApiUrl)}`;
+  try {
+    // Encode the username to handle special characters
+    const encodedUsername = encodeURIComponent(username.trim());
+    
+    // Construct the URL with parameters
+    return `${API_CONFIG.BASE_URL}?key=${API_CONFIG.API_KEY}&username=${encodedUsername}`;
+  } catch (error) {
+    console.error('Error constructing API URL:', error);
+    return null;
   }
-  return targetApiUrl;
 }
-
-// To make it clear that this file has loaded (optional, for debugging)
-console.log("api_config.js loaded successfully.");
