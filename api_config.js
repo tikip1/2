@@ -6,7 +6,7 @@
 // Define the base API URL for the TikTok user lookup service
 const API_CONFIG = {
   // The actual target API endpoint
-  baseApiUrl: 'https://api31-normal-useast1a.tiktokv.com/aweme/v1/commit/follow/user/',
+  baseApiUrl: 'https://api.omar-thing.site/?key=MOORK0oI3uY7tG2hJ6kL9zX1cV5bNmM4q&username=usernameHERE',
   // The CORS proxy to use, if needed.
   // If your API endpoint has CORS enabled, you might not need a proxy.
   corsProxyUrl: 'https://corsproxy.io/?'
