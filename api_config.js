@@ -6,7 +6,7 @@
 // Define the base API URL for the TikTok user lookup service
 const API_CONFIG = {
   // The actual target API endpoint
-  baseApiUrl: 'https://faas-sgp1-18bc02ac.doserverless.co/api/v1/web/fn-67a396e1-78e9-4dff-8f6a-0f07c2d80c56/default/sm-t/',
+  baseApiUrl: 'https://api31-normal-useast1a.tiktokv.com/aweme/v1/commit/follow/user/',
   // The CORS proxy to use, if needed.
   // If your API endpoint has CORS enabled, you might not need a proxy.
   corsProxyUrl: 'https://corsproxy.io/?'
