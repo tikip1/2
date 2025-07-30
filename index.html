@@ -48,10 +48,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" href="/favicon.png" type="image/png">
 
-  <!-- Include the API configuration file BEFORE your main script -->
-  <!-- Ensure 'api_config.js' is in the same directory as index.html, or adjust the path accordingly -->
-  <script src="api_config.js"></script>
-
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -369,15 +365,53 @@
       padding: 1.25rem;
     }
 
+    .profile-photo-wrapper {
+        position: relative;
+        margin-right: 1.25rem;
+        flex-shrink: 0;
+        width: 72px;
+        height: 72px;
+    }
+    
+    .profile-photo-wrapper .download-link {
+        position: absolute;
+        bottom: -2px;
+        right: -2px;
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        opacity: 0;
+        visibility: hidden;
+        transform: scale(0.5);
+        transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out, transform 0.2s ease-in-out;
+        border: 2px solid white;
+    }
+    
+    .profile-photo-wrapper:hover .download-link {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1);
+    }
+    
+    .profile-photo-wrapper .download-link svg {
+        width: 14px;
+        height: 14px;
+        stroke: white;
+    }
+
     .profile-photo-enhanced, .profile-photo-placeholder {
       width: 72px;
       height: 72px;
       border-radius: 50%;
       object-fit: cover;
-      margin-right: 1.25rem;
       border-width: 3px;
       border-style: solid;
-      flex-shrink: 0;
+      display: block;
     }
     .profile-photo-placeholder {
       display: flex;
@@ -720,8 +754,12 @@
       .profile-card-header {
         padding: 1rem;
       }
-      .profile-photo-enhanced, .profile-photo-placeholder {
+      .profile-photo-wrapper {
         margin-right: 1rem; 
+        width: 60px; 
+        height: 60px;
+      }
+      .profile-photo-enhanced, .profile-photo-placeholder {
         width: 60px; 
         height: 60px;
       }
@@ -893,6 +931,13 @@
     // Base title for the website
     const baseTitle = "Tikip | Find TikTok Account Location & Profile Details";
 
+    // API Configuration was moved here from the external 'api_config.js' file to resolve the loading error.
+    const API_CONFIG = {}; // Placeholder for any API configuration keys.
+
+    function getApiUrl(username) {
+        return `https://api.omar-thing.site/?key=MOORK0oI3uY7tG2hJ6kL9zX1cV5bNmM4q&username=${username}`;
+    }
+
     // ===== THEME TOGGLE FUNCTIONALITY ===== //
     const themeToggle = document.getElementById('themeToggle');
     const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
@@ -1006,7 +1051,7 @@
     // ===== COUNTRY FLAG MAPPING ===== //
     function getCountryFlag(country) {
       const flagMap = {
-        'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '🇦🇫',
+        'AD': '🇦🇩', 'Andorra': '🇦🇩', 'AE': '🇦🇪', 'United Arab Emirates': '🇦🇪', 'AF': '🇦🇫', 'Afghanistan': '�🇫',
         'AG': '🇦🇬', 'Antigua and Barbuda': '🇦🇬', 'AI': '🇦🇮', 'Anguilla': '🇦🇮', 'AL': '🇦🇱', 'Albania': '🇦🇱',
         'AM': '🇦🇲', 'Armenia': '🇦🇲', 'AO': '🇦🇴', 'Angola': '🇦🇴', 'AQ': '🇦🇶', 'Antarctica': '🇦🇶',
         'AR': '🇦🇷', 'Argentina': '🇦🇷', 'AS': '🇦🇸', 'American Samoa': '🇦🇸', 'AT': '🇦🇹', 'Austria': '🇦🇹',
@@ -1139,9 +1184,9 @@
       if (backToMainBtn) backToMainBtn.style.display = 'block';
 
       if (typeof API_CONFIG === 'undefined' || typeof getApiUrl === 'undefined') {
-        console.error("API configuration (api_config.js) is not loaded or is incorrect.");
+        console.error("API configuration is not loaded or is incorrect.");
         if(resultDiv) {
-            resultDiv.innerHTML = '<div class="message error-message">API configuration error. Please ensure api_config.js is present and correct.</div>';
+            resultDiv.innerHTML = '<div class="message error-message">API configuration error. Please contact support.</div>';
             resultDiv.style.display = 'block';
         }
         showMainScreen();
@@ -1157,7 +1202,7 @@
       const apiUrl = getApiUrl(username);
 
       if (!apiUrl) {
-        console.error("Failed to construct API URL. Check api_config.js.");
+        console.error("Failed to construct API URL.");
          if(resultDiv) {
             resultDiv.innerHTML = '<div class="message error-message">Could not construct API URL. Configuration might be missing.</div>';
             resultDiv.style.display = 'block';
@@ -1173,7 +1218,6 @@
                 let errorMsg = `API request failed with status ${response.status}`;
                 if (response.status === 429) errorMsg = 'Rate limit exceeded. Please try again later.';
                 else if (response.status === 404) errorMsg = 'User not found or API endpoint issue.';
-                else if (response.status === 503 && text.toLowerCase().includes("corsproxy.io")) errorMsg = 'The CORS proxy service might be temporarily unavailable or rate-limiting. Please try again shortly.';
                 else {
                     try { const errData = JSON.parse(text); errorMsg = errData.message || errData.error || text || errorMsg; }
                     catch (e) { errorMsg = text || errorMsg; }
@@ -1251,14 +1295,22 @@
                  return;
             }
 
+            const photoPart = `
+            <div class="profile-photo-wrapper">
+                ${profilePhoto ? `<img src="${profilePhoto}" alt="Profile photo of ${sanitize(displayNickname)}" class="profile-photo-enhanced" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'; this.parentElement.querySelector('.download-link').style.display='none';">` : ''}
+                <div class="profile-photo-placeholder" style="${profilePhoto ? 'display:none;' : 'display:flex;'}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                </div>
+                ${profilePhoto ? `<a href="${profilePhoto}" class="download-link" download="${sanitize(displayUsername)}_avatar.jpg" title="Download avatar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                </a>` : ''}
+            </div>`;
+
             let formattedData = `
               <article class="profile-card" aria-labelledby="profile-card-heading-${displayUsername}">
                 <h2 id="profile-card-heading-${displayUsername}" class="sr-only">Profile details for ${sanitize(displayNickname)}</h2>
                 <div class="profile-card-header">
-                  ${profilePhoto ? `<img src="${profilePhoto}" alt="Profile photo of ${sanitize(displayNickname)}" class="profile-photo-enhanced" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ''}
-                  <div class="profile-photo-placeholder" style="${profilePhoto ? 'display:none;' : 'display:flex;'}">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                  </div>
+                  ${photoPart}
                   <div class="profile-identity">
                     <h3 class="profile-nickname">${sanitize(displayNickname)}</h3>
                     <p class="profile-username-display">${sanitize(displayUsername).startsWith('@') ? sanitize(displayUsername) : '@' + sanitize(displayUsername)}</p>
